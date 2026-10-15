@@ -1,2 +1,4 @@
-# tawasul
-Tawasul Level 1: game and teacher guide
+# تواصل: المستوى الأول
+
+- `index.html`: اللعبة، ثماني مدن في كل مدينة ثماني محطات.
+- `dalil.html`: دليل المعلمة، مع محاكاة درس كامل.

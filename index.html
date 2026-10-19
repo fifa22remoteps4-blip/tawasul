@@ -717,6 +717,21 @@ button.coin:active{transform:translate(2px,2px);box-shadow:none}
 .writegrid .lettercard{justify-content:center}
 @media (max-width:860px){.writegrid{grid-template-columns:minmax(0,1fr)}}
 
+/* بطاقات الطلاب */
+.stgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.stucard{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:12px;border:3px solid var(--edge);background:var(--card);box-shadow:4px 4px 0 var(--edge)}
+.stucard .av{width:58px;height:58px;display:grid;place-items:center;border-radius:10px;border:3px solid var(--edge);background:var(--card2);flex:0 0 auto}
+.stucard .nm{font-family:'Noto Naskh Arabic',serif;font-size:22px;line-height:1.3;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pips{display:flex;gap:5px;direction:rtl}
+.pip{position:relative;flex:1;height:38px;border-radius:6px;border:2px solid var(--line);background:var(--card2);overflow:hidden;display:grid;place-items:center}
+.pip i{position:absolute;inset-inline:0;bottom:0;opacity:.85}
+.pip b{position:relative;font-size:13px;font-weight:800;color:var(--ink)}
+.pip.full{border-color:var(--good)}
+.pip.now{outline:3px solid var(--acc);outline-offset:1px}
+.where{font-family:'Noto Naskh Arabic',serif;font-size:17px;line-height:1.6;padding:6px 10px;border-radius:8px;background:var(--acc-soft)}
+.backup{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin-top:18px;padding:12px 14px;border-radius:12px;border:2px dashed var(--line)}
+.btn.danger{background:#e2483d;color:#fff;border-color:#2a1d24}
+
 </style>
 </head>
 <body class="theme-girl">
@@ -6834,29 +6849,124 @@ function L1Panel({
     s: 2.5
   }))), children));
 }
+const L1_DAY = ts => {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return L1_AR(d.getDate() + '/' + (d.getMonth() + 1) + '/' + d.getFullYear());
+};
+const L1_STN = n => n === 0 ? 'لا محطات بعد' : n === 1 ? 'محطة واحدة' : n === 2 ? 'محطتان' : n <= 10 ? L1_AR(n) + ' محطات' : L1_AR(n) + ' محطة';
+const L1_NEWID = () => 's' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+function l1LoadProfiles() {
+  let list = store.get('l1-profiles', null);
+  if (!Array.isArray(list)) {
+    list = [];
+    const old = store.get('l1-p', null);
+    if (old && (old.name || '').trim()) {
+      const id = L1_NEWID();
+      list.push({
+        ...L1_DEF_P,
+        ...old,
+        id,
+        created: Date.now(),
+        last: Date.now()
+      });
+      store.set('l1-data-' + id, {
+        prog: store.get('l1-prog', {}),
+        picks: store.get('l1-picks', {}),
+        unit: 1
+      });
+    }
+    store.set('l1-profiles', list);
+  }
+  return list;
+}
+function l1Where(d) {
+  const prog = d && d.prog || {};
+  const cnt = n => (prog[n] || []).length,
+    full = n => cnt(n) >= L1_ST.length;
+  const doneCities = L1_META.filter(m => full(m.n)).length;
+  const stations = L1_META.reduce((a, m) => a + cnt(m.n), 0);
+  let u = d && d.unit && cnt(d.unit) && !full(d.unit) ? d.unit : null;
+  if (!u) {
+    const m = L1_META.find(m => cnt(m.n) && !full(m.n)) || L1_META.find(m => !full(m.n));
+    u = m ? m.n : null;
+  }
+  const next = u ? L1_ST.find(s => !(prog[u] || []).includes(s.k)) : null;
+  return {
+    doneCities,
+    stations,
+    unit: u,
+    next,
+    started: stations > 0
+  };
+}
+function l1ReadData(id) {
+  const d = store.get('l1-data-' + id, {});
+  return {
+    id,
+    prog: d.prog || {},
+    picks: d.picks || {},
+    unit: d.unit || 1
+  };
+}
 function App() {
-  const [P, setP] = useState(() => ({
-    ...L1_DEF_P,
-    ...store.get('l1-p', {})
-  }));
-  const [prog, setProg] = useState(() => store.get('l1-prog', {}));
-  const [picks, setPicks] = useState(() => store.get('l1-picks', {}));
-  const ready = P.g && P.age && P.country && (P.name || '').trim();
-  const [screen, setScreen] = useState(() => ready ? 'map' : 'lobby');
-  const [unit, setUnit] = useState(1);
+  const [profiles, setProfiles] = useState(l1LoadProfiles);
+  const [data, setData] = useState(() => {
+    const id = store.get('l1-current', null);
+    const list = store.get('l1-profiles', []);
+    return id && Array.isArray(list) && list.find(p => p.id === id) ? l1ReadData(id) : null;
+  });
+  const [screen, setScreen] = useState('students');
+  const [draft, setDraft] = useState(null);
+  const [confirmDel, setConfirmDel] = useState(null);
+  const fileRef = useRef(null);
+  const P = data && profiles.find(p => p.id === data.id) || L1_DEF_P;
+  const prog = data && data.prog || {};
+  const picks = data && data.picks || {};
+  const setProg = f => setData(d => d && {
+    ...d,
+    prog: typeof f === 'function' ? f(d.prog) : f
+  });
+  const setPicks = f => setData(d => d && {
+    ...d,
+    picks: typeof f === 'function' ? f(d.picks) : f
+  });
+  const [unit, setUnitRaw] = useState(() => data && data.unit || 1);
+  const setUnit = n => {
+    setUnitRaw(n);
+    setData(d => d && {
+      ...d,
+      unit: n
+    });
+  };
   const [panel, setPanel] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [cert, setCert] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [qOpen, setQOpen] = useState(() => typeof window === 'undefined' || window.innerWidth > 720);
   const worldCtl = useRef(null);
-  GEN = P.g || 'm';
-  useEffect(() => store.set('l1-p', P), [P]);
-  useEffect(() => store.set('l1-prog', prog), [prog]);
-  useEffect(() => store.set('l1-picks', picks), [picks]);
+  const scr = !data && screen !== 'lobby' ? 'students' : screen === 'lobby' && !draft ? 'students' : screen;
+  GEN = (scr === 'lobby' && draft ? draft.g : P.g) || 'm';
+  useEffect(() => store.set('l1-profiles', profiles), [profiles]);
   useEffect(() => {
-    document.body.className = P.g === 'f' ? 'theme-girl' : 'theme-boy';
-  }, [P.g]);
+    if (data) {
+      store.set('l1-data-' + data.id, {
+        prog: data.prog,
+        picks: data.picks,
+        unit: data.unit
+      });
+      store.set('l1-current', data.id);
+    }
+  }, [data]);
+  useEffect(() => {
+    if (data) setProfiles(ps => ps.map(p => p.id === data.id ? {
+      ...p,
+      last: Date.now()
+    } : p));
+  }, [data && data.id, data && data.prog]);
+  useEffect(() => {
+    document.body.className = scr !== 'students' && GEN === 'f' ? 'theme-girl' : 'theme-boy';
+  }, [scr, GEN]);
   useEffect(() => {
     const b = document.getElementById('boot');
     if (b) b.style.display = 'none';
@@ -6885,131 +6995,454 @@ function App() {
   }));
   const nextSt = L1_ST.find(s => !isDone(s.k));
   const othersDone = L1_ST.filter(s => s.k !== 'final').every(s => isDone(s.k));
-  if (screen === 'lobby') return React.createElement("div", {
-    className: "wrap fade",
-    style: {
-      maxWidth: 820
+  const openStudent = id => {
+    const d = l1ReadData(id);
+    setData(d);
+    setUnitRaw(d.unit);
+    setPanel(null);
+    setDrawer(false);
+    setCert(false);
+    setConfirmDel(null);
+    setScreen('map');
+  };
+  const newStudent = () => {
+    setDraft({
+      ...L1_DEF_P
+    });
+    setScreen('lobby');
+  };
+  const editStudent = (p, from) => {
+    setDraft({
+      ...p,
+      _from: from || 'students'
+    });
+    setDrawer(false);
+    setScreen('lobby');
+  };
+  const saveDraft = () => {
+    const dr = draft;
+    if (dr.id) {
+      const {
+        _from,
+        ...clean
+      } = dr;
+      setProfiles(ps => ps.map(p => p.id === dr.id ? {
+        ...p,
+        ...clean
+      } : p));
+      setDraft(null);
+      setScreen(_from === 'map' && data && data.id === dr.id ? 'map' : 'students');
+      return;
     }
-  }, React.createElement("div", {
-    className: "col center",
-    style: {
-      gap: 6,
-      margin: '14px 0'
+    const id = L1_NEWID();
+    const {
+      _from,
+      ...clean
+    } = dr;
+    setProfiles(ps => [...ps, {
+      ...clean,
+      id,
+      created: Date.now(),
+      last: Date.now()
+    }]);
+    store.set('l1-data-' + id, {
+      prog: {},
+      picks: {},
+      unit: 1
+    });
+    setDraft(null);
+    openStudent(id);
+  };
+  const delStudent = id => {
+    try {
+      localStorage.removeItem('tawasul1:l1-data-' + id);
+    } catch (e) {}
+    setProfiles(ps => ps.filter(p => p.id !== id));
+    if (data && data.id === id) {
+      setData(null);
+      try {
+        localStorage.removeItem('tawasul1:l1-current');
+      } catch (e) {}
     }
-  }, React.createElement("div", {
-    className: "row center",
-    style: {
-      gap: 12,
-      alignItems: 'flex-end'
+    setConfirmDel(null);
+    toast('حُذفت بطاقة الطالب');
+  };
+  const exportAll = () => {
+    try {
+      const out = {
+        app: 'tawasul-l1',
+        v: 1,
+        at: new Date().toISOString(),
+        profiles,
+        data: Object.fromEntries(profiles.map(p => [p.id, store.get('l1-data-' + p.id, {})]))
+      };
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(new Blob([JSON.stringify(out)], {
+        type: 'application/json'
+      }));
+      a.download = 'tawasul-students-' + new Date().toISOString().slice(0, 10) + '.json';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        URL.revokeObjectURL(a.href);
+        a.remove();
+      }, 800);
+      toast('حُفظت النسخة في ملف');
+    } catch (e) {
+      toast('تعذّر حفظ النسخة');
     }
-  }, React.createElement(CharImg, {
-    def: L1CH.teacherM,
-    s: 6
-  }), React.createElement(CharImg, {
-    def: P.g === 'f' ? L1CH.girl : L1CH.boy,
-    s: 8
-  }), React.createElement(CharImg, {
-    def: L1CH.grandma,
-    s: 6
-  })), React.createElement("div", {
-    className: "h1 naskh"
-  }, "\u062A\u064E\u0648\u064E\u0627\u0635\u064F\u0644\u064C: \u0627\u0644\u0652\u0645\u064F\u0633\u0652\u062A\u064E\u0648\u064E\u0649 \u0627\u0644\u0652\u0623\u064E\u0648\u064E\u0651\u0644\u064F"), React.createElement("div", {
-    className: "naskh",
-    style: {
-      fontSize: 19
-    }
-  }, "\u062B\u064E\u0645\u064E\u0627\u0646\u0650\u064A \u0645\u064F\u062F\u064F\u0646\u064D. \u0641\u0650\u064A \u0643\u064F\u0644\u0650\u0651 \u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064D \u0646\u064E\u0627\u0633\u064C \u0646\u064F\u0643\u064E\u0644\u0650\u0651\u0645\u064F\u0647\u064F\u0645\u0652\u060C \u0648\u064E\u0643\u064E\u0644\u0650\u0645\u064E\u0627\u062A\u064C \u0646\u064E\u062A\u064E\u0639\u064E\u0644\u064E\u0651\u0645\u064F\u0647\u064E\u0627.")), React.createElement("div", {
-    className: "card col",
-    style: {
-      gap: 14
-    }
-  }, React.createElement("b", {
-    className: "naskh",
-    style: {
-      fontSize: 20
-    }
-  }, "\u0623\u064E\u0646\u064E\u0627:"), React.createElement("div", {
-    className: "row wrapf",
-    style: {
-      gap: 8
-    }
-  }, [['m', 'وَلَدٌ', L1CH.boy], ['f', 'بِنْتٌ', L1CH.girl]].map(([g, t, ch]) => React.createElement("button", {
-    key: g,
-    className: 'chip' + (P.g === g ? ' on' : ''),
-    onClick: () => setP({
-      ...P,
-      g
-    })
-  }, React.createElement(CharImg, {
-    def: ch,
-    s: 2.4
-  }), React.createElement("span", {
-    className: "naskh",
-    style: {
-      fontSize: 20
-    }
-  }, t)))), React.createElement("b", {
-    className: "naskh",
-    style: {
-      fontSize: 20
-    }
-  }, P.g === 'f' ? 'اسْمُكِ:' : 'اسْمُكَ:'), React.createElement("input", {
-    className: "winput",
-    style: {
-      maxWidth: 320
-    },
-    value: P.name,
-    onChange: e => setP({
-      ...P,
-      name: e.target.value
-    })
-  }), React.createElement("b", {
-    className: "naskh",
-    style: {
-      fontSize: 20
-    }
-  }, P.g === 'f' ? 'كَمْ عُمْرُكِ؟' : 'كَمْ عُمْرُكَ؟'), React.createElement("div", {
-    className: "row wrapf",
-    style: {
-      gap: 6
-    }
-  }, [6, 7, 8, 9, 10, 11, 12, 13, 14].map(a => React.createElement("button", {
-    key: a,
-    className: 'chip' + (P.age === a ? ' on' : ''),
-    onClick: () => setP({
-      ...P,
-      age: a
-    })
-  }, L1_AR(a)))), React.createElement("b", {
-    className: "naskh",
-    style: {
-      fontSize: 20
-    }
-  }, P.g === 'f' ? 'مِنْ أَيْنَ أَنْتِ؟' : 'مِنْ أَيْنَ أَنْتَ؟'), React.createElement("div", {
-    className: "row wrapf",
-    style: {
-      gap: 6
-    }
-  }, L1_COUNTRIES.map(c => React.createElement("button", {
-    key: c.id,
-    className: 'chip' + (P.country === c.id ? ' on' : ''),
-    onClick: () => setP({
-      ...P,
-      country: c.id
-    })
-  }, React.createElement("span", {
-    className: "naskh",
-    style: {
-      fontSize: 18
-    }
-  }, c.n)))), React.createElement("div", {
-    className: "row center"
-  }, React.createElement("button", {
-    className: "btn lg",
-    disabled: !ready,
-    onClick: () => setScreen('map')
-  }, "\u0627\u062F\u0652\u062E\u064F\u0644\u0652 \u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0652\u0645\u064F\u062F\u064F\u0646\u0650"))));
-  if (screen === 'map') return React.createElement("div", null, React.createElement("div", {
+  };
+  const importAll = file => {
+    if (!file) return;
+    const r = new FileReader();
+    r.onload = () => {
+      try {
+        const j = JSON.parse(r.result);
+        if (!j || j.app !== 'tawasul-l1' || !Array.isArray(j.profiles)) throw new Error('bad');
+        const ids = new Set(j.profiles.map(p => p.id));
+        j.profiles.forEach(p => store.set('l1-data-' + p.id, j.data && j.data[p.id] || {
+          prog: {},
+          picks: {},
+          unit: 1
+        }));
+        if (data && ids.has(data.id)) setData(null);
+        setProfiles(ps => [...ps.filter(p => !ids.has(p.id)), ...j.profiles]);
+        toast('اكتمل الاسترجاع: ' + L1_AR(j.profiles.length) + ' بطاقة');
+      } catch (e) {
+        toast('هذا الملف ليس نسخة من تواصل');
+      }
+    };
+    r.readAsText(file);
+  };
+  if (scr === 'students') {
+    const list = [...profiles].sort((a, b) => (b.last || 0) - (a.last || 0));
+    return React.createElement("div", null, React.createElement("div", {
+      className: "topbar",
+      style: {
+        height: 56
+      }
+    }, React.createElement("div", {
+      className: "row between",
+      style: {
+        height: '100%',
+        padding: '0 12px'
+      }
+    }, React.createElement("div", {
+      className: "row"
+    }, React.createElement("div", {
+      className: "logo"
+    }, "\u062A"), React.createElement("b", {
+      className: "naskh",
+      style: {
+        fontSize: 19
+      }
+    }, "\u062A\u064E\u0648\u064E\u0627\u0635\u064F\u0644\u064C: \u0627\u0644\u0652\u0645\u064F\u0633\u0652\u062A\u064E\u0648\u064E\u0649 \u0627\u0644\u0652\u0623\u064E\u0648\u064E\u0651\u0644\u064F")), list.length > 0 && React.createElement("button", {
+      className: "btn sm",
+      onClick: newStudent
+    }, "+ \u0637\u0627\u0644\u0628 \u062C\u062F\u064A\u062F"))), React.createElement("div", {
+      className: "wrap fade"
+    }, React.createElement("div", {
+      className: "col",
+      style: {
+        gap: 2,
+        margin: '6px 0 14px'
+      }
+    }, React.createElement("div", {
+      className: "h2"
+    }, "\u0637\u0644\u0627\u0628\u064A"), React.createElement("div", {
+      className: "small",
+      style: {
+        opacity: .85
+      }
+    }, "\u0627\u062E\u062A\u0631 \u0627\u0644\u0637\u0627\u0644\u0628 \u0627\u0644\u0630\u064A \u0645\u0639\u0643 \u0627\u0644\u0622\u0646\u060C \u0641\u062A\u0641\u062A\u062D \u0627\u0644\u0644\u0639\u0628\u0629 \u0645\u0646 \u062D\u064A\u062B \u062A\u0648\u0642\u0641.")), list.length === 0 && React.createElement("div", {
+      className: "card col center",
+      style: {
+        gap: 10,
+        padding: 26,
+        textAlign: 'center'
+      }
+    }, React.createElement("div", {
+      className: "row center",
+      style: {
+        gap: 10
+      }
+    }, React.createElement(CharImg, {
+      def: L1CH.boy,
+      s: 5
+    }), React.createElement(CharImg, {
+      def: L1CH.girl,
+      s: 5
+    })), React.createElement("b", {
+      style: {
+        fontSize: 20
+      }
+    }, "\u0644\u0627 \u064A\u0648\u062C\u062F \u0637\u0644\u0627\u0628 \u0628\u0639\u062F"), React.createElement("div", {
+      className: "small"
+    }, "\u0623\u0636\u0641 \u0628\u0637\u0627\u0642\u0629 \u0644\u0643\u0644 \u0637\u0627\u0644\u0628\u060C \u0641\u064A\u064F\u062D\u0641\u0638 \u062A\u0642\u062F\u0651\u0645\u0647 \u0648\u062D\u062F\u0647 \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u062C\u0647\u0627\u0632."), React.createElement("button", {
+      className: "btn lg",
+      onClick: newStudent
+    }, "+ \u0623\u0636\u0641 \u0623\u0648\u0644 \u0637\u0627\u0644\u0628")), React.createElement("div", {
+      className: "stgrid"
+    }, list.map(p => {
+      GEN = p.g || 'm';
+      const d = data && data.id === p.id ? data : l1ReadData(p.id),
+        w = l1Where(d),
+        c = l1Country(p.country);
+      return React.createElement("div", {
+        key: p.id,
+        className: 'stucard' + (p.g === 'f' ? ' f' : '')
+      }, React.createElement("div", {
+        className: "row",
+        style: {
+          gap: 10,
+          alignItems: 'center'
+        }
+      }, React.createElement("div", {
+        className: "av"
+      }, React.createElement(CharImg, {
+        def: p.g === 'f' ? L1CH.girl : L1CH.boy,
+        s: 3.2
+      })), React.createElement("div", {
+        className: "col grow",
+        style: {
+          gap: 0,
+          minWidth: 0
+        }
+      }, React.createElement("b", {
+        className: "nm"
+      }, p.name), React.createElement("span", {
+        className: "small",
+        style: {
+          opacity: .8
+        }
+      }, L1_AR(p.age), " \u0633\u0646\u0648\u0627\u062A \xB7 ", stripMarks(c.n)))), React.createElement("div", {
+        className: "pips",
+        "aria-label": "\u062A\u0642\u062F\u0651\u0645 \u0627\u0644\u0645\u062F\u0646"
+      }, L1_META.map(m => {
+        const k = (d.prog[m.n] || []).length;
+        return React.createElement("span", {
+          key: m.n,
+          className: 'pip' + (k >= L1_ST.length ? ' full' : '') + (w.unit === m.n && w.started ? ' now' : ''),
+          title: 'المدينة ' + L1_AR(m.n) + ': ' + L1_AR(k) + ' من ' + L1_AR(L1_ST.length)
+        }, React.createElement("i", {
+          style: {
+            height: k / L1_ST.length * 100 + '%',
+            background: m.color
+          }
+        }), React.createElement("b", null, L1_AR(m.n)));
+      })), React.createElement("div", {
+        className: "where"
+      }, !w.started ? 'لم يبدأ بعد' : w.unit ? React.createElement(React.Fragment, null, "\u0627\u0644\u0622\u0646: \u0627\u0644\u0645\u062F\u064A\u0646\u0629 ", L1_AR(w.unit), " \xAB", stripMarks(l1Title(w.unit).t), "\xBB", React.createElement("br", null), React.createElement("span", {
+        className: "small"
+      }, "\u0627\u0644\u0645\u062D\u0637\u0629 \u0627\u0644\u062A\u0627\u0644\u064A\u0629: ", stripMarks(w.next.t))) : 'أنهى المستوى الأول كله'), React.createElement("div", {
+        className: "small",
+        style: {
+          opacity: .75
+        }
+      }, "\u0623\u0646\u0647\u0649 ", L1_AR(w.doneCities), " \u0645\u0646 \u0668 \u0645\u062F\u0646 \xB7 ", L1_STN(w.stations), p.last ? ' · آخر حصة ' + L1_DAY(p.last) : ''), confirmDel === p.id ? React.createElement("div", {
+        className: "row wrapf",
+        style: {
+          gap: 6,
+          alignItems: 'center'
+        }
+      }, React.createElement("span", {
+        className: "small"
+      }, "\u062D\u0630\u0641 ", p.name, " \u0648\u0643\u0644 \u062A\u0642\u062F\u0651\u0645\u0647\u061F"), React.createElement("button", {
+        className: "btn sm danger",
+        onClick: () => delStudent(p.id)
+      }, "\u0646\u0639\u0645\u060C \u0627\u062D\u0630\u0641"), React.createElement("button", {
+        className: "btn ghost sm",
+        onClick: () => setConfirmDel(null)
+      }, "\u0625\u0644\u063A\u0627\u0621")) : React.createElement("div", {
+        className: "row wrapf",
+        style: {
+          gap: 6
+        }
+      }, React.createElement("button", {
+        className: "btn",
+        onClick: () => openStudent(p.id)
+      }, w.started ? 'متابعة' : 'ابدأ'), React.createElement("button", {
+        className: "btn ghost sm",
+        onClick: () => editStudent(p)
+      }, "\u062A\u0639\u062F\u064A\u0644"), React.createElement("button", {
+        className: "btn ghost sm",
+        onClick: () => setConfirmDel(p.id)
+      }, "\u062D\u0630\u0641")));
+    })), React.createElement("div", {
+      className: "backup"
+    }, React.createElement("div", {
+      className: "small",
+      style: {
+        flex: '1 1 260px'
+      }
+    }, "\u0627\u0644\u062A\u0642\u062F\u0651\u0645 \u0645\u062D\u0641\u0648\u0638 \u0641\u064A \u0647\u0630\u0627 \u0627\u0644\u0645\u062A\u0635\u0641\u062D \u0639\u0644\u0649 \u0647\u0630\u0627 \u0627\u0644\u062C\u0647\u0627\u0632. \u0627\u062D\u0641\u0638 \u0646\u0633\u062E\u0629 \u0641\u064A \u0645\u0644\u0641 \u0644\u062A\u0646\u0642\u0644\u0647\u0627 \u0625\u0644\u0649 \u062C\u0647\u0627\u0632 \u0622\u062E\u0631\u060C \u0623\u0648 \u0644\u062A\u0633\u062A\u0631\u062C\u0639\u0647\u0627 \u0625\u0646 \u0645\u064F\u0633\u062D\u062A \u0628\u064A\u0627\u0646\u0627\u062A \u0627\u0644\u0645\u062A\u0635\u0641\u062D."), React.createElement("div", {
+      className: "row wrapf",
+      style: {
+        gap: 6
+      }
+    }, React.createElement("button", {
+      className: "btn ghost sm",
+      disabled: !profiles.length,
+      onClick: exportAll
+    }, "\u062D\u0641\u0638 \u0646\u0633\u062E\u0629 \u0641\u064A \u0645\u0644\u0641"), React.createElement("button", {
+      className: "btn ghost sm",
+      onClick: () => fileRef.current && fileRef.current.click()
+    }, "\u0627\u0633\u062A\u0631\u062C\u0627\u0639 \u0646\u0633\u062E\u0629"), React.createElement("input", {
+      ref: fileRef,
+      type: "file",
+      accept: "application/json,.json",
+      style: {
+        display: 'none'
+      },
+      onChange: e => {
+        importAll(e.target.files[0]);
+        e.target.value = '';
+      }
+    })))), React.createElement(Toast, {
+      msg: toastMsg
+    }));
+  }
+  if (scr === 'lobby') {
+    const D = draft,
+      setD = v => setDraft(v);
+    const ready = D.g && D.age && D.country && (D.name || '').trim();
+    return React.createElement("div", {
+      className: "wrap fade",
+      style: {
+        maxWidth: 820
+      }
+    }, React.createElement("div", {
+      className: "row",
+      style: {
+        marginTop: 10
+      }
+    }, React.createElement("button", {
+      className: "btn ghost sm",
+      onClick: () => {
+        setDraft(null);
+        setScreen(D._from === 'map' && data && D.id === data.id ? 'map' : 'students');
+      }
+    }, "\u0631\u062C\u0648\u0639")), React.createElement("div", {
+      className: "col center",
+      style: {
+        gap: 6,
+        margin: '8px 0 14px'
+      }
+    }, React.createElement("div", {
+      className: "row center",
+      style: {
+        gap: 12,
+        alignItems: 'flex-end'
+      }
+    }, React.createElement(CharImg, {
+      def: L1CH.teacherM,
+      s: 6
+    }), React.createElement(CharImg, {
+      def: D.g === 'f' ? L1CH.girl : L1CH.boy,
+      s: 8
+    }), React.createElement(CharImg, {
+      def: L1CH.grandma,
+      s: 6
+    })), React.createElement("div", {
+      className: "h1 naskh"
+    }, "\u062A\u064E\u0648\u064E\u0627\u0635\u064F\u0644\u064C: \u0627\u0644\u0652\u0645\u064F\u0633\u0652\u062A\u064E\u0648\u064E\u0649 \u0627\u0644\u0652\u0623\u064E\u0648\u064E\u0651\u0644\u064F"), React.createElement("div", {
+      className: "naskh",
+      style: {
+        fontSize: 19
+      }
+    }, "\u062B\u064E\u0645\u064E\u0627\u0646\u0650\u064A \u0645\u064F\u062F\u064F\u0646\u064D. \u0641\u0650\u064A \u0643\u064F\u0644\u0650\u0651 \u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064D \u0646\u064E\u0627\u0633\u064C \u0646\u064F\u0643\u064E\u0644\u0650\u0651\u0645\u064F\u0647\u064F\u0645\u0652\u060C \u0648\u064E\u0643\u064E\u0644\u0650\u0645\u064E\u0627\u062A\u064C \u0646\u064E\u062A\u064E\u0639\u064E\u0644\u064E\u0651\u0645\u064F\u0647\u064E\u0627.")), React.createElement("div", {
+      className: "card col",
+      style: {
+        gap: 14
+      }
+    }, React.createElement("b", {
+      className: "naskh",
+      style: {
+        fontSize: 20
+      }
+    }, "\u0623\u064E\u0646\u064E\u0627:"), React.createElement("div", {
+      className: "row wrapf",
+      style: {
+        gap: 8
+      }
+    }, [['m', 'وَلَدٌ', L1CH.boy], ['f', 'بِنْتٌ', L1CH.girl]].map(([g, t, ch]) => React.createElement("button", {
+      key: g,
+      className: 'chip' + (D.g === g ? ' on' : ''),
+      onClick: () => setD({
+        ...D,
+        g
+      })
+    }, React.createElement(CharImg, {
+      def: ch,
+      s: 2.4
+    }), React.createElement("span", {
+      className: "naskh",
+      style: {
+        fontSize: 20
+      }
+    }, t)))), React.createElement("b", {
+      className: "naskh",
+      style: {
+        fontSize: 20
+      }
+    }, D.g === 'f' ? 'اسْمُكِ:' : 'اسْمُكَ:'), React.createElement("input", {
+      className: "winput",
+      style: {
+        maxWidth: 320
+      },
+      value: D.name,
+      onChange: e => setD({
+        ...D,
+        name: e.target.value
+      })
+    }), React.createElement("b", {
+      className: "naskh",
+      style: {
+        fontSize: 20
+      }
+    }, D.g === 'f' ? 'كَمْ عُمْرُكِ؟' : 'كَمْ عُمْرُكَ؟'), React.createElement("div", {
+      className: "row wrapf",
+      style: {
+        gap: 6
+      }
+    }, [6, 7, 8, 9, 10, 11, 12, 13, 14].map(a => React.createElement("button", {
+      key: a,
+      className: 'chip' + (D.age === a ? ' on' : ''),
+      onClick: () => setD({
+        ...D,
+        age: a
+      })
+    }, L1_AR(a)))), React.createElement("b", {
+      className: "naskh",
+      style: {
+        fontSize: 20
+      }
+    }, D.g === 'f' ? 'مِنْ أَيْنَ أَنْتِ؟' : 'مِنْ أَيْنَ أَنْتَ؟'), React.createElement("div", {
+      className: "row wrapf",
+      style: {
+        gap: 6
+      }
+    }, L1_COUNTRIES.map(c => React.createElement("button", {
+      key: c.id,
+      className: 'chip' + (D.country === c.id ? ' on' : ''),
+      onClick: () => setD({
+        ...D,
+        country: c.id
+      })
+    }, React.createElement("span", {
+      className: "naskh",
+      style: {
+        fontSize: 18
+      }
+    }, c.n)))), React.createElement("div", {
+      className: "row center"
+    }, React.createElement("button", {
+      className: "btn lg",
+      disabled: !ready,
+      onClick: saveDraft
+    }, D.id ? 'حِفْظُ التَّعْدِيلِ' : 'ادْخُلْ إِلَى الْمُدُنِ'))));
+  }
+  if (scr === 'map') return React.createElement("div", null, React.createElement("div", {
     className: "topbar",
     style: {
       height: 56
@@ -7031,13 +7464,19 @@ function App() {
     }
   }, "\u062A\u064E\u0648\u064E\u0627\u0635\u064F\u0644\u064C: \u0627\u0644\u0652\u0645\u064F\u0633\u0652\u062A\u064E\u0648\u064E\u0649 \u0627\u0644\u0652\u0623\u064E\u0648\u064E\u0651\u0644\u064F")), React.createElement("button", {
     className: "btn ghost sm",
-    onClick: () => setScreen('lobby')
+    onClick: () => setScreen('students'),
+    title: "\u062A\u063A\u064A\u064A\u0631 \u0627\u0644\u0637\u0627\u0644\u0628"
   }, React.createElement(CharImg, {
     def: G(L1CH.boy, L1CH.girl),
     s: 1.6
   }), React.createElement("span", {
     className: "naskh"
-  }, P.name)))), React.createElement("div", {
+  }, P.name), React.createElement("span", {
+    className: "small",
+    style: {
+      opacity: .7
+    }
+  }, "\xB7 \u0627\u0644\u0637\u0644\u0627\u0628")))), React.createElement("div", {
     className: "wrap fade"
   }, React.createElement("div", {
     className: "naskh",
@@ -7423,13 +7862,17 @@ function App() {
       setDrawer(false);
       setScreen('map');
     }
-  }, "\u0625\u0639\u0627\u062F\u0629 \u0643\u0644 \u0627\u0644\u0645\u062F\u0646"), React.createElement("button", {
+  }, "\u0625\u0639\u0627\u062F\u0629 \u0643\u0644 \u0627\u0644\u0645\u062F\u0646 \u0644\u0647\u0630\u0627 \u0627\u0644\u0637\u0627\u0644\u0628"), React.createElement("button", {
+    className: "btn ghost sm",
+    onClick: () => editStudent(P, 'map')
+  }, "\u062A\u0639\u062F\u064A\u0644 \u0628\u064A\u0627\u0646\u0627\u062A \u0627\u0644\u0637\u0627\u0644\u0628"), React.createElement("button", {
     className: "btn ghost sm",
     onClick: () => {
       setDrawer(false);
-      setScreen('lobby');
+      setPanel(null);
+      setScreen('students');
     }
-  }, "\u062A\u0639\u062F\u064A\u0644 \u0628\u064A\u0627\u0646\u0627\u062A \u0627\u0644\u0637\u0627\u0644\u0628"))))), cert && React.createElement("div", {
+  }, "\u062A\u063A\u064A\u064A\u0631 \u0627\u0644\u0637\u0627\u0644\u0628"))))), cert && React.createElement("div", {
     className: "panel-bg"
   }, React.createElement("div", {
     className: "panel col",
@@ -7521,10 +7964,7 @@ class Boundary extends React.Component {
       className: "h2"
     }, "\u062D\u062F\u062B \u062E\u0637\u0623"), React.createElement("button", {
       className: "btn",
-      onClick: () => {
-        store.clear();
-        location.reload();
-      }
+      onClick: () => location.reload()
     }, "\u0625\u0639\u0627\u062F\u0629 \u0627\u0644\u062A\u0634\u063A\u064A\u0644"))) : this.props.children;
   }
 }

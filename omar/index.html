@@ -764,6 +764,21 @@ button.coin:active{transform:translate(2px,2px);box-shadow:none}
 .rvst.done{opacity:.6}
 .rvsum{display:flex;flex-direction:column;gap:6px;min-width:260px;flex:1 1 260px}
 @media (max-width:560px){.sortcard{font-size:24px}.starget{min-height:120px}.starget .lbl{font-size:16px}.cardgrid{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.fcard .q{font-size:26px}}
+/* الكتابة بمستوى أعلى: أدوات الربط */
+.lnk{color:var(--acc);font-weight:800;border-bottom:3px solid var(--acc);padding:0 1px;border-radius:2px}
+.lnk.big{font-size:26px;font-family:'Noto Naskh Arabic',serif}
+.lnk.chipish{border:2px solid var(--acc);border-radius:8px;padding:0 10px;background:var(--acc-soft)}
+.parabox{font-size:25px;line-height:2.2;padding:4px 6px}
+.psent{cursor:pointer}
+.linkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.linkcard{display:flex;flex-direction:column;align-items:center;gap:2px;border:2px solid var(--line);border-radius:10px;padding:8px;background:var(--card2);text-align:center;font-size:16px}
+.pieces{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px}
+.piece{border:3px solid var(--edge);border-radius:10px;background:var(--card);box-shadow:3px 3px 0 var(--edge);padding:8px 14px;font-size:23px}
+.plus{font-size:26px;font-weight:800;color:var(--acc)}
+.linkbadge{font-size:20px;font-weight:700;display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center}
+.planrow{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.planstep{display:flex;align-items:center;gap:6px;border:2px dashed var(--line);border-radius:10px;padding:6px 10px;background:var(--card2);font-size:17px}
+.fcard .lnkq{font-size:24px;color:var(--acc)}
 
 </style>
 </head>
@@ -7126,85 +7141,165 @@ function buildRev(P, F) {
     fix: R.line('a3').t,
     why: 'كَلِمَةٌ نَاقِصَةٌ: مِنْ'
   }];
-  R.wwords = [{
-    w: 'اسْمِي',
-    note: 'لِي أَنَا',
-    ic: 'tag'
+  const sameC = P.country === F.country,
+    sameL = P.like === F.like,
+    sameA = P.age === F.age;
+  const FR = G('صَدِيقِي', 'صَدِيقَتِي');
+  const LAN = G('لِأَنَّهُ', 'لِأَنَّهَا');
+  const trBare = G(kind && smart ? 'لَطِيفٌ وَذَكِيٌّ' : kind ? 'لَطِيفٌ' : 'ذَكِيٌّ', kind && smart ? 'لَطِيفَةٌ وَذَكِيَّةٌ' : kind ? 'لَطِيفَةٌ' : 'ذَكِيَّةٌ');
+  const sLikes = sameL ? `أَنَا أُحِبُّ ${like.w}، ⟪وَ⟫${FR} ${G('يُحِبُّ', 'تُحِبُّ')} ${fl.w} ⟪أَيْضًا⟫.` : `أَنَا أُحِبُّ ${like.w}، ⟪وَلَكِنْ⟫ ${FR} ${G('يُحِبُّ', 'تُحِبُّ')} ${fl.w}.`;
+  const sFrom = sameC ? `${G('هُوَ', 'هِيَ')} ${FC.from} ⟪أَيْضًا⟫، ⟪وَ⟫${G('عُمْرُهُ', 'عُمْرُهَا')} ${FAGE}.` : `${G('هُوَ', 'هِيَ')} ${FC.from}، ⟪وَ⟫${G('عُمْرُهُ', 'عُمْرُهَا')} ${FAGE}.`;
+  const sWhere = jar ? G('هُوَ جَارِي، ⟪وَ⟫هُوَ يَلْعَبُ مَعِي.', 'هِيَ جَارَتِي، ⟪وَ⟫هِيَ تَلْعَبُ مَعِي.') : G('هُوَ فِي مَدْرَسَتِي، ⟪وَ⟫هُوَ يَلْعَبُ مَعِي.', 'هِيَ فِي مَدْرَسَتِي، ⟪وَ⟫هِيَ تَلْعَبُ مَعِي.');
+  R.wmodel = [`مَرْحَبًا! اسْمِي ${NM}، ⟪وَ⟫عُمْرِي ${AGE}.`, `أَنَا ${C.from}، ⟪وَ⟫أُرِيدُ أَنْ أَصِيرَ ${dream.w}.`, G(`هَذَا صَدِيقِي، ⟪وَ⟫اسْمُهُ ${FN}.`, `هَذِهِ صَدِيقَتِي، ⟪وَ⟫اسْمُهَا ${FN}.`), sFrom, sLikes, sWhere, `أُحِبُّ ${FR} ⟪${LAN}⟫ ${trBare}.`, G('أُسَاعِدُهُ، ⟪وَ⟫يُسَاعِدُنِي.', 'أُسَاعِدُهَا، ⟪وَ⟫تُسَاعِدُنِي.')];
+  R.links = [{
+    w: 'وَ',
+    m: 'تَجْمَعُ جُمْلَتَيْنِ فِي جُمْلَةٍ وَاحِدَةٍ'
   }, {
-    w: G('صَدِيقِي', 'صَدِيقَتِي'),
-    note: 'لِي أَنَا',
-    ch: look
+    w: 'أَيْضًا',
+    m: 'لِشَيْءٍ مِثْلِ الَّذِي قَبْلَهُ'
   }, {
-    w: G('اسْمُهُ', 'اسْمُهَا'),
-    note: G('لَهُ هُوَ', 'لَهَا هِيَ'),
-    ic: 'tag'
+    w: 'وَلَكِنْ',
+    m: 'لِشَيْءٍ مُخْتَلِفٍ'
   }, {
-    w: G('يُحِبُّ', 'تُحِبُّ'),
-    note: G('هُوَ', 'هِيَ'),
-    duo: [look, 'heart']
+    w: G('لِأَنَّهُ', 'لِأَنَّهَا'),
+    m: 'تَقُولُ السَّبَبَ'
   }];
   R.wq = [{
-    model: 'a1',
-    target: 'b1'
+    pieces: [`اسْمِي ${NM}.`, `عُمْرِي ${AGE}.`],
+    link: 'وَ',
+    ans: `اسْمِي ${NM}، ⟪وَ⟫عُمْرِي ${AGE}.`,
+    hv: ['a1', 'a2']
   }, {
-    model: 'a2',
-    target: 'b2'
+    pieces: [R.line('b0').t, R.line('b1').t],
+    link: 'وَ',
+    ans: G(`هَذَا صَدِيقِي، ⟪وَ⟫اسْمُهُ ${FN}.`, `هَذِهِ صَدِيقَتِي، ⟪وَ⟫اسْمُهَا ${FN}.`),
+    hv: ['b0', 'b1']
+  }, sameC ? {
+    pieces: [`أَنَا ${C.from}.`, `${FR} ${FC.from}.`],
+    link: 'وَ … أَيْضًا',
+    ans: `أَنَا ${C.from}، ⟪وَ⟫${FR} ${FC.from} ⟪أَيْضًا⟫.`,
+    hv: ['a3', 'b3']
+  } : {
+    pieces: [`أَنَا ${C.from}.`, `${FR} ${FC.from}.`],
+    link: 'وَ',
+    ans: `أَنَا ${C.from}، ⟪وَ⟫${FR} ${FC.from}.`,
+    hv: ['a3', 'b3']
+  }, sameL ? {
+    pieces: [`أَنَا أُحِبُّ ${like.w}.`, `${FR} ${G('يُحِبُّ', 'تُحِبُّ')} ${fl.w}.`],
+    link: 'وَ … أَيْضًا',
+    ans: sLikes,
+    hv: ['a4', 'b5']
+  } : {
+    pieces: [`أَنَا أُحِبُّ ${like.w}.`, `${FR} ${G('يُحِبُّ', 'تُحِبُّ')} ${fl.w}.`],
+    link: 'وَلَكِنْ',
+    ans: sLikes,
+    hv: ['a4', 'b5']
   }, {
-    model: 'a3',
-    target: 'b3'
-  }, {
-    model: 'a4',
-    target: 'b5'
+    pieces: [`أُحِبُّ ${FR}.`, trLine],
+    link: G('لِأَنَّهُ', 'لِأَنَّهَا'),
+    ans: `أُحِبُّ ${FR} ⟪${LAN}⟫ ${trBare}.`,
+    hv: ['b6']
   }];
-  R.cards = [{
-    w: 'اسْمٌ',
-    ic: 'tag'
+  R.wpara = {
+    plan: [{
+      ic: 'tag',
+      t: 'اسْمِي وَعُمْرِي'
+    }, {
+      ic: 'globe',
+      t: 'بَلَدِي وَمَا أُرِيدُ'
+    }, {
+      ch: look,
+      t: G('صَدِيقِي وَاسْمُهُ', 'صَدِيقَتِي وَاسْمُهَا')
+    }, {
+      ic: 'cake',
+      t: G('بَلَدُهُ وَعُمْرُهُ', 'بَلَدُهَا وَعُمْرُهَا')
+    }, {
+      ic: fl.ic,
+      t: 'مَا نُحِبُّ'
+    }, {
+      ic: kind ? 'hand' : 'bulb',
+      t: G('لِمَاذَا أُحِبُّهُ؟', 'لِمَاذَا أُحِبُّهَا؟')
+    }],
+    checks: G(['عَرَّفَ بِنَفْسِهِ', 'عَرَّفَ بِصَدِيقِهِ', 'رَبَطَ بِـ«وَ»', 'قَالَ السَّبَبَ بِـ«لِأَنَّهُ»', 'اسْتَعْمَلَ «وَلَكِنْ» أَوْ «أَيْضًا»', 'وَضَعَ الْفَاصِلَةَ وَالنُّقْطَةَ'], ['عَرَّفَتْ بِنَفْسِهَا', 'عَرَّفَتْ بِصَدِيقَتِهَا', 'رَبَطَتْ بِـ«وَ»', 'قَالَتِ السَّبَبَ بِـ«لِأَنَّهَا»', 'اسْتَعْمَلَتْ «وَلَكِنْ» أَوْ «أَيْضًا»', 'وَضَعَتِ الْفَاصِلَةَ وَالنُّقْطَةَ'])
+  };
+  const why = {
+    doc: 'لِأَنِّي أُحِبُّ أَنْ أُسَاعِدَ النَّاسَ',
+    teach: 'لِأَنِّي أُحِبُّ الْمَدْرَسَةَ',
+    eng: 'لِأَنِّي أُحِبُّ الرَّسْمَ',
+    pilot: 'لِأَنِّي أُحِبُّ الطَّائِرَاتِ'
+  }[P.dream] || 'لِأَنِّي أُحِبُّ أَنْ أُسَاعِدَ النَّاسَ';
+  const butCard = !sameL ? {
+    pic: {
+      duo: [R.meKey, like.ic]
+    },
+    prompt: G('أَنْتَ وَصَدِيقُكَ: مَاذَا تُحِبَّانِ؟', 'أَنْتِ وَصَدِيقَتُكِ: مَاذَا تُحِبَّانِ؟'),
+    ex: sLikes
+  } : !sameC ? {
+    pic: {
+      ic: 'globe'
+    },
+    prompt: G('أَنْتَ وَصَدِيقُكَ: مِنْ أَيْنَ؟', 'أَنْتِ وَصَدِيقَتُكِ: مِنْ أَيْنَ؟'),
+    ex: `أَنَا ${C.from}، ⟪وَلَكِنْ⟫ ${FR} ${FC.from}.`
+  } : !sameA ? {
+    pic: {
+      ic: 'cake'
+    },
+    prompt: G('أَنْتَ وَصَدِيقُكَ: كَمْ عُمْرُكُمَا؟', 'أَنْتِ وَصَدِيقَتُكِ: كَمْ عُمْرُكُمَا؟'),
+    ex: `عُمْرِي ${AGE}، ⟪وَلَكِنْ⟫ ${FR} ${G('عُمْرُهُ', 'عُمْرُهَا')} ${FAGE}.`
+  } : null;
+  R.lcards = [{
+    link: 'وَ',
+    pic: {
+      ic: 'tag'
+    },
+    prompt: G('اكْتُبْ عَنْ صَدِيقِكَ: اسْمَهُ وَعُمْرَهُ.', 'اكْتُبِي عَنْ صَدِيقَتِكِ: اسْمَهَا وَعُمْرَهَا.'),
+    ex: G(`اسْمُهُ ${FN}، ⟪وَ⟫عُمْرُهُ ${FAGE}.`, `اسْمُهَا ${FN}، ⟪وَ⟫عُمْرُهَا ${FAGE}.`)
   }, {
-    w: 'عُمْرٌ',
-    ic: 'cake'
+    link: 'وَ',
+    pic: {
+      ic: dream.ic
+    },
+    prompt: G('اكْتُبْ: مَاذَا تُحِبُّ؟ وَمَاذَا تُرِيدُ أَنْ تَصِيرَ؟', 'اكْتُبِي: مَاذَا تُحِبِّينَ؟ وَمَاذَا تُرِيدِينَ أَنْ تَصِيرِي؟'),
+    ex: `أُحِبُّ ${like.w}، ⟪وَ⟫أُرِيدُ أَنْ أَصِيرَ ${dream.w}.`
   }, {
-    w: 'بَلَدٌ',
-    ic: 'globe'
+    link: 'أَيْضًا',
+    pic: {
+      ic: 'heart'
+    },
+    prompt: G('لُغَتُكَ الْعَرَبِيَّةُ: أَنْتَ وَصَدِيقُكَ.', 'لُغَتُكِ الْعَرَبِيَّةُ: أَنْتِ وَصَدِيقَتُكِ.'),
+    ex: `أُحِبُّ لُغَتِي الْعَرَبِيَّةَ، ⟪وَ⟫${FR} ${G('يُحِبُّهَا', 'تُحِبُّهَا')} ⟪أَيْضًا⟫.`
   }, {
-    w: 'مَدْرَسَةٌ',
-    ic: 'school'
+    link: G('لِأَنَّهُ', 'لِأَنَّهَا'),
+    pic: {
+      ic: jar ? 'house' : 'school'
+    },
+    prompt: G('لِمَاذَا يَلْعَبُ مَعَكَ صَدِيقُكَ كَثِيرًا؟', 'لِمَاذَا تَلْعَبُ مَعَكِ صَدِيقَتُكِ كَثِيرًا؟'),
+    ex: `${FR} ${G('يَلْعَبُ', 'تَلْعَبُ')} مَعِي ⟪${LAN}⟫ ${jar ? G('جَارِي', 'جَارَتِي') : 'فِي مَدْرَسَتِي'}.`
   }, {
-    w: 'كُرَةٌ',
-    ic: 'ball'
+    link: 'لِأَنِّي',
+    pic: {
+      ic: dream.ic
+    },
+    prompt: G('لِمَاذَا تُرِيدُ أَنْ تَصِيرَ ' + dream.w + '؟ قُلِ السَّبَبَ أَنْتَ.', 'لِمَاذَا تُرِيدِينَ أَنْ تَصِيرِي ' + dream.w + '؟ قُولِي السَّبَبَ أَنْتِ.'),
+    ex: `أُرِيدُ أَنْ أَصِيرَ ${dream.w} ⟪${why.split(' ')[0]}⟫ ${why.split(' ').slice(1).join(' ')}.`
+  }, butCard && {
+    link: 'وَلَكِنْ',
+    ...butCard
   }, {
-    w: 'رَسْمٌ',
-    ic: 'palette'
+    link: 'وَ',
+    pic: {
+      ic: 'friends'
+    },
+    prompt: G('كَيْفَ تُسَاعِدُ صَدِيقَكَ، وَكَيْفَ يُسَاعِدُكَ؟', 'كَيْفَ تُسَاعِدِينَ صَدِيقَتَكِ، وَكَيْفَ تُسَاعِدُكِ؟'),
+    ex: G('أُسَاعِدُ صَدِيقِي، ⟪وَ⟫هُوَ يُسَاعِدُنِي.', 'أُسَاعِدُ صَدِيقَتِي، ⟪وَ⟫هِيَ تُسَاعِدُنِي.')
   }, {
-    w: 'طَبِيبٌ',
-    ic: 'stethoscope'
-  }, {
-    w: 'أُحِبُّ',
-    duo: [R.meKey, 'heart']
-  }, {
-    w: G('صَدِيقٌ', 'صَدِيقَةٌ'),
-    ic: 'friends'
-  }, {
-    w: 'جَارٌ',
-    ic: 'house'
-  }, {
-    w: 'وَلَدٌ',
-    ch: 'boy'
-  }, {
-    w: 'بِنْتٌ',
-    ch: 'girl'
-  }, {
-    w: 'يُحِبُّ',
-    duo: ['newFriendM', 'heart']
-  }, {
-    w: 'يَلْعَبُ',
-    duo: ['newFriendM', 'ball']
-  }, {
-    w: 'لَطِيفٌ',
-    ic: 'hand'
-  }, {
-    w: 'ذَكِيٌّ',
-    ic: 'bulb'
-  }];
+    link: G('لِأَنَّهُ', 'لِأَنَّهَا'),
+    pic: {
+      ch: look
+    },
+    prompt: G('لِمَاذَا تُحِبُّ صَدِيقَكَ؟', 'لِمَاذَا تُحِبِّينَ صَدِيقَتَكِ؟'),
+    ex: `أُحِبُّ ${FR} ⟪${LAN}⟫ ${trBare}.`
+  }].filter(Boolean);
   R.guest = {
     intro: G(`مَرْحَبًا! أَنَا ضَيْفٌ جَدِيدٌ فِي الْمَدِينَةِ. أُرِيدُ أَنْ أَعْرِفَكَ، وَأَعْرِفَ صَدِيقَكَ.`, `مَرْحَبًا! أَنَا ضَيْفٌ جَدِيدٌ فِي الْمَدِينَةِ. أُرِيدُ أَنْ أَعْرِفَكِ، وَأَعْرِفَ صَدِيقَتَكِ.`),
     me: [{
@@ -7322,7 +7417,7 @@ function buildRev(P, F) {
       gen: 'الْخَطَّاطِ',
       char: L1CH.scribe,
       at: [39, 10],
-      intro: G('أَهْلًا! الْيَوْمَ تَكْتُبُ أَنْتَ. الْمُعَلِّمُ يَكْتُبُ عَلَى اللَّوْحِ، وَأَنْتَ تَكْتُبُ عَلَى وَرَقَتِكَ.', 'أَهْلًا! الْيَوْمَ تَكْتُبِينَ أَنْتِ. الْمُعَلِّمُ يَكْتُبُ عَلَى اللَّوْحِ، وَأَنْتِ تَكْتُبِينَ عَلَى وَرَقَتِكِ.')
+      intro: G('أَهْلًا! الْيَوْمَ تَكْتُبُ فِقْرَةً كَامِلَةً وَحْدَكَ. تَرْبِطُ الْجُمَلَ الْقَصِيرَةَ، فَتَصِيرُ جُمَلًا أَطْوَلَ وَأَجْمَلَ.', 'أَهْلًا! الْيَوْمَ تَكْتُبِينَ فِقْرَةً كَامِلَةً وَحْدَكِ. تَرْبِطِينَ الْجُمَلَ الْقَصِيرَةَ، فَتَصِيرُ جُمَلًا أَطْوَلَ وَأَجْمَلَ.')
     },
     talk: {
       name: 'الضَّيْفُ',
@@ -7347,7 +7442,7 @@ const rvST = () => [{
 }, {
   k: 'write',
   t: 'الْكِتَابَةُ',
-  stages: [['words', 'الْمُحْتَوَى'], ['qiyas', 'الْقِيَاسُ'], ['cards', 'اللُّعْبَةُ']]
+  stages: [['model', 'الْمُحْتَوَى'], ['qiyas', 'الْقِيَاسُ'], ['para', 'الْفِقْرَةُ'], ['cards', 'اللُّعْبَةُ']]
 }, {
   k: 'talk',
   t: 'الْمُحَادَثَةُ الْكَامِلَةُ',
@@ -7793,7 +7888,21 @@ function RvSort({
     className: "warnline"
   }, hint));
 }
-const rvPaper3 = () => G('انْظُرْ إِلَى الْقَلَمِ: مِنْ أَيْنَ يَبْدَأُ، وَإِلَى أَيْنَ يَذْهَبُ. ثُمَّ اكْتُبْهَا عَلَى وَرَقَتِكَ ثَلَاثَ مَرَّاتٍ.', 'انْظُرِي إِلَى الْقَلَمِ: مِنْ أَيْنَ يَبْدَأُ، وَإِلَى أَيْنَ يَذْهَبُ. ثُمَّ اكْتُبِيهَا عَلَى وَرَقَتِكِ ثَلَاثَ مَرَّاتٍ.');
+const rvPlain = t => plain(t).replace(/[⟪⟫]/g, '');
+function RvLT({
+  text
+}) {
+  const parts = String(text).split(/(⟪[^⟫]*⟫)/);
+  return React.createElement("span", {
+    className: "tt"
+  }, parts.map((p, i) => p.startsWith('⟪') ? React.createElement("span", {
+    key: i,
+    className: "lnk"
+  }, p.slice(1, -1)) : p ? React.createElement(TT, {
+    key: i,
+    text: p
+  }) : null));
+}
 function RevWrite({
   R,
   start,
@@ -7801,7 +7910,7 @@ function RevWrite({
   onHarvest
 }) {
   const ST = rvST()[1];
-  const [stage, setStage] = useState(start || 'words');
+  const [stage, setStage] = useState(start || 'model');
   const next = () => rvNext(ST, stage, setStage, onDone);
   return React.createElement("div", {
     className: "col",
@@ -7811,79 +7920,98 @@ function RevWrite({
   }, React.createElement(RvSteps, {
     st: ST,
     cur: stage
-  }), stage === 'words' && React.createElement(RvWords, {
+  }), stage === 'model' && React.createElement(RvModel, {
     R: R,
     onDone: next
-  }), stage === 'qiyas' && React.createElement(RvWQ, {
+  }), stage === 'qiyas' && React.createElement(RvLinkQ, {
     R: R,
     onDone: next,
     onHarvest: onHarvest
-  }), stage === 'cards' && React.createElement(RvCards, {
+  }), stage === 'para' && React.createElement(RvPara, {
+    R: R,
+    onDone: next
+  }), stage === 'cards' && React.createElement(RvLinkCards, {
     R: R,
     onDone: next
   }));
 }
-function RvWords({
+const rvHelpBoard = (key, text, onDone) => React.createElement(TeacherBoard, {
+  key: key,
+  guide: rvPlain(text),
+  height: 200,
+  kidLine: G('انْظُرْ إِلَى الْقَلَمِ، ثُمَّ اكْتُبِ الْجُمْلَةَ عَلَى وَرَقَتِكَ.', 'انْظُرِي إِلَى الْقَلَمِ، ثُمَّ اكْتُبِي الْجُمْلَةَ عَلَى وَرَقَتِكِ.'),
+  doneLabel: G('✓ كَتَبَهَا عَلَى وَرَقَتِهِ', '✓ كَتَبَتْهَا عَلَى وَرَقَتِهَا'),
+  onDone: onDone
+});
+function RvModel({
   R,
   onDone
 }) {
-  const [i, setI] = useState(0);
-  if (i >= R.wwords.length) return React.createElement(DoneBox, {
-    msg: G('كَتَبْتَ كَلِمَاتِ الدَّرْسَيْنِ!', 'كَتَبْتِ كَلِمَاتِ الدَّرْسَيْنِ!'),
-    label: "\u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0652\u0642\u0650\u064A\u064E\u0627\u0633\u0650",
-    onDone: onDone
-  });
-  const w = R.wwords[i];
+  const [msg, setMsg] = useState('');
   return React.createElement("div", {
     className: "col",
     style: {
-      gap: 12
+      gap: 10
     }
-  }, i === 0 && React.createElement("div", {
-    className: "papernote naskh"
-  }, G('جَهِّزْ وَرَقَتَكَ وَقَلَمَكَ. الْمُعَلِّمُ يَكْتُبُ عَلَى اللَّوْحِ، وَأَنْتَ تَكْتُبُ عَلَى الْوَرَقَةِ.', 'جَهِّزِي وَرَقَتَكِ وَقَلَمَكِ. الْمُعَلِّمُ يَكْتُبُ عَلَى اللَّوْحِ، وَأَنْتِ تَكْتُبِينَ عَلَى الْوَرَقَةِ.')), React.createElement("div", {
+  }, React.createElement("div", {
     className: "naskh",
     style: {
       fontSize: 19
     }
-  }, "\u0643\u064E\u0644\u0650\u0645\u064E\u0627\u062A\u064F \u0627\u0644\u0652\u0643\u0650\u062A\u064E\u0627\u0628\u064E\u0629\u0650: ", R.wwords.map((x, k) => React.createElement("span", {
+  }, G('هَذِهِ فِقْرَةٌ عَنْكَ وَعَنْ صَدِيقِكَ. الْكَلِمَاتُ الْمُلَوَّنَةُ تَرْبِطُ الْجُمَلَ. اقْرَأِ الْفِقْرَةَ بِصَوْتٍ عَالٍ.', 'هَذِهِ فِقْرَةٌ عَنْكِ وَعَنْ صَدِيقَتِكِ. الْكَلِمَاتُ الْمُلَوَّنَةُ تَرْبِطُ الْجُمَلَ. اقْرَئِي الْفِقْرَةَ بِصَوْتٍ عَالٍ.')), React.createElement("div", {
+    className: "rvpage"
+  }, React.createElement("div", {
+    className: "rvpage-h"
+  }, React.createElement(CharImg, {
+    def: R.me,
+    s: 2.2
+  }), React.createElement(CharImg, {
+    def: R.fr,
+    s: 2.2
+  }), React.createElement("b", {
+    className: "naskh"
+  }, R.title)), React.createElement("div", {
+    className: "parabox naskh"
+  }, R.wmodel.map((t, k) => React.createElement("span", {
     key: k,
-    className: 'lchip' + (k === i ? ' on' : k < i ? ' done' : '')
-  }, x.w))), React.createElement("div", {
-    className: "writegrid"
-  }, React.createElement("div", {
-    className: "lettercard"
-  }, React.createElement("div", {
-    className: "col center",
+    className: "psent",
+    onClick: () => speak(rvPlain(t))
+  }, React.createElement(RvLT, {
+    text: t
+  }), ' ')))), React.createElement("b", {
+    className: "naskh",
     style: {
-      gap: 6,
-      width: '100%'
+      fontSize: 19
     }
-  }, React.createElement(RvPic, {
-    v: w,
-    s: 5
-  }), React.createElement("div", {
-    className: "row center",
-    style: {
-      gap: 8
+  }, "\u0623\u064E\u062F\u064E\u0648\u064E\u0627\u062A\u064F \u0627\u0644\u0631\u064E\u0651\u0628\u0652\u0637\u0650:"), React.createElement("div", {
+    className: "linkgrid"
+  }, R.links.map(l => React.createElement("div", {
+    key: l.w,
+    className: "linkcard"
+  }, React.createElement("span", {
+    className: "lnk big"
+  }, l.w), React.createElement("span", {
+    className: "naskh"
+  }, l.m)))), React.createElement("div", {
+    className: "row center"
+  }, React.createElement(SpeakBtn, {
+    text: R.wmodel.map(rvPlain).join(' '),
+    label: G('اسْمَعِ الْفِقْرَةَ', 'اسْمَعِي الْفِقْرَةَ')
+  })), React.createElement(L1Bar, {
+    onGrade: g => {
+      if (g === 'full') {
+        sfx.ok();
+        onDone();
+      } else {
+        sfx.bad();
+        setMsg(RV_MSG[g]());
+      }
     }
-  }, React.createElement("div", {
-    className: "bigword naskh"
-  }, w.w), React.createElement(SpeakBtn, {
-    text: w.w,
-    label: false
-  })), React.createElement("span", {
-    className: "pill naskh"
-  }, w.note))), React.createElement(TeacherBoard, {
-    key: 'w' + i,
-    guide: w.w,
-    height: 220,
-    kidLine: rvPaper3(),
-    doneLabel: G('✓ كَتَبَهَا عَلَى وَرَقَتِهِ', '✓ كَتَبَتْهَا عَلَى وَرَقَتِهَا'),
-    onDone: () => setI(i + 1)
-  })));
+  }), msg && React.createElement("div", {
+    className: "warnline"
+  }, msg));
 }
-function RvWQ({
+function RvLinkQ({
   R,
   onDone,
   onHarvest
@@ -7893,14 +8021,13 @@ function RvWQ({
   const [tick, setTick] = useState([]);
   const [msg, setMsg] = useState('');
   if (i >= R.wq.length) return React.createElement(DoneBox, {
-    msg: G('كَتَبْتَ عَنْ صَدِيقِكَ!', 'كَتَبْتِ عَنْ صَدِيقَتِكِ!'),
-    label: "\u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0644\u064F\u0651\u0639\u0652\u0628\u064E\u0629\u0650",
+    msg: G('رَبَطْتَ الْجُمَلَ كُلَّهَا!', 'رَبَطْتِ الْجُمَلَ كُلَّهَا!'),
+    label: "\u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0652\u0641\u0650\u0642\u0652\u0631\u064E\u0629\u0650",
     onDone: onDone
   });
-  const it = R.wq[i],
-    m = R.line(it.model),
-    t = R.line(it.target);
-  const checks = G(['كَتَبَ الْكَلِمَاتِ كُلَّهَا', 'تَرَكَ مَسَافَةً بَيْنَ الْكَلِمَاتِ', 'وَضَعَ نُقْطَةً فِي الْآخِرِ'], ['كَتَبَتِ الْكَلِمَاتِ كُلَّهَا', 'تَرَكَتْ مَسَافَةً بَيْنَ الْكَلِمَاتِ', 'وَضَعَتْ نُقْطَةً فِي الْآخِرِ']);
+  const it = R.wq[i];
+  const lk = it.link;
+  const checks = [G(`رَبَطَ بِـ«${lk}»`, `رَبَطَتْ بِـ«${lk}»`), ...(it.ans.includes('،') ? [G('وَضَعَ الْفَاصِلَةَ «،»', 'وَضَعَتِ الْفَاصِلَةَ «،»')] : []), G('وَضَعَ النُّقْطَةَ فِي الْآخِرِ', 'وَضَعَتِ النُّقْطَةَ فِي الْآخِرِ')];
   const nextItem = () => {
     setStep('write');
     setTick([]);
@@ -7914,36 +8041,26 @@ function RvWQ({
     }
   }, React.createElement("span", {
     className: "pill naskh"
-  }, G('الْقِيَاسُ: اكْتُبْ مِثْلَهَا عَنْ صَدِيقِكَ', 'الْقِيَاسُ: اكْتُبِي مِثْلَهَا عَنْ صَدِيقَتِكِ')), React.createElement(L1Dots, {
+  }, "\u0627\u0644\u0652\u0642\u0650\u064A\u064E\u0627\u0633\u064F: \u062C\u064F\u0645\u0652\u0644\u064E\u062A\u064E\u0627\u0646\u0650 \u2190 \u062C\u064F\u0645\u0652\u0644\u064E\u0629\u064C \u0648\u064E\u0627\u062D\u0650\u062F\u064E\u0629\u064C"), React.createElement(L1Dots, {
     n: R.wq.length,
     i: i
   }), React.createElement("div", {
-    className: "rvmodel"
-  }, React.createElement("div", {
-    className: "rvwho naskh"
-  }, React.createElement(CharImg, {
-    def: R.me,
-    s: 2
-  }), "\u0639\u064E\u0646\u0650\u0651\u064A"), React.createElement("div", {
-    className: "naskh",
-    style: {
-      fontSize: 24
-    }
+    className: "pieces"
+  }, it.pieces.map((t, k) => React.createElement(React.Fragment, {
+    key: k
+  }, k > 0 && React.createElement("span", {
+    className: "plus"
+  }, "+"), React.createElement("div", {
+    className: "piece naskh"
   }, React.createElement(TT, {
-    text: m.t
-  }))), React.createElement("div", {
-    className: "rvdown"
-  }, "\u25BC"), React.createElement("div", {
+    text: t
+  }))))), React.createElement("div", {
+    className: "linkbadge naskh"
+  }, G('ارْبِطْهُمَا بِـ', 'ارْبِطِيهِمَا بِـ'), " ", React.createElement("span", {
+    className: "lnk big"
+  }, lk)), React.createElement("div", {
     className: "rvtarget"
-  }, React.createElement("div", {
-    className: "rvwho naskh"
-  }, React.createElement(CharImg, {
-    def: R.fr,
-    s: 2
-  }), G('عَنْ صَدِيقِي', 'عَنْ صَدِيقَتِي'), React.createElement(RvPic, {
-    v: t,
-    s: 2
-  })), step === 'write' ? React.createElement("div", {
+  }, step === 'write' || step === 'board' ? React.createElement("div", {
     className: "naskh hid",
     style: {
       fontSize: 24
@@ -7953,13 +8070,13 @@ function RvWQ({
     style: {
       fontSize: 26
     }
-  }, React.createElement(TT, {
-    text: t.t
+  }, React.createElement(RvLT, {
+    text: it.ans
   }))), msg && React.createElement("div", {
     className: "warnline"
   }, msg), step === 'write' && React.createElement(React.Fragment, null, React.createElement("div", {
     className: "kidline naskh"
-  }, G('اكْتُبْ عَلَى وَرَقَتِكَ جُمْلَةً مِثْلَهَا عَنْ صَدِيقِكَ، ثُمَّ أَرِهَا لِلْمُعَلِّمِ.', 'اكْتُبِي عَلَى وَرَقَتِكِ جُمْلَةً مِثْلَهَا عَنْ صَدِيقَتِكِ، ثُمَّ أَرِيهَا لِلْمُعَلِّمِ.')), React.createElement("div", {
+  }, G('اكْتُبِ الْجُمْلَتَيْنِ جُمْلَةً وَاحِدَةً عَلَى وَرَقَتِكَ، ثُمَّ اقْرَأْهَا لِلْمُعَلِّمِ.', 'اكْتُبِي الْجُمْلَتَيْنِ جُمْلَةً وَاحِدَةً عَلَى وَرَقَتِكِ، ثُمَّ اقْرَئِيهَا لِلْمُعَلِّمِ.')), React.createElement("div", {
     className: "row wrapf center",
     style: {
       gap: 8
@@ -7969,21 +8086,14 @@ function RvWQ({
     onClick: () => {
       sfx.pop();
       setStep('check');
-      speak(plain(t.t));
+      speak(rvPlain(it.ans));
     }
   }, G('✓ كَتَبَهَا: أَظْهِرِ الْجَوَابَ', '✓ كَتَبَتْهَا: أَظْهِرِ الْجَوَابَ')), React.createElement("button", {
     className: "btn ghost",
     onClick: () => setStep('board')
-  }, G('يَحْتَاجُ مُسَاعَدَةً: أَكْتُبُهَا عَلَى اللَّوْحِ', 'تَحْتَاجُ مُسَاعَدَةً: أَكْتُبُهَا عَلَى اللَّوْحِ')))), step === 'board' && React.createElement(TeacherBoard, {
-    key: 'wq' + i + msg,
-    guide: plain(t.t),
-    height: 200,
-    kidLine: G('انْظُرْ إِلَى الْقَلَمِ، ثُمَّ اكْتُبِ الْجُمْلَةَ عَلَى وَرَقَتِكَ.', 'انْظُرِي إِلَى الْقَلَمِ، ثُمَّ اكْتُبِي الْجُمْلَةَ عَلَى وَرَقَتِكِ.'),
-    doneLabel: G('✓ كَتَبَهَا عَلَى وَرَقَتِهِ', '✓ كَتَبَتْهَا عَلَى وَرَقَتِهَا'),
-    onDone: () => {
-      setTick([]);
-      setStep('check');
-    }
+  }, G('يَحْتَاجُ مُسَاعَدَةً: أَكْتُبُهَا عَلَى اللَّوْحِ', 'تَحْتَاجُ مُسَاعَدَةً: أَكْتُبُهَا عَلَى اللَّوْحِ')))), step === 'board' && rvHelpBoard('lq' + i + msg, it.ans, () => {
+    setTick([]);
+    setStep('check');
   }), step === 'check' && React.createElement(React.Fragment, null, React.createElement("b", {
     className: "naskh",
     style: {
@@ -8010,7 +8120,7 @@ function RvWQ({
     disabled: tick.length < checks.length,
     onClick: () => {
       sfx.win();
-      onHarvest(t.id);
+      it.hv.forEach(onHarvest);
       nextItem();
     }
   }, "\u2713 \u0635\u064E\u062D\u0650\u064A\u062D\u064E\u0629\u064C"), React.createElement("button", {
@@ -8022,63 +8132,181 @@ function RvWQ({
     }
   }, "\u270E \u0641\u0650\u064A\u0647\u064E\u0627 \u062E\u064E\u0637\u064E\u0623\u064C"))));
 }
-function RvCards({
+function RvPara({
   R,
   onDone
 }) {
-  const order = useMemo(() => L1_SHUF(R.cards.map((_, k) => k)), []);
+  const [step, setStep] = useState('write');
+  const [tick, setTick] = useState([]);
+  const [msg, setMsg] = useState('');
+  const C = R.wpara.checks;
+  return React.createElement("div", {
+    className: "col",
+    style: {
+      gap: 10
+    }
+  }, React.createElement("span", {
+    className: "pill naskh",
+    style: {
+      alignSelf: 'center'
+    }
+  }, G('الْفِقْرَةُ: اكْتُبْ فِقْرَتَكَ كُلَّهَا وَحْدَكَ', 'الْفِقْرَةُ: اكْتُبِي فِقْرَتَكِ كُلَّهَا وَحْدَكِ')), React.createElement("div", {
+    className: "naskh",
+    style: {
+      fontSize: 19
+    }
+  }, G('اكْتُبْ عَلَى وَرَقَتِكَ فِقْرَةً عَنْكَ وَعَنْ صَدِيقِكَ. اتَّبِعِ الْخُطَّةَ، وَارْبِطِ الْجُمَلَ.', 'اكْتُبِي عَلَى وَرَقَتِكِ فِقْرَةً عَنْكِ وَعَنْ صَدِيقَتِكِ. اتَّبِعِي الْخُطَّةَ، وَارْبِطِي الْجُمَلَ.')), React.createElement("div", {
+    className: "planrow"
+  }, R.wpara.plan.map((p, k) => React.createElement("div", {
+    key: k,
+    className: "planstep"
+  }, React.createElement("span", {
+    className: "lnum"
+  }, L1_AR(k + 1)), React.createElement(RvPic, {
+    v: p,
+    s: 2.6
+  }), React.createElement("span", {
+    className: "naskh"
+  }, p.t)))), React.createElement("div", {
+    className: "row wrapf center",
+    style: {
+      gap: 6
+    }
+  }, React.createElement("b", {
+    className: "naskh"
+  }, G('اسْتَعْمِلْ:', 'اسْتَعْمِلِي:')), R.links.map(l => React.createElement("span", {
+    key: l.w,
+    className: "lnk big chipish"
+  }, l.w))), step === 'write' && React.createElement("div", {
+    className: "row center"
+  }, React.createElement("button", {
+    className: "btn lg",
+    onClick: () => {
+      sfx.pop();
+      setStep('check');
+    }
+  }, G('✓ كَتَبَ الْفِقْرَةَ: قَارِنْهَا بِالنَّمُوذَجِ', '✓ كَتَبَتِ الْفِقْرَةَ: قَارِنْهَا بِالنَّمُوذَجِ'))), step === 'check' && React.createElement(React.Fragment, null, React.createElement("div", {
+    className: "rvpage fade"
+  }, React.createElement("div", {
+    className: "rvpage-h"
+  }, React.createElement("b", {
+    className: "naskh"
+  }, "\u0627\u0644\u0646\u064E\u0651\u0645\u064F\u0648\u0630\u064E\u062C\u064F")), React.createElement("div", {
+    className: "parabox naskh"
+  }, R.wmodel.map((t, k) => React.createElement("span", {
+    key: k,
+    className: "psent"
+  }, React.createElement(RvLT, {
+    text: t
+  }), ' ')))), React.createElement("b", {
+    className: "naskh",
+    style: {
+      fontSize: 18
+    }
+  }, "\u0645\u064F\u0631\u064E\u0627\u062C\u064E\u0639\u064E\u0629\u064F \u0627\u0644\u0652\u0648\u064E\u0631\u064E\u0642\u064E\u0629\u0650:"), React.createElement("div", {
+    className: "row wrapf center",
+    style: {
+      gap: 6
+    }
+  }, C.map((c, k) => React.createElement("button", {
+    key: k,
+    className: 'ckb' + (tick.includes(k) ? ' on' : ''),
+    onClick: () => {
+      sfx.pop();
+      setTick(tick.includes(k) ? tick.filter(x => x !== k) : [...tick, k]);
+    }
+  }, tick.includes(k) ? '✓' : '○', " ", c))), React.createElement("div", {
+    className: "tbar fade"
+  }, React.createElement("span", {
+    className: "lbl"
+  }, "\u0631\u064E\u0623\u0652\u064A\u064F \u0627\u0644\u0652\u0645\u064F\u0639\u064E\u0644\u0650\u0651\u0645\u0650:"), React.createElement("button", {
+    className: "tb g",
+    disabled: tick.length < C.length,
+    onClick: () => {
+      sfx.win();
+      onDone();
+    }
+  }, "\u2713 \u0641\u0650\u0642\u0652\u0631\u064E\u0629\u064C \u0643\u064E\u0627\u0645\u0650\u0644\u064E\u0629\u064C"), React.createElement("button", {
+    className: "tb w",
+    onClick: () => {
+      sfx.bad();
+      setMsg(G('أَكْمِلْ مَا نَقَصَ عَلَى وَرَقَتِكَ: ', 'أَكْمِلِي مَا نَقَصَ عَلَى وَرَقَتِكِ: ') + C.filter((_, k) => !tick.includes(k)).join('، '));
+    }
+  }, "\u270E ", G('يُكْمِلُهَا', 'تُكْمِلُهَا'))), msg && React.createElement("div", {
+    className: "warnline"
+  }, msg)));
+}
+function RvLinkCards({
+  R,
+  onDone
+}) {
+  const order = useMemo(() => L1_SHUF(R.lcards.map((_, k) => k)), []);
   const [won, setWon] = useState([]);
   const [retry, setRetry] = useState([]);
   const [open, setOpen] = useState(null);
   const [shown, setShown] = useState(false);
-  const all = won.length === R.cards.length;
-  if (all) return React.createElement(DoneBox, {
-    msg: G('جَمَعْتَ كُلَّ الْبِطَاقَاتِ!', 'جَمَعْتِ كُلَّ الْبِطَاقَاتِ!'),
+  const [board, setBoard] = useState(false);
+  if (won.length === R.lcards.length) return React.createElement(DoneBox, {
+    msg: G('جَمَعْتَ كُلَّ بِطَاقَاتِ الرَّبْطِ!', 'جَمَعْتِ كُلَّ بِطَاقَاتِ الرَّبْطِ!'),
     label: "\u0627\u0646\u0652\u062A\u064E\u0647\u064E\u062A\u0652 \u0645\u064E\u062D\u064E\u0637\u064E\u0651\u0629\u064F \u0627\u0644\u0652\u0643\u0650\u062A\u064E\u0627\u0628\u064E\u0629\u0650",
     onDone: onDone
   });
   if (open != null) {
-    const c = R.cards[open];
+    const c = R.lcards[open];
     return React.createElement("div", {
       className: "cardopen pop"
-    }, React.createElement("span", {
-      className: "pill naskh"
-    }, G('مَا هَذِهِ الْكَلِمَةُ؟ اكْتُبْهَا عَلَى وَرَقَتِكَ.', 'مَا هَذِهِ الْكَلِمَةُ؟ اكْتُبِيهَا عَلَى وَرَقَتِكِ.')), React.createElement(RvPic, {
-      v: c,
-      s: 8
-    }), shown ? React.createElement("div", {
-      className: "bigword naskh fade"
-    }, c.w) : React.createElement("div", {
-      className: "naskh hid",
+    }, React.createElement("div", {
+      className: "linkbadge naskh"
+    }, G('اكْتُبْ جُمْلَةً مِنْ عِنْدِكَ بِـ', 'اكْتُبِي جُمْلَةً مِنْ عِنْدِكِ بِـ'), " ", React.createElement("span", {
+      className: "lnk big"
+    }, c.link)), React.createElement(RvPic, {
+      v: c.pic,
+      s: 6
+    }), React.createElement("div", {
+      className: "say-line sm"
+    }, React.createElement(TT, {
+      text: c.prompt
+    })), shown && React.createElement("div", {
+      className: "rvtarget fade"
+    }, React.createElement("div", {
+      className: "rvwho naskh"
+    }, "\u0645\u0650\u062B\u064E\u0627\u0644\u064C"), React.createElement("div", {
+      className: "naskh",
       style: {
-        fontSize: 30
+        fontSize: 24
       }
-    }, "\xB7 \xB7 \xB7"), !shown ? React.createElement("div", {
+    }, React.createElement(RvLT, {
+      text: c.ex
+    }))), board && !shown && rvHelpBoard('lc' + open, c.ex, () => {
+      setBoard(false);
+      setShown(true);
+    }), !shown ? !board && React.createElement("div", {
       className: "row wrapf center",
       style: {
         gap: 8
       }
-    }, React.createElement(SpeakBtn, {
-      text: c.w,
-      label: G('اسْمَعْهَا', 'اسْمَعِيهَا')
-    }), React.createElement("button", {
+    }, React.createElement("button", {
       className: "btn lg",
       onClick: () => {
         sfx.pop();
         setShown(true);
-        speak(c.w);
+        speak(rvPlain(c.ex));
       }
-    }, G('كَتَبَهَا: اكْشِفِ الْكَلِمَةَ', 'كَتَبَتْهَا: اكْشِفِ الْكَلِمَةَ'))) : React.createElement("div", {
+    }, G('✓ كَتَبَ جُمْلَتَهُ: أَظْهِرْ مِثَالًا', '✓ كَتَبَتْ جُمْلَتَهَا: أَظْهِرْ مِثَالًا')), React.createElement("button", {
+      className: "btn ghost",
+      onClick: () => setBoard(true)
+    }, G('يَحْتَاجُ مُسَاعَدَةً', 'تَحْتَاجُ مُسَاعَدَةً'))) : React.createElement("div", {
       className: "tbar fade"
     }, React.createElement("span", {
       className: "lbl"
-    }, G('هَلْ كَتَبَهَا صَحِيحَةً؟', 'هَلْ كَتَبَتْهَا صَحِيحَةً؟')), React.createElement("button", {
+    }, G('هَلْ رَبَطَ جُمْلَتَهُ صَحِيحَةً؟', 'هَلْ رَبَطَتْ جُمْلَتَهَا صَحِيحَةً؟')), React.createElement("button", {
       className: "tb g",
       onClick: () => {
         sfx.win();
         setWon([...won, open]);
         setRetry(retry.filter(x => x !== open));
         setOpen(null);
+        setBoard(false);
       }
     }, "\u2713 \u0635\u064E\u062D\u0650\u064A\u062D\u064E\u0629\u064C"), React.createElement("button", {
       className: "tb w",
@@ -8086,6 +8314,7 @@ function RvCards({
         sfx.bad();
         setRetry(retry.includes(open) ? retry : [...retry, open]);
         setOpen(null);
+        setBoard(false);
       }
     }, "\u270E ", G('يُصَحِّحُهَا، وَتَعُودُ الْبِطَاقَةُ', 'تُصَحِّحُهَا، وَتَعُودُ الْبِطَاقَةُ'))));
   }
@@ -8096,17 +8325,17 @@ function RvCards({
     }
   }, React.createElement("span", {
     className: "pill naskh"
-  }, "\u0627\u0644\u0644\u064F\u0651\u0639\u0652\u0628\u064E\u0629\u064F: \u0628\u0650\u0637\u064E\u0627\u0642\u064E\u0627\u062A\u064F \u0627\u0644\u0652\u0648\u064E\u0631\u064E\u0642\u064E\u0629\u0650"), React.createElement("div", {
+  }, "\u0627\u0644\u0644\u064F\u0651\u0639\u0652\u0628\u064E\u0629\u064F: \u0628\u0650\u0637\u064E\u0627\u0642\u064E\u0627\u062A\u064F \u0627\u0644\u0631\u064E\u0651\u0628\u0652\u0637\u0650"), React.createElement("div", {
     className: "naskh",
     style: {
       fontSize: 18,
       textAlign: 'center'
     }
-  }, G('اخْتَرْ بِطَاقَةً. انْظُرْ إِلَى الصُّورَةِ، وَاكْتُبْ كَلِمَتَهَا عَلَى وَرَقَتِكَ.', 'اخْتَارِي بِطَاقَةً. انْظُرِي إِلَى الصُّورَةِ، وَاكْتُبِي كَلِمَتَهَا عَلَى وَرَقَتِكِ.')), React.createElement("div", {
+  }, G('اخْتَرْ بِطَاقَةً. عَلَيْهَا أَدَاةُ رَبْطٍ. اكْتُبْ بِهَا جُمْلَةً جَدِيدَةً مِنْ عِنْدِكَ.', 'اخْتَارِي بِطَاقَةً. عَلَيْهَا أَدَاةُ رَبْطٍ. اكْتُبِي بِهَا جُمْلَةً جَدِيدَةً مِنْ عِنْدِكِ.')), React.createElement("div", {
     className: "cardgrid"
   }, order.map(k => {
     const w = won.includes(k),
-      c = R.cards[k];
+      c = R.lcards[k];
     return React.createElement("button", {
       key: k,
       className: 'fcard' + (w ? ' won' : '') + (retry.includes(k) ? ' retry' : ''),
@@ -8114,16 +8343,17 @@ function RvCards({
       onClick: () => {
         sfx.pop();
         setShown(false);
+        setBoard(false);
         setOpen(k);
       }
     }, w ? React.createElement(React.Fragment, null, React.createElement(RvPic, {
-      v: c,
-      s: 2.6
+      v: c.pic,
+      s: 2.4
     }), React.createElement("span", {
       className: "vw"
-    }, c.w)) : React.createElement("span", {
-      className: "q"
-    }, "\u061F"));
+    }, c.link)) : React.createElement("span", {
+      className: "q naskh lnkq"
+    }, c.link));
   })), React.createElement("button", {
     className: "btn ghost sm",
     onClick: onDone

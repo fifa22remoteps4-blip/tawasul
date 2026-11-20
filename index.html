@@ -764,6 +764,29 @@ button.coin:active{transform:translate(2px,2px);box-shadow:none}
 .citycard .cr{opacity:.7;font-size:13px;line-height:1.3}
 
 .parthead{font-size:24px;font-weight:800;margin:22px 4px 6px;padding:6px 14px;border-inline-start:6px solid var(--acc);color:var(--ink,inherit)}
+.gh-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.gh-pick{padding:16px 10px;border:3px solid var(--edge);border-radius:12px;background:var(--card);box-shadow:3px 3px 0 var(--edge);display:flex;flex-direction:column;align-items:center;gap:6px;font-weight:800;color:inherit}
+.gh-pick:hover{transform:translateY(-2px)}
+.gh-score{display:inline-flex;gap:6px;align-items:center;padding:5px 12px;border-radius:999px;border:2px solid var(--line);background:var(--card2);font-weight:800}
+.gh-turn{padding:6px 16px;border-radius:999px;font-weight:800;font-size:18px;border:2px solid var(--edge)}
+.gh-turn.me{background:var(--acc-soft);color:var(--acc)}.gh-turn.tch{background:#fef3c7;color:#92400e}
+.gwrap{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+@media(max-width:760px){.gwrap{grid-template-columns:1fr}}
+.gcard{display:flex;flex-direction:column;align-items:center;gap:10px;padding:14px;border:3px dashed var(--acc);border-radius:12px;background:var(--card)}
+.xo{display:grid;grid-template-columns:repeat(3,min(96px,26vw));gap:6px;justify-content:center}
+.xo button{height:min(96px,26vw);font-size:46px;font-weight:900;border:3px solid var(--edge);border-radius:10px;background:var(--card2);color:inherit}
+.xo .X{color:var(--acc)}.xo .O{color:#d97706}
+.c4{display:grid;grid-template-columns:repeat(7,min(48px,11vw));gap:5px;justify-content:center;padding:8px;background:#2a5aa0;border-radius:12px;border:3px solid var(--edge)}
+.c4 button{height:min(48px,11vw);border-radius:50%;border:2px solid rgba(0,0,0,.45);background:#e8f1ff}
+.c4 button.me{background:var(--acc)}.c4 button.tch{background:#facc15}
+.sl{display:grid;grid-template-columns:repeat(6,1fr);gap:3px;width:min(460px,100%)}
+.sl>div{aspect-ratio:1;border:2px solid var(--edge);border-radius:6px;background:var(--card2);font-size:12px;font-weight:800;padding:2px;display:flex;flex-direction:column;align-items:center;justify-content:space-between;overflow:hidden}
+.sl>div.lad{background:#bbf7d0;color:#14532d}.sl>div.snk{background:#fecaca;color:#7f1d1d}
+.mem{display:grid;grid-template-columns:repeat(4,min(104px,21vw));gap:6px;justify-content:center}
+.mem button{height:min(104px,21vw);border:3px solid var(--edge);border-radius:10px;background:var(--card);display:flex;align-items:center;justify-content:center;font-size:19px;color:inherit;overflow:hidden}
+.mem button.back{background:repeating-linear-gradient(45deg,var(--acc-soft),var(--acc-soft) 8px,var(--card2) 8px,var(--card2) 16px)}
+.mem button.got{opacity:.4}
+.parthead{font-size:24px;font-weight:800;margin:22px 4px 6px;padding:6px 14px;border-inline-start:6px solid var(--acc);color:var(--ink,inherit)}
 </style>
 </head>
 <body class="theme-girl">
@@ -11114,10 +11137,12 @@ function L1Review({
   onStudents
 }) {
   const D = useMemo(() => buildReview(rid, P, picks), [rid, P, picks, GEN]);
+  const gBank = useMemo(() => l1ReviewBank(D), [D]);
   const harvest = (picks && picks[rid] || {}).harvest || [];
   const [panel, setPanel] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [cert, setCert] = useState(false);
+  const [games, setGames] = useState(false);
   const [wrote, setWrote] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [qOpen, setQOpen] = useState(() => typeof window === 'undefined' || window.innerWidth > 720);
@@ -11234,6 +11259,12 @@ function L1Review({
       opacity: .75
     }
   }, D.fns))), React.createElement("button", {
+    className: "btn sm",
+    onClick: () => {
+      setPanel(null);
+      setGames(true);
+    }
+  }, "\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F \u0627\u0644\u0652\u0623\u064E\u0644\u0652\u0639\u064E\u0627\u0628\u0650"), React.createElement("button", {
     className: "btn ghost sm",
     onClick: () => setDrawer(true)
   }, "\u0627\u0644\u0652\u0645\u064F\u0639\u064E\u0644\u0650\u0651\u0645\u064F"))), React.createElement(L1World, {
@@ -11241,7 +11272,7 @@ function L1Review({
     C: C,
     ents: ents,
     signs: signs,
-    paused: !!panel || drawer || cert,
+    paused: !!panel || drawer || cert || games,
     onInteract: id => setPanel({
       who: id
     }),
@@ -11440,7 +11471,12 @@ function L1Review({
       setCert(false);
       onBack();
     }
-  }, "\u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0652\u0645\u064F\u062F\u064F\u0646\u0650")))), React.createElement(Toast, {
+  }, "\u0625\u0650\u0644\u064E\u0649 \u0627\u0644\u0652\u0645\u064F\u062F\u064F\u0646\u0650")))), games && React.createElement(GameHub, {
+    bank: gBank,
+    nm: plain(D.nm),
+    title: D.title,
+    onClose: () => setGames(false)
+  }), React.createElement(Toast, {
     msg: toastMsg
   }));
 }
@@ -11674,6 +11710,7 @@ function App() {
   const [panel, setPanel] = useState(null);
   const [drawer, setDrawer] = useState(false);
   const [cert, setCert] = useState(false);
+  const [games, setGames] = useState(false);
   const [toastMsg, setToastMsg] = useState('');
   const [qOpen, setQOpen] = useState(() => typeof window === 'undefined' || window.innerWidth > 720);
   const worldCtl = useRef(null);
@@ -11715,6 +11752,7 @@ function App() {
     ...(picks[5] || {})
   } : picks[numU] || {};
   const U = useMemo(() => buildUnit(numU, P, unitPicks), [numU, P, picks[3], picks[numU], GEN]);
+  const gBank = useMemo(() => l1CityBank(U), [U]);
   const done = prog[unit] || [];
   const isDone = k => done.includes(k);
   const markDone = k => setProg(p => {
@@ -12550,6 +12588,12 @@ function App() {
       gap: 6
     }
   }, React.createElement("button", {
+    className: "btn sm",
+    onClick: () => {
+      setPanel(null);
+      setGames(true);
+    }
+  }, "\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F \u0627\u0644\u0652\u0623\u064E\u0644\u0652\u0639\u064E\u0627\u0628\u0650"), React.createElement("button", {
     className: "btn ghost sm",
     onClick: () => setDrawer(true)
   }, "\u0627\u0644\u0652\u0645\u064F\u0639\u064E\u0644\u0650\u0651\u0645\u064F")))), React.createElement(L1World, {
@@ -12557,7 +12601,7 @@ function App() {
     C: C,
     ents: ents,
     signs: signs,
-    paused: !!panel || drawer || cert,
+    paused: !!panel || drawer || cert || games,
     onInteract: id => setPanel(id),
     needs: needs,
     quest: quest,
@@ -12793,9 +12837,782 @@ function App() {
       setPanel(null);
       setUnit(unit + 1);
     }
-  }, "\u0627\u0644\u0652\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F \u0627\u0644\u062A\u064E\u0651\u0627\u0644\u0650\u064A\u064E\u0629\u064F")))), React.createElement(Toast, {
+  }, "\u0627\u0644\u0652\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F \u0627\u0644\u062A\u064E\u0651\u0627\u0644\u0650\u064A\u064E\u0629\u064F")))), games && React.createElement(GameHub, {
+    bank: gBank,
+    nm: P.name,
+    title: '«' + U.t + '»',
+    onClose: () => setGames(false)
+  }), React.createElement(Toast, {
     msg: toastMsg
   }));
+}
+const GH_SAY = () => G('قُلْ', 'قُولِي');
+function l1CityBank(U) {
+  const c = [];
+  (U.rule.quiz || []).forEach(q => c.push({
+    k: 'mc',
+    v: q,
+    prompt: q.q,
+    opts: q.opts,
+    ok: q.ok
+  }));
+  U.vocab.forEach(v => c.push({
+    k: 'say',
+    v,
+    prompt: G('مَا هَذَا؟ قُلِ الْكَلِمَةَ.', 'مَا هَذَا؟ قُولِي الْكَلِمَةَ.'),
+    ans: v.w
+  }));
+  U.qa.forEach(q => c.push({
+    k: 'say',
+    prompt: q.q,
+    ans: q.a,
+    hear: true
+  }));
+  U.clinic.forEach(x => c.push({
+    k: 'say',
+    prompt: G('فِي الْجُمْلَةِ خَطَأٌ. قُلْهَا صَحِيحَةً:', 'فِي الْجُمْلَةِ خَطَأٌ. قُولِيهَا صَحِيحَةً:'),
+    bad: x.bad,
+    ans: x.good
+  }));
+  U.tower.forEach(l => c.push({
+    k: 'say',
+    v: l,
+    prompt: G('انْظُرْ إِلَى الصُّورَةِ، وَقُلِ الْجُمْلَةَ.', 'انْظُرِي إِلَى الصُّورَةِ، وَقُولِي الْجُمْلَةَ.'),
+    hint: l.key,
+    ans: l.t
+  }));
+  return {
+    cards: L1_SHUF(c),
+    pairs: L1_SHUF(U.vocab.filter(v => v.ic || v.ch || v.scene)).slice(0, 6).map(v => ({
+      v,
+      w: v.w
+    }))
+  };
+}
+function l1ReviewBank(D) {
+  const c = [];
+  D.turns.forEach(t => {
+    if (t.n && t.me.length) c.push({
+      k: 'say',
+      prompt: G('أَجِبْ:', 'أَجِيبِي:') + ' ' + plain(t.n),
+      ans: t.me.map(id => D.S[id].t).join(' '),
+      hear: true
+    });
+  });
+  D.narr.forEach(id => c.push({
+    k: 'say',
+    v: D.S[id],
+    prompt: G('انْظُرْ إِلَى الصُّورَةِ، وَقُلِ الْجُمْلَةَ.', 'انْظُرِي إِلَى الصُّورَةِ، وَقُولِي الْجُمْلَةَ.'),
+    hint: D.S[id].key,
+    ans: D.S[id].t
+  }));
+  return {
+    cards: L1_SHUF(c),
+    pairs: L1_SHUF(D.narr.map(id => D.S[id]).filter(s => s.key)).slice(0, 6).map(s => ({
+      v: s,
+      w: s.key
+    }))
+  };
+}
+function GCard({
+  card,
+  onResult
+}) {
+  const [show, setShow] = useState(false);
+  const [picked, setPicked] = useState(null);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "gcard fade"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "pill naskh"
+  }, G('سُؤَالُ التَّحَدِّي: أَجِبْ لِتَلْعَبَ', 'سُؤَالُ التَّحَدِّي: أَجِيبِي لِتَلْعَبِي')), card.v && /*#__PURE__*/React.createElement(VView, {
+    v: card.v,
+    s: 3.6
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "naskh",
+    style: {
+      fontSize: 22,
+      textAlign: 'center'
+    }
+  }, /*#__PURE__*/React.createElement(TT, {
+    text: card.prompt
+  })), card.hear && /*#__PURE__*/React.createElement(SpeakBtn, {
+    text: card.prompt,
+    label: false
+  }), card.bad && /*#__PURE__*/React.createElement("div", {
+    className: "naskh",
+    style: {
+      fontSize: 22,
+      textDecoration: 'line-through',
+      textDecorationColor: '#ef233c',
+      opacity: .85
+    }
+  }, /*#__PURE__*/React.createElement(TT, {
+    text: card.bad
+  })), card.hint && /*#__PURE__*/React.createElement("span", {
+    className: "cue naskh",
+    style: {
+      fontSize: 22
+    }
+  }, plain(card.hint)), card.k === 'mc' ? /*#__PURE__*/React.createElement("div", {
+    className: "row wrapf center",
+    style: {
+      gap: 8
+    }
+  }, card.opts.map(o => /*#__PURE__*/React.createElement("button", {
+    key: o,
+    className: 'chip naskh' + (picked === o ? ' on' : ''),
+    style: {
+      fontSize: 22
+    },
+    disabled: picked !== null,
+    onClick: () => {
+      setPicked(o);
+      const ok = o === card.ok;
+      ok ? sfx.ok() : sfx.bad();
+      setTimeout(() => onResult(ok), ok ? 450 : 900);
+    }
+  }, o))) : /*#__PURE__*/React.createElement(React.Fragment, null, show ? /*#__PURE__*/React.createElement("div", {
+    className: "say-line sm fade"
+  }, /*#__PURE__*/React.createElement(TT, {
+    text: card.ans
+  })) : /*#__PURE__*/React.createElement("button", {
+    className: "btn ghost sm",
+    onClick: () => setShow(true)
+  }, "أَظْهِرِ الْجَوَابَ (لِلْمُعَلِّمِ)"), /*#__PURE__*/React.createElement("div", {
+    className: "tbar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lbl"
+  }, "رَأْيُ الْمُعَلِّمِ:"), /*#__PURE__*/React.createElement("button", {
+    className: "tb g",
+    onClick: () => {
+      sfx.ok();
+      onResult(true);
+    }
+  }, "✓ ", G('أَجَابَ صَحِيحًا', 'أَجَابَتْ صَحِيحًا')), /*#__PURE__*/React.createElement("button", {
+    className: "tb w",
+    onClick: () => {
+      sfx.bad();
+      onResult(false);
+    }
+  }, "✗ ", G('لَمْ يُصِبْ', 'لَمْ تُصِبْ')))));
+}
+function useDeck(bank) {
+  const i = useRef(0);
+  return () => {
+    const c = bank.cards[i.current % bank.cards.length];
+    i.current++;
+    return c;
+  };
+}
+function GTurn({
+  turn,
+  nm,
+  msg
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col center",
+    style: {
+      gap: 6
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: 'gh-turn naskh ' + turn
+  }, turn === 'me' ? 'الدَّوْرُ: ' + nm : 'الدَّوْرُ: الْمُعَلِّمُ'), msg && /*#__PURE__*/React.createElement("div", {
+    className: "naskh",
+    style: {
+      fontSize: 17,
+      textAlign: 'center'
+    }
+  }, msg));
+}
+function GEnd({
+  win,
+  nm,
+  onAgain
+}) {
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col center fade",
+    style: {
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    n: win === 'me' ? 'star' : win === 'tch' ? 'flag' : 'hand',
+    s: 5
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "h2 naskh"
+  }, win === 'me' ? G('فُزْتَ يَا ', 'فُزْتِ يَا ') + nm + '!' : win === 'tch' ? 'فَازَ الْمُعَلِّمُ هَذِهِ الْمَرَّةَ!' : 'تَعَادُلٌ!'), /*#__PURE__*/React.createElement("button", {
+    className: "btn lg",
+    onClick: onAgain
+  }, "جَوْلَةٌ جَدِيدَةٌ"));
+}
+const GH_WRONG = () => G('لَمْ يُصِبْ: الدَّوْرُ لِلْمُعَلِّمِ.', 'لَمْ تُصِبْ: الدَّوْرُ لِلْمُعَلِّمِ.');
+function useTurns(onWin) {
+  const [turn, setTurn] = useState('me');
+  const [phase, setPhase] = useState('card');
+  const [msg, setMsg] = useState('');
+  const [win, setWin] = useState(null);
+  const pass = (to, m) => {
+    setTurn(to);
+    setPhase(to === 'me' ? 'card' : 'move');
+    setMsg(m || '');
+  };
+  const end = w => {
+    setWin(w);
+    onWin(w);
+    w === 'me' ? sfx.win() : sfx.ok();
+  };
+  const reset = () => {
+    setTurn('me');
+    setPhase('card');
+    setMsg('');
+    setWin(null);
+  };
+  return {
+    turn,
+    phase,
+    setPhase,
+    msg,
+    setMsg,
+    win,
+    pass,
+    end,
+    reset
+  };
+}
+function XOGame({
+  bank,
+  nm,
+  onWin
+}) {
+  const next = useDeck(bank);
+  const [b, setB] = useState(Array(9).fill(null));
+  const [card, setCard] = useState(() => next());
+  const T = useTurns(onWin);
+  const L = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+  const check = nb => {
+    for (const [a, c, d] of L) if (nb[a] && nb[a] === nb[c] && nb[a] === nb[d]) return nb[a];
+    return nb.every(Boolean) ? 'draw' : null;
+  };
+  const place = i => {
+    if (b[i] || T.win || T.phase !== 'move') return;
+    const nb = [...b];
+    nb[i] = T.turn;
+    setB(nb);
+    sfx.pop();
+    const w = check(nb);
+    if (w) return T.end(w);
+    if (T.turn === 'me') T.pass('tch', 'الْآنَ يَلْعَبُ الْمُعَلِّمُ: يَنْقُرُ مُرَبَّعًا.');else {
+      setCard(next());
+      T.pass('me');
+    }
+  };
+  const again = () => {
+    setB(Array(9).fill(null));
+    setCard(next());
+    T.reset();
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "gwrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col center",
+    style: {
+      gap: 10
+    }
+  }, T.win ? /*#__PURE__*/React.createElement(GEnd, {
+    win: T.win,
+    nm: nm,
+    onAgain: again
+  }) : /*#__PURE__*/React.createElement(GTurn, {
+    turn: T.turn,
+    nm: nm,
+    msg: T.msg || (T.turn === 'me' && T.phase === 'move' ? G('أَحْسَنْتَ! اخْتَرْ مُرَبَّعًا.', 'أَحْسَنْتِ! اخْتَارِي مُرَبَّعًا.') : '')
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "xo"
+  }, b.map((x, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    className: x === 'me' ? 'X' : x === 'tch' ? 'O' : '',
+    onClick: () => place(i)
+  }, x === 'me' ? '✕' : x === 'tch' ? '◯' : ''))), /*#__PURE__*/React.createElement("div", {
+    className: "small naskh",
+    style: {
+      opacity: .8
+    }
+  }, "✕ ", nm, " · ◯ الْمُعَلِّمُ")), !T.win && T.turn === 'me' && T.phase === 'card' && /*#__PURE__*/React.createElement(GCard, {
+    key: b.join() + T.turn,
+    card: card,
+    onResult: ok => ok ? T.setPhase('move') : (setCard(next()), T.pass('tch', GH_WRONG()))
+  }));
+}
+function C4Game({
+  bank,
+  nm,
+  onWin
+}) {
+  const R = 6,
+    Cn = 7;
+  const next = useDeck(bank);
+  const [b, setB] = useState(Array(R * Cn).fill(null));
+  const [card, setCard] = useState(() => next());
+  const T = useTurns(onWin);
+  const at = (r, c) => r >= 0 && r < R && c >= 0 && c < Cn ? b2[r * Cn + c] : null;
+  let b2 = b;
+  const won = (nb, r, c, who) => {
+    b2 = nb;
+    return [[0, 1], [1, 0], [1, 1], [1, -1]].some(([dr, dc]) => {
+      let n = 1;
+      for (const s of [1, -1]) {
+        let k = 1;
+        while (at(r + dr * k * s, c + dc * k * s) === who) {
+          n++;
+          k++;
+        }
+      }
+      return n >= 4;
+    });
+  };
+  const drop = c => {
+    if (T.win || T.phase !== 'move') return;
+    let r = R - 1;
+    while (r >= 0 && b[r * Cn + c]) r--;
+    if (r < 0) return;
+    const nb = [...b];
+    nb[r * Cn + c] = T.turn;
+    setB(nb);
+    sfx.pop();
+    if (won(nb, r, c, T.turn)) return T.end(T.turn);
+    if (nb.every(Boolean)) return T.end('draw');
+    if (T.turn === 'me') T.pass('tch', 'الْآنَ يَلْعَبُ الْمُعَلِّمُ: يَنْقُرُ عَمُودًا.');else {
+      setCard(next());
+      T.pass('me');
+    }
+  };
+  const again = () => {
+    setB(Array(R * Cn).fill(null));
+    setCard(next());
+    T.reset();
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: "gwrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col center",
+    style: {
+      gap: 10
+    }
+  }, T.win ? /*#__PURE__*/React.createElement(GEnd, {
+    win: T.win,
+    nm: nm,
+    onAgain: again
+  }) : /*#__PURE__*/React.createElement(GTurn, {
+    turn: T.turn,
+    nm: nm,
+    msg: T.msg || (T.turn === 'me' && T.phase === 'move' ? G('أَحْسَنْتَ! اخْتَرْ عَمُودًا.', 'أَحْسَنْتِ! اخْتَارِي عَمُودًا.') : '')
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "c4"
+  }, b.map((x, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    className: x || '',
+    onClick: () => drop(i % Cn),
+    "aria-label": 'عمود ' + (i % Cn + 1)
+  }))), /*#__PURE__*/React.createElement("div", {
+    className: "small naskh",
+    style: {
+      opacity: .8
+    }
+  }, G('أَرْبَعٌ فِي خَطٍّ وَاحِدٍ تَرْبَحُ', 'أَرْبَعٌ فِي خَطٍّ وَاحِدٍ تَرْبَحُ'), " · ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: 'var(--acc)'
+    }
+  }, "●"), " ", nm, " · ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: '#eab308'
+    }
+  }, "●"), " الْمُعَلِّمُ")), !T.win && T.turn === 'me' && T.phase === 'card' && /*#__PURE__*/React.createElement(GCard, {
+    key: b.filter(Boolean).length + T.turn,
+    card: card,
+    onResult: ok => ok ? T.setPhase('move') : (setCard(next()), T.pass('tch', GH_WRONG()))
+  }));
+}
+const SL_JUMP = {
+  3: 11,
+  8: 16,
+  13: 22,
+  19: 27,
+  14: 4,
+  21: 10,
+  25: 17,
+  29: 20
+};
+function SLGame({
+  bank,
+  nm,
+  onWin
+}) {
+  const next = useDeck(bank);
+  const [pos, setPos] = useState({
+    me: 0,
+    tch: 0
+  });
+  const [die, setDie] = useState(null);
+  const [card, setCard] = useState(() => next());
+  const T = useTurns(onWin);
+  const roll = () => {
+    if (T.win || T.phase !== 'move') return;
+    const d = 1 + Math.floor(Math.random() * 6);
+    setDie(d);
+    sfx.pop();
+    let p = Math.min(30, pos[T.turn] + d);
+    let note = '';
+    if (SL_JUMP[p]) {
+      note = SL_JUMP[p] > p ? 'سُلَّمٌ! صَعِدَ إِلَى ' + L1_AR(SL_JUMP[p]) : 'ثُعْبَانٌ! نَزَلَ إِلَى ' + L1_AR(SL_JUMP[p]);
+      p = SL_JUMP[p];
+    }
+    const np = {
+      ...pos,
+      [T.turn]: p
+    };
+    setPos(np);
+    if (p >= 30) return T.end(T.turn);
+    if (T.turn === 'me') T.pass('tch', (note ? note + ' · ' : '') + 'الْآنَ يَرْمِي الْمُعَلِّمُ النَّرْدَ.');else {
+      setCard(next());
+      T.pass('me', note);
+    }
+  };
+  const again = () => {
+    setPos({
+      me: 0,
+      tch: 0
+    });
+    setDie(null);
+    setCard(next());
+    T.reset();
+  };
+  const cells = [];
+  for (let row = 4; row >= 0; row--) {
+    const r = [];
+    for (let k = 0; k < 6; k++) r.push(row * 6 + (row % 2 ? 6 - k : k + 1));
+    cells.push(...r);
+  }
+  return /*#__PURE__*/React.createElement("div", {
+    className: "gwrap"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "col center",
+    style: {
+      gap: 10
+    }
+  }, T.win ? /*#__PURE__*/React.createElement(GEnd, {
+    win: T.win,
+    nm: nm,
+    onAgain: again
+  }) : /*#__PURE__*/React.createElement(GTurn, {
+    turn: T.turn,
+    nm: nm,
+    msg: T.msg
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "sl"
+  }, cells.map(n => {
+    const j = SL_JUMP[n];
+    return /*#__PURE__*/React.createElement("div", {
+      key: n,
+      className: j ? j > n ? 'lad' : 'snk' : ''
+    }, /*#__PURE__*/React.createElement("span", null, L1_AR(n)), j && /*#__PURE__*/React.createElement("span", {
+      style: {
+        fontSize: 10
+      }
+    }, j > n ? '↑ ' : '↓ ', L1_AR(j)), /*#__PURE__*/React.createElement("span", {
+      className: "row",
+      style: {
+        gap: 1
+      }
+    }, pos.me === n && /*#__PURE__*/React.createElement(CharImg, {
+      def: G(L1CH.boy, L1CH.girl),
+      s: 1.1
+    }), pos.tch === n && /*#__PURE__*/React.createElement(CharImg, {
+      def: G(L1CH.teacherM, L1CH.teacherF),
+      s: .9
+    })));
+  })), /*#__PURE__*/React.createElement("div", {
+    className: "row center",
+    style: {
+      gap: 10
+    }
+  }, die && /*#__PURE__*/React.createElement("span", {
+    className: "cue naskh",
+    style: {
+      fontSize: 26
+    }
+  }, L1_AR(die)), !T.win && T.phase === 'move' && /*#__PURE__*/React.createElement("button", {
+    className: "btn lg",
+    onClick: roll
+  }, T.turn === 'me' ? G('ارْمِ النَّرْدَ', 'ارْمِي النَّرْدَ') : 'يَرْمِي الْمُعَلِّمُ النَّرْدَ')), /*#__PURE__*/React.createElement("div", {
+    className: "small naskh",
+    style: {
+      opacity: .8
+    }
+  }, G('مَنْ يَصِلُ إِلَى ٣٠ أَوَّلًا يَرْبَحُ', 'مَنْ يَصِلُ إِلَى ٣٠ أَوَّلًا يَرْبَحُ'), pos.me === 0 ? ' · ' + nm + ' عِنْدَ الْبِدَايَةِ' : '')), !T.win && T.turn === 'me' && T.phase === 'card' && /*#__PURE__*/React.createElement(GCard, {
+    key: pos.me + '-' + pos.tch,
+    card: card,
+    onResult: ok => ok ? T.setPhase('move') : (setCard(next()), T.pass('tch', GH_WRONG()))
+  }));
+}
+function MemGame({
+  bank,
+  nm,
+  onWin
+}) {
+  const mk = () => L1_SHUF([].concat(...bank.pairs.map((p, i) => [{
+    id: i + 'p',
+    pair: i,
+    pic: 1,
+    p
+  }, {
+    id: i + 'w',
+    pair: i,
+    pic: 0,
+    p
+  }])));
+  const [cards, setCards] = useState(mk);
+  const [open, setOpen] = useState([]);
+  const [got, setGot] = useState({});
+  const [confirm, setConfirm] = useState(null);
+  const T = useTurns(onWin);
+  const [sc, setSc] = useState({
+    me: 0,
+    tch: 0
+  });
+  const finish = (ng, ns) => {
+    if (Object.keys(ng).length === bank.pairs.length) T.end(ns.me > ns.tch ? 'me' : ns.tch > ns.me ? 'tch' : 'draw');
+  };
+  const flip = c => {
+    if (T.win || confirm !== null || open.length === 2 || got[c.pair] !== undefined || open.includes(c.id)) return;
+    sfx.pop();
+    const no = [...open, c.id];
+    setOpen(no);
+    if (no.length < 2) return;
+    const [a, b] = no.map(id => cards.find(x => x.id === id));
+    if (a.pair === b.pair) {
+      if (T.turn === 'me') setConfirm(a.pair);else {
+        const ng = {
+            ...got,
+            [a.pair]: 'tch'
+          },
+          ns = {
+            ...sc,
+            tch: sc.tch + 1
+          };
+        setGot(ng);
+        setSc(ns);
+        setOpen([]);
+        finish(ng, ns);
+      }
+    } else setTimeout(() => {
+      setOpen([]);
+      T.pass(T.turn === 'me' ? 'tch' : 'me', T.turn === 'me' ? 'الْآنَ يَقْلِبُ الْمُعَلِّمُ بِطَاقَتَيْنِ.' : '');
+      T.setPhase('move');
+    }, 1000);
+  };
+  const judge = ok => {
+    const p = confirm;
+    setConfirm(null);
+    setOpen([]);
+    if (ok) {
+      sfx.ok();
+      const ng = {
+          ...got,
+          [p]: 'me'
+        },
+        ns = {
+          ...sc,
+          me: sc.me + 1
+        };
+      setGot(ng);
+      setSc(ns);
+      finish(ng, ns);
+    } else {
+      sfx.bad();
+      T.pass('tch', GH_WRONG());
+      T.setPhase('move');
+    }
+  };
+  const again = () => {
+    setCards(mk());
+    setOpen([]);
+    setGot({});
+    setConfirm(null);
+    setSc({
+      me: 0,
+      tch: 0
+    });
+    T.reset();
+    T.setPhase('move');
+  };
+  useEffect(() => {
+    T.setPhase('move');
+  }, []);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col center",
+    style: {
+      gap: 10
+    }
+  }, T.win ? /*#__PURE__*/React.createElement(GEnd, {
+    win: T.win,
+    nm: nm,
+    onAgain: again
+  }) : /*#__PURE__*/React.createElement(GTurn, {
+    turn: T.turn,
+    nm: nm,
+    msg: T.msg || (T.turn === 'me' ? G('اقْلِبْ بِطَاقَتَيْنِ: صُورَةً وَكَلِمَتَهَا.', 'اقْلِبِي بِطَاقَتَيْنِ: صُورَةً وَكَلِمَتَهَا.') : '')
+  }), /*#__PURE__*/React.createElement("div", {
+    className: "gh-score naskh"
+  }, nm, ": ", L1_AR(sc.me), " · الْمُعَلِّمُ: ", L1_AR(sc.tch)), confirm !== null && /*#__PURE__*/React.createElement("div", {
+    className: "gcard fade"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "naskh",
+    style: {
+      fontSize: 20
+    }
+  }, G('وَجَدْتَ زَوْجًا! قُلِ الْكَلِمَةَ بِصَوْتٍ عَالٍ لِتَأْخُذَهُ.', 'وَجَدْتِ زَوْجًا! قُولِي الْكَلِمَةَ بِصَوْتٍ عَالٍ لِتَأْخُذِيهِ.')), /*#__PURE__*/React.createElement("div", {
+    className: "tbar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lbl"
+  }, "رَأْيُ الْمُعَلِّمِ:"), /*#__PURE__*/React.createElement("button", {
+    className: "tb g",
+    onClick: () => judge(true)
+  }, "✓ ", G('قَالَهَا صَحِيحَةً', 'قَالَتْهَا صَحِيحَةً')), /*#__PURE__*/React.createElement("button", {
+    className: "tb w",
+    onClick: () => judge(false)
+  }, "✗ ", G('لَمْ يُصِبْ', 'لَمْ تُصِبْ')))), /*#__PURE__*/React.createElement("div", {
+    className: "mem"
+  }, cards.map(c => {
+    const up = open.includes(c.id) || got[c.pair] !== undefined;
+    return /*#__PURE__*/React.createElement("button", {
+      key: c.id,
+      className: (up ? '' : 'back') + (got[c.pair] !== undefined ? ' got' : ''),
+      onClick: () => flip(c)
+    }, up ? c.pic ? /*#__PURE__*/React.createElement(VView, {
+      v: c.p.v,
+      s: 2.6
+    }) : /*#__PURE__*/React.createElement("span", {
+      className: "naskh"
+    }, plain(c.p.w)) : null);
+  })));
+}
+const GH_GAMES = [{
+  k: 'xo',
+  t: 'إِكْس أُو',
+  ic: 'star',
+  d: 'ثَلَاثَةٌ فِي خَطٍّ'
+}, {
+  k: 'c4',
+  t: 'أَرْبَعَةٌ تَرْبَحُ',
+  ic: 'flag',
+  d: 'أَرْبَعٌ فِي خَطٍّ'
+}, {
+  k: 'sl',
+  t: 'السُّلَّمُ وَالثُّعْبَانُ',
+  ic: 'arrowL',
+  d: 'أَوَّلُ مَنْ يَصِلُ ٣٠'
+}, {
+  k: 'mem',
+  t: 'الذَّاكِرَةُ',
+  ic: 'question',
+  d: 'صُورَةٌ وَكَلِمَتُهَا'
+}];
+function GameHub({
+  bank,
+  nm,
+  title,
+  onClose
+}) {
+  const [g, setG] = useState(null);
+  const [score, setScore] = useState({
+    me: 0,
+    tch: 0
+  });
+  const onWin = w => setScore(s => w === 'me' ? {
+    ...s,
+    me: s.me + 1
+  } : w === 'tch' ? {
+    ...s,
+    tch: s.tch + 1
+  } : s);
+  const games = GH_GAMES.filter(x => x.k !== 'mem' || bank.pairs.length >= 3);
+  const cur = GH_GAMES.find(x => x.k === g);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "panel-bg"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "panel fade col",
+    style: {
+      gap: 12,
+      maxWidth: 1080
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "row between wrapf",
+    style: {
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", {
+    className: "h2 naskh"
+  }, "مَدِينَةُ الْأَلْعَابِ", cur ? ' · ' + cur.t : ''), /*#__PURE__*/React.createElement("div", {
+    className: "small naskh",
+    style: {
+      opacity: .75
+    }
+  }, G('تَحَدٍّ بَيْنَكَ وَبَيْنَ الْمُعَلِّمِ بِأَسْئِلَةِ ', 'تَحَدٍّ بَيْنَكِ وَبَيْنَ الْمُعَلِّمِ بِأَسْئِلَةِ '), title)), /*#__PURE__*/React.createElement("div", {
+    className: "row",
+    style: {
+      gap: 8
+    }
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "gh-score naskh"
+  }, nm, " ", L1_AR(score.me), " : ", L1_AR(score.tch), " الْمُعَلِّمُ"), g && /*#__PURE__*/React.createElement("button", {
+    className: "btn ghost sm",
+    onClick: () => setG(null)
+  }, "أَلْعَابٌ أُخْرَى"), /*#__PURE__*/React.createElement("button", {
+    className: "btn sm",
+    onClick: onClose
+  }, "عَوْدَةٌ إِلَى الْمَدِينَةِ"))), !g && /*#__PURE__*/React.createElement("div", {
+    className: "gh-grid"
+  }, games.map(x => /*#__PURE__*/React.createElement("button", {
+    key: x.k,
+    className: "gh-pick naskh",
+    onClick: () => {
+      sfx.pop();
+      setG(x.k);
+    }
+  }, /*#__PURE__*/React.createElement(Icon, {
+    n: x.ic,
+    s: 5
+  }), /*#__PURE__*/React.createElement("span", {
+    style: {
+      fontSize: 20
+    }
+  }, x.t), /*#__PURE__*/React.createElement("span", {
+    className: "small",
+    style: {
+      opacity: .75
+    }
+  }, x.d)))), !g && /*#__PURE__*/React.createElement("div", {
+    className: "naskh small",
+    style: {
+      textAlign: 'center',
+      opacity: .8
+    }
+  }, G('قَبْلَ كُلِّ حَرَكَةٍ سُؤَالٌ مِنَ الدَّرْسِ: إِنْ أَجَبْتَ صَحِيحًا لَعِبْتَ، وَإِلَّا صَارَ الدَّوْرُ لِلْمُعَلِّمِ.', 'قَبْلَ كُلِّ حَرَكَةٍ سُؤَالٌ مِنَ الدَّرْسِ: إِنْ أَجَبْتِ صَحِيحًا لَعِبْتِ، وَإِلَّا صَارَ الدَّوْرُ لِلْمُعَلِّمِ.')), g === 'xo' && /*#__PURE__*/React.createElement(XOGame, {
+    bank: bank,
+    nm: nm,
+    onWin: onWin
+  }), g === 'c4' && /*#__PURE__*/React.createElement(C4Game, {
+    bank: bank,
+    nm: nm,
+    onWin: onWin
+  }), g === 'sl' && /*#__PURE__*/React.createElement(SLGame, {
+    bank: bank,
+    nm: nm,
+    onWin: onWin
+  }), g === 'mem' && /*#__PURE__*/React.createElement(MemGame, {
+    bank: bank,
+    nm: nm,
+    onWin: onWin
+  })));
 }
 class Boundary extends React.Component {
   constructor(p) {

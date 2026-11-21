@@ -2411,6 +2411,16 @@ const L1_SCENES = {
     arrowL: ic({
       y: '#f59e0b'
     }, arrowR.map(r => r.split('').reverse().join(''))),
+    brush: ic({
+      b: '#3a7bd5',
+      w: '#ffffff',
+      m: '#7dd3fc'
+    }, ["............", ".........ww.", "........wmw.", ".......owwo.", "......obo...", ".....obo....", "....obo.....", "...obo......", "..obo.......", ".obo........", ".oo........."]),
+    tv: ic({
+      g: '#334155',
+      s: '#38bdf8',
+      f: '#22c55e'
+    }, ["...o....o...", "....o..o....", ".oooooooooo.", ".ogggggggggo", ".ogsssssssgo", ".ogsffsssfgo", ".ogsssffssgo", ".ogsssssssgo", ".ogggggggggo", ".oooooooooo.", "...oo..oo..."]),
     board: ic({
       g: '#2f6f4f',
       w: '#ffffff'
@@ -2509,10 +2519,14 @@ const L1_SCENES = {
       flip: 1
     }), I('heart', .7, .2, .3)]],
     eid: [[I('moon', .3, .35, .5), I('gift', .7, .9, .6)], [I('moon', .3, .35, .5), I('star', .55, .2, .3), I('gift', .7, .9, .6)], [I('moon', .3, .35, .5), I('star', .55, .2, .3), I('star', .8, .3, .3), I('gift', .7, .9, .6)]],
+    early: [[I('moon', .75, .35, .4), B(.3)], [I('sun', .75, .55, .45), B(.3)], [I('sun', .75, .3, .5), B(.3), I('star', .3, .25, .3)]],
+    brush: [[B(.5), I('brush', .62, .5, .35)], [B(.5), I('brush', .58, .45, .35)], [B(.5), I('brush', .62, .5, .35), I('star', .4, .3, .25)]],
+    bakery: [[I('market', .78, .92, 1), C('father', .2), B(.35)], [I('market', .78, .92, 1), C('father', .42), B(.55)], [I('market', .78, .92, 1), C('father', .5), B(.62), I('bread', .62, .45, .4)]],
+    team: [[B(.2), C('zaid', .45), C('brother', .7), I('ball', .3, .92, .35)], [B(.2), C('zaid', .45), C('brother', .7), I('ball', .55, .7, .35)], [B(.2), C('zaid', .45), C('brother', .7), I('ball', .85, .92, .35), I('star', .5, .2, .3)]],
     clean: [[I('shirt', .5, .88, .9)], [I('shirt', .5, .88, .9), I('star', .3, .3, .3)], [I('shirt', .5, .88, .9), I('star', .3, .3, .3), I('star', .72, .25, .3)]]
   });
 })();
-const L1_PARTS = {
+const L1_PARTS = typeof L1_ONLY !== 'undefined' ? {} : {
   1: 'الْجُزْءُ الْأَوَّلُ',
   4: 'الْجُزْءُ الثَّانِي'
 };
@@ -2728,7 +2742,27 @@ const L1_GROUPS = [{
   cities: [],
   review: 'rZ'
 }];
+if (typeof L1_ONLY !== 'undefined') {
+  L1_META.splice(0, L1_META.length, {
+    n: L1_ONLY,
+    icon: 'sun',
+    color: '#c98a12',
+    grp: 1
+  });
+  L1_GROUPS.splice(0, L1_GROUPS.length, {
+    n: 1,
+    t: 'دَرْسٌ اسْتِثْنَائِيٌّ',
+    cities: [L1_ONLY],
+    review: null
+  });
+}
 function l1Title(n) {
+  if (n === 101) return {
+    t: 'يَوْمِي بِالْفُصْحَى',
+    fn: 'أَحْكِي يَوْمِي بِالْفُصْحَى، لَا بِالْعَامِّيَّةِ',
+    val: 'تَنْظِيمُ الْوَقْتِ وَالصَّلَاةُ فِي وَقْتِهَا',
+    rule: 'الْفِعْلُ يَبْدَأُ بِـ«أَ» لَا بِـ«بْـ»'
+  };
   return [null, {
     t: 'السَّلَامُ',
     fn: 'أُسَلِّمُ وَأَرُدُّ التَّحِيَّةَ',
@@ -2895,7 +2929,12 @@ function buildUnit(n, P, picks) {
   const age = AGES[P.age] || AGES[9];
   const C = l1Country(P.country);
   const hb = G('يَا حَبِيبِي', 'يَا حَبِيبَتِي');
-  const meta = L1_META[n - 1],
+  const meta = L1_META.find(m => m.n === n) || {
+      n,
+      icon: 'sun',
+      color: '#c98a12',
+      grp: 1
+    },
     ttl = l1Title(n);
   const U = {
     ...meta,
@@ -5712,6 +5751,184 @@ function buildUnit(n, P, picks) {
     };
     U.tower = [0, 2, 4, 5].map(i => U.lines[i]);
   }
+  if (n === 101) {
+    U.host = {
+      name: 'يُوسُفُ مِنَ الْمَغْرِبِ',
+      gen: 'يُوسُفَ',
+      char: L1CH.newFriendM,
+      at: [20, 11],
+      intro: `أَهْلًا يَا ${NM}! أَنَا يُوسُفُ مِنَ الْمَغْرِبِ. لَا أَفْهَمُ لَهْجَتَكَ، وَأَنْتَ لَا تَفْهَمُ لَهْجَتِي، فَلْنَتَكَلَّمْ بِالْفُصْحَى. احْكِ لِي يَوْمَكَ! اقْرَأْ أَوَّلًا.`,
+      final: 'الْآنَ احْكِ لِي يَوْمَكَ كُلَّهُ بِالْفُصْحَى، مِنَ الصَّبَاحِ إِلَى اللَّيْلِ.'
+    };
+    U.vocab = [{
+      w: 'أَصْحُو',
+      scene: 'wake'
+    }, {
+      w: 'مُبَكِّرًا',
+      scene: 'early'
+    }, {
+      w: 'أُنَظِّفُ',
+      scene: 'brush'
+    }, {
+      w: 'أَسْنَانٌ',
+      ic: 'brush'
+    }, {
+      w: 'مَخْبَزٌ',
+      scene: 'bakery'
+    }, {
+      w: 'فُطُورٌ',
+      ic: 'food'
+    }, {
+      w: 'فَرِيقٌ',
+      scene: 'team'
+    }, {
+      w: 'أُشَاهِدُ',
+      ic: 'tv'
+    }, {
+      w: 'مُبَارَاةٌ',
+      ic: 'tv'
+    }, {
+      w: 'صَلَاةُ الْعِشَاءِ',
+      scene: 'pray'
+    }];
+    U.lines = [{
+      t: 'فِي الصَّبَاحِ أَصْحُو مُبَكِّرًا.',
+      key: 'أَصْحُو',
+      scene: 'wake'
+    }, {
+      t: 'ثُمَّ أُنَظِّفُ أَسْنَانِي.',
+      key: 'أُنَظِّفُ',
+      scene: 'brush'
+    }, {
+      t: 'ثُمَّ أَذْهَبُ مَعَ أَبِي إِلَى الْمَخْبَزِ.',
+      key: 'الْمَخْبَزِ',
+      scene: 'bakery'
+    }, {
+      t: 'ثُمَّ آكُلُ فُطُورِي.',
+      key: 'فُطُورِي',
+      ic: 'food'
+    }, {
+      t: 'ثُمَّ أَذْهَبُ لِكَيْ أَلْعَبَ كُرَةَ الْقَدَمِ مَعَ فَرِيقِي.',
+      key: 'فَرِيقِي',
+      scene: 'team'
+    }, {
+      t: 'ثُمَّ أَرْجِعُ إِلَى الْبَيْتِ، وَأَلْعَبُ مَعَ أَخِي لُعْبَةَ «فِيفَا».',
+      key: 'أَرْجِعُ',
+      ic: 'gamepad'
+    }, {
+      t: 'بَعْدَ الْعَصْرِ آكُلُ، وَأُشَاهِدُ مُبَارَاةَ رِيَالْ مَدْرِيدْ.',
+      key: 'أُشَاهِدُ',
+      ic: 'tv'
+    }, {
+      t: 'فِي الْمَسَاءِ آكُلُ شَيْئًا بَسِيطًا جِدًّا.',
+      key: 'بَسِيطًا',
+      ic: 'moon'
+    }, {
+      t: 'بَعْدَ ذَلِكَ أُصَلِّي صَلَاةَ الْعِشَاءِ.',
+      key: 'الْعِشَاءِ',
+      scene: 'pray'
+    }, {
+      t: 'ثُمَّ أُنَظِّفُ أَسْنَانِي، وَأَنَامُ.',
+      key: 'أَنَامُ',
+      scene: 'sleep'
+    }];
+    U.other = {
+      0: 'وَأَنَا أَصْحُو مُبَكِّرًا أَيْضًا!',
+      2: 'مَا أَجْمَلَ رَائِحَةَ الْخُبْزِ فِي الصَّبَاحِ!',
+      4: 'تُحِبُّ كُرَةَ الْقَدَمِ؟ وَأَنَا كَذَلِكَ!',
+      6: 'وَأَنَا أُشَجِّعُ رِيَالْ مَدْرِيدْ أَيْضًا!',
+      9: 'تُصْبِحُ عَلَى خَيْرٍ يَا صَدِيقِي!'
+    };
+    U.templates = ['فِي الصَّبَاحِ …', 'ثُمَّ …', 'بَعْدَ ذَلِكَ …', 'بَعْدَ الْعَصْرِ …', 'فِي الْمَسَاءِ …'];
+    U.tiles = [['فِي', 'الصَّبَاحِ', 'أَصْحُو', 'مُبَكِّرًا.'], ['ثُمَّ', 'أَذْهَبُ', 'مَعَ', 'أَبِي', 'إِلَى', 'الْمَخْبَزِ.']];
+    U.rule = {
+      title: 'فِي الْفُصْحَى يَبْدَأُ الْفِعْلُ بِـ«أَ»، لَا بِـ«بْـ»',
+      cols: ['بِالْعَامِّيَّةِ', 'بِالْفُصْحَى'],
+      rows: [['بَصْحَى بَكِّير', 'أَصْحُو مُبَكِّرًا'], ['بَغْسِلْ سْنَانِي', 'أُنَظِّفُ أَسْنَانِي'], ['بْرُوحْ مَعْ بَابَا عَالْفُرْن', 'أَذْهَبُ مَعَ أَبِي إِلَى الْمَخْبَزِ'], ['بَلْعَبْ فُوتْبُولْ', 'أَلْعَبُ كُرَةَ الْقَدَمِ'], ['بَتْفَرَّجْ عَالْمَاتْش', 'أُشَاهِدُ الْمُبَارَاةَ'], ['بْنَامْ', 'أَنَامُ']],
+      note: 'فِي الْعَامِّيَّةِ نَضَعُ «بْـ» قَبْلَ الْفِعْلِ: بْرُوحْ. وَفِي الْفُصْحَى يَبْدَأُ الْفِعْلُ الَّذِي أَقُولُهُ عَنْ نَفْسِي بِـ«أَ»: أَذْهَبُ، أَلْعَبُ، أَنَامُ. وَنُبَدِّلُ الْكَلِمَةَ الْعَامِّيَّةَ بِكَلِمَةٍ فَصِيحَةٍ: مَاتْش ← مُبَارَاةٌ. وَنَرْبِطُ الْأَحْدَاثَ بِـ: ثُمَّ، وَبَعْدَ ذَلِكَ.',
+      quiz: [{
+        scene: 'wake',
+        q: 'بَصْحَى بَكِّير ← بِالْفُصْحَى: …',
+        opts: ['أَصْحُو مُبَكِّرًا', 'بَصْحُو مُبَكِّرًا'],
+        ok: 'أَصْحُو مُبَكِّرًا'
+      }, {
+        scene: 'bakery',
+        q: 'عَالْفُرْن ← بِالْفُصْحَى: …',
+        opts: ['إِلَى الْمَخْبَزِ', 'عَلَى الْفُرْنِ'],
+        ok: 'إِلَى الْمَخْبَزِ'
+      }, {
+        ic: 'tv',
+        q: 'بَتْفَرَّجْ عَالْمَاتْش ← …',
+        opts: ['أُشَاهِدُ الْمُبَارَاةَ', 'أَتَفَرَّجُ الْمَاتْشَ'],
+        ok: 'أُشَاهِدُ الْمُبَارَاةَ'
+      }, {
+        scene: 'sleep',
+        q: 'أُصَلِّي الْعِشَاءَ، … أَنَامُ.',
+        opts: ['ثُمَّ', 'بَسْ'],
+        ok: 'ثُمَّ'
+      }]
+    };
+    U.write = {
+      para: true,
+      words: [],
+      word: 'فِقْرَةُ يَوْمِي',
+      letters: [],
+      sentence: 'فِي الصَّبَاحِ أَصْحُو مُبَكِّرًا، ثُمَّ أُنَظِّفُ أَسْنَانِي.',
+      model: U.lines.map(l => l.t).join(' ')
+    };
+    U.clinic = [{
+      bad: 'بَصْحَى بَكِّير.',
+      good: 'أَصْحُو مُبَكِّرًا.',
+      why: 'بِالْفُصْحَى: أَصْحُو مُبَكِّرًا'
+    }, {
+      bad: 'بْرُوحْ مَعْ بَابَا عَالْفُرْن.',
+      good: 'أَذْهَبُ مَعَ أَبِي إِلَى الْمَخْبَزِ.',
+      why: 'بْرُوحْ ← أَذْهَبُ · بَابَا ← أَبِي'
+    }, {
+      bad: 'بَلْعَبْ فُوتْبُولْ مَعْ فَرِيقِي.',
+      good: 'أَلْعَبُ كُرَةَ الْقَدَمِ مَعَ فَرِيقِي.',
+      why: 'فُوتْبُولْ ← كُرَةُ الْقَدَمِ'
+    }, {
+      bad: 'بَتْفَرَّجْ عَالْمَاتْش.',
+      good: 'أُشَاهِدُ الْمُبَارَاةَ.',
+      why: 'مَاتْش ← مُبَارَاةٌ'
+    }, {
+      bad: 'بَاكُلْ شِي خَفِيف كْتِير.',
+      good: 'آكُلُ شَيْئًا بَسِيطًا جِدًّا.',
+      why: 'شِي ← شَيْئًا · كْتِير ← جِدًّا'
+    }];
+    U.qa = [{
+      q: 'مَتَى تَصْحُو؟',
+      qc: 'تَصْحُو',
+      a: 'أَصْحُو مُبَكِّرًا فِي الصَّبَاحِ.',
+      ac: 'أَصْحُو'
+    }, {
+      q: 'إِلَى أَيْنَ تَذْهَبُ مَعَ أَبِيكَ؟',
+      qc: 'أَبِيكَ',
+      a: 'أَذْهَبُ مَعَ أَبِي إِلَى الْمَخْبَزِ.',
+      ac: 'الْمَخْبَزِ'
+    }, {
+      q: 'مَعَ مَنْ تَلْعَبُ كُرَةَ الْقَدَمِ؟',
+      qc: 'تَلْعَبُ',
+      a: 'أَلْعَبُ كُرَةَ الْقَدَمِ مَعَ فَرِيقِي.',
+      ac: 'فَرِيقِي'
+    }, {
+      q: 'مَاذَا تُشَاهِدُ بَعْدَ الْعَصْرِ؟',
+      qc: 'تُشَاهِدُ',
+      a: 'أُشَاهِدُ مُبَارَاةَ رِيَالْ مَدْرِيدْ.',
+      ac: 'أُشَاهِدُ'
+    }, {
+      q: 'مَاذَا تَفْعَلُ قَبْلَ أَنْ تَنَامَ؟',
+      qc: 'قَبْلَ',
+      a: 'أُصَلِّي صَلَاةَ الْعِشَاءِ، ثُمَّ أُنَظِّفُ أَسْنَانِي.',
+      ac: 'أُصَلِّي'
+    }];
+    U.ask = {
+      say: 'يَا جَدِّي، مَاذَا تَفْعَلُ فِي الصَّبَاحِ؟',
+      reply: 'أَصْحُو لِصَلَاةِ الْفَجْرِ، ثُمَّ أَمْشِي قَلِيلًا، يَا حَبِيبِي.'
+    };
+    U.tower = U.lines;
+  }
   if (!U.tower) U.tower = U.lines.slice(0, Math.min(4, U.lines.length));
   if (U.write && !U.write.words) U.write.words = [{
     word: U.write.word,
@@ -5775,6 +5992,7 @@ function buildUnit(n, P, picks) {
       intro: G(`تَعَالَ يَا ${NM}! أَسْأَلُكَ، وَأَنْتَ تُجِيبُ. ثُمَّ اسْأَلْنِي أَنْتَ.`, `تَعَالَيْ يَا ${NM}! أَسْأَلُكِ، وَأَنْتِ تُجِيبِينَ. ثُمَّ اسْأَلِينِي أَنْتِ.`)
     }
   };
+  if (U.write && U.write.para) U.npcs.write.intro = 'أَهْلًا! الْيَوْمَ تَكْتُبُ يَوْمَكَ كُلَّهُ فِي فِقْرَةٍ وَاحِدَةٍ بِالْفُصْحَى. اكْتُبْ عَلَى وَرَقَتِكَ، ثُمَّ أَرِهَا لِلْمُعَلِّمِ.';
   return U;
 }
 function CueText({
@@ -6923,8 +7141,58 @@ function TowerSt({
   const [shake, setShake] = useState(false);
   const hideText = phase === 'narr' || phase === 'done';
   const tower = /*#__PURE__*/React.createElement("div", {
-    className: "r3tower"
-  }, phase === 'done' && /*#__PURE__*/React.createElement("div", {
+    className: "r3tower crane-wrap"
+  }, /*#__PURE__*/React.createElement("svg", {
+    className: 'crane' + (phase === 'build' ? ' busy' : ''),
+    viewBox: "0 0 120 90",
+    "aria-hidden": "true"
+  }, /*#__PURE__*/React.createElement("rect", {
+    x: "14",
+    y: "8",
+    width: "7",
+    height: "82",
+    fill: "#f59e0b",
+    stroke: "#2a1d24",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("path", {
+    d: "M14 20 L21 28 M14 36 L21 44 M14 52 L21 60 M14 68 L21 76",
+    stroke: "#2a1d24",
+    strokeWidth: "1.5"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "8",
+    y: "6",
+    width: "104",
+    height: "7",
+    fill: "#f59e0b",
+    stroke: "#2a1d24",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "2",
+    y: "13",
+    width: "14",
+    height: "9",
+    fill: "#475569",
+    stroke: "#2a1d24",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("g", {
+    className: "hook"
+  }, /*#__PURE__*/React.createElement("line", {
+    x1: "92",
+    y1: "13",
+    x2: "92",
+    y2: "40",
+    stroke: "#2a1d24",
+    strokeWidth: "2"
+  }), /*#__PURE__*/React.createElement("rect", {
+    x: "80",
+    y: "40",
+    width: "24",
+    height: "12",
+    rx: "2",
+    fill: "#ffd166",
+    stroke: "#2a1d24",
+    strokeWidth: "2"
+  }))), phase === 'done' && /*#__PURE__*/React.createElement("div", {
     className: "r3flag"
   }, /*#__PURE__*/React.createElement(Icon, {
     n: "flag",
@@ -7043,7 +7311,87 @@ function TowerSt({
     onDone: onDone
   }), tower);
 }
-function WriteSt({
+function WriteSt(props) {
+  return props.U.write.para ? /*#__PURE__*/React.createElement(ParaWrite, props) : /*#__PURE__*/React.createElement(WriteLetters, props);
+}
+function ParaWrite({
+  U,
+  onDone
+}) {
+  const W = U.write;
+  const [tick, setTick] = useState([]);
+  const [show, setShow] = useState(false);
+  const [msg, setMsg] = useState('');
+  const checks = ['كَتَبَ أَوْقَاتَ الْيَوْمِ: فِي الصَّبَاحِ، بَعْدَ الْعَصْرِ، فِي الْمَسَاءِ', 'رَبَطَ الْأَحْدَاثَ بِـ«ثُمَّ» وَ«بَعْدَ ذَلِكَ»', 'كُلُّ أَفْعَالِهِ بِـ«أَ»، وَلَيْسَ فِيهَا «بْـ»', 'لَيْسَ فِي فِقْرَتِهِ كَلِمَةٌ عَامِّيَّةٌ', 'وَضَعَ نُقْطَةً فِي آخِرِ كُلِّ جُمْلَةٍ'];
+  return /*#__PURE__*/React.createElement("div", {
+    className: "col",
+    style: {
+      gap: 12
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "papertask"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "ttl"
+  }, "اكْتُبْ يَوْمَكَ فِي فِقْرَةٍ وَاحِدَةٍ عَلَى وَرَقَتِكَ، بِالْفُصْحَى"), /*#__PURE__*/React.createElement("div", {
+    className: "task naskh",
+    style: {
+      fontSize: 20
+    }
+  }, "اسْتَعْمِلْ: فِي الصَّبَاحِ · ثُمَّ · بَعْدَ ذَلِكَ · بَعْدَ الْعَصْرِ · فِي الْمَسَاءِ")), /*#__PURE__*/React.createElement("div", {
+    className: "row wrapf",
+    style: {
+      gap: 6
+    }
+  }, U.templates.map(t => /*#__PURE__*/React.createElement("span", {
+    key: t,
+    className: "chip naskh"
+  }, t))), show ? /*#__PURE__*/React.createElement("div", {
+    className: "papercard fade"
+  }, /*#__PURE__*/React.createElement(TT, {
+    text: W.model
+  })) : /*#__PURE__*/React.createElement("button", {
+    className: "btn ghost sm",
+    onClick: () => setShow(true)
+  }, "أَظْهِرِ الْفِقْرَةَ النَّمُوذَجِيَّةَ (لِلْمُعَلِّمِ)"), /*#__PURE__*/React.createElement("b", {
+    className: "naskh",
+    style: {
+      fontSize: 18
+    }
+  }, "مُرَاجَعَةُ الْوَرَقَةِ:"), /*#__PURE__*/React.createElement("div", {
+    className: "row wrapf",
+    style: {
+      gap: 6
+    }
+  }, checks.map((c, i) => /*#__PURE__*/React.createElement("button", {
+    key: i,
+    className: 'ckb' + (tick.includes(i) ? ' on' : ''),
+    onClick: () => {
+      sfx.pop();
+      setTick(tick.includes(i) ? tick.filter(x => x !== i) : [...tick, i]);
+    }
+  }, tick.includes(i) ? '✓' : '○', " ", c))), msg && /*#__PURE__*/React.createElement("div", {
+    className: "warnline"
+  }, msg), /*#__PURE__*/React.createElement("div", {
+    className: "tbar"
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "lbl"
+  }, "رَأْيُ الْمُعَلِّمِ:"), /*#__PURE__*/React.createElement("button", {
+    className: "tb g",
+    disabled: tick.length < checks.length,
+    onClick: () => {
+      sfx.win();
+      onDone();
+    }
+  }, "✓ فِقْرَةٌ صَحِيحَةٌ"), /*#__PURE__*/React.createElement("button", {
+    className: "tb w",
+    onClick: () => {
+      sfx.bad();
+      setTick([]);
+      setMsg('صَحِّحِ الْجُمَلَ عَلَى وَرَقَتِكَ: ابْحَثْ عَنْ «بْـ» وَعَنِ الْكَلِمَاتِ الْعَامِّيَّةِ.');
+    }
+  }, "✎ فِيهَا خَطَأٌ")));
+}
+function WriteLetters({
   U,
   onDone
 }) {
@@ -10526,7 +10874,7 @@ function App() {
             height: k / L1_ST.length * 100 + '%',
             background: m.color
           }
-        }), React.createElement("b", null, L1_AR(m.n)));
+        }), React.createElement("b", null, m.n > 100 ? 'ك' : L1_AR(m.n)));
       })), React.createElement("div", {
         className: "where"
       }, !w.started ? 'لم يبدأ بعد' : w.unit ? React.createElement(React.Fragment, null, "\u0627\u0644\u0622\u0646: \u0627\u0644\u0645\u062F\u064A\u0646\u0629 ", L1_AR(w.unit), " \xAB", stripMarks(l1Title(w.unit).t), "\xBB", React.createElement("br", null), React.createElement("span", {
@@ -10789,7 +11137,7 @@ function App() {
     }
   }, G('اخْتَرْ مَدِينَةً، وَتَجَوَّلْ فِيهَا، وَكَلِّمْ أَهْلَهَا.', 'اخْتَارِي مَدِينَةً، وَتَجَوَّلِي فِيهَا، وَكَلِّمِي أَهْلَهَا.')), L1_GROUPS.map(g => {
     const r = L1_REVIEWS.find(x => x.id === g.review),
-      rd = (prog[r.id] || []).length;
+      rd = r ? (prog[r.id] || []).length : 0;
     return React.createElement(React.Fragment, {
       key: g.n
     }, L1_PARTS[g.n] && React.createElement("div", {
@@ -10804,7 +11152,7 @@ function App() {
       className: "small"
     }, g.cities.length ? "\u0627\u0644\u0652\u0645\u064F\u062F\u064F\u0646\u064F " + g.cities.map(L1_AR).join('، ') + " \u062B\u064F\u0645\u064E\u0651 \u0627\u0644\u0652\u0645\u064F\u0631\u064E\u0627\u062C\u064E\u0639\u064E\u0629\u064F" : G('حِكَايَةٌ وَاحِدَةٌ، ثُمَّ جُمْلَتَانِ بِخَطِّكَ', 'حِكَايَةٌ وَاحِدَةٌ، ثُمَّ جُمْلَتَانِ بِخَطِّكِ'))), React.createElement("div", {
       className: "citygrid"
-    }, g.cities.map(n => L1_META[n - 1]).map(m => {
+    }, g.cities.map(n => L1_META.find(m => m.n === n)).map(m => {
       const t = l1Title(m.n),
         d = (prog[m.n] || []).length,
         all = d >= L1_ST.length;
@@ -10821,7 +11169,7 @@ function App() {
         style: {
           background: m.color
         }
-      }, L1_AR(m.n)), all && React.createElement("span", {
+      }, m.n > 100 ? 'ك' : L1_AR(m.n)), all && React.createElement("span", {
         className: "done"
       }, React.createElement(Icon, {
         n: "star",
@@ -10842,7 +11190,7 @@ function App() {
           width: d / L1_ST.length * 100 + '%'
         }
       })));
-    }), React.createElement("button", {
+    }), r && React.createElement("button", {
       className: "citycard rvcard",
       onClick: () => {
         setUnit(r.id);
@@ -11092,7 +11440,7 @@ function App() {
     style: {
       fontSize: 18
     }
-  }, "\u0627\u0644\u0652\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F ", L1_AR(unit), ": ", U.t), React.createElement("div", {
+  }, unit > 100 ? "دَرْسُ كِنَانٍ: " : "\u0627\u0644\u0652\u0645\u064E\u062F\u0650\u064A\u0646\u064E\u0629\u064F " + L1_AR(unit) + ": ", U.t), React.createElement("div", {
     className: "small naskh hide-sm",
     style: {
       lineHeight: 1.1,

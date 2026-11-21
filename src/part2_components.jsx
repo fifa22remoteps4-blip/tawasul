@@ -8,7 +8,14 @@ function TowerSt({
   const [msg, setMsg] = useState('');
   const [shake, setShake] = useState(false);
   const hideText = phase === 'narr' || phase === 'done';
-  const tower = <div className="r3tower">
+  const tower = <div className="r3tower crane-wrap">
+      <svg className={'crane' + (phase === 'build' ? ' busy' : '')} viewBox="0 0 120 90" aria-hidden="true">
+        <rect x="14" y="8" width="7" height="82" fill="#f59e0b" stroke="#2a1d24" strokeWidth="2" />
+        <path d="M14 20 L21 28 M14 36 L21 44 M14 52 L21 60 M14 68 L21 76" stroke="#2a1d24" strokeWidth="1.5" />
+        <rect x="8" y="6" width="104" height="7" fill="#f59e0b" stroke="#2a1d24" strokeWidth="2" />
+        <rect x="2" y="13" width="14" height="9" fill="#475569" stroke="#2a1d24" strokeWidth="2" />
+        <g className="hook"><line x1="92" y1="13" x2="92" y2="40" stroke="#2a1d24" strokeWidth="2" /><rect x="80" y="40" width="24" height="12" rx="2" fill="#ffd166" stroke="#2a1d24" strokeWidth="2" /></g>
+      </svg>
       {phase === 'done' && <div className="r3flag"><Icon n="flag" s={4} /></div>}
       {T.slice(0, built).map((l, k) => ({
       l,
@@ -92,7 +99,53 @@ function TowerSt({
       {tower}
     </div>;
 }
-function WriteSt({
+function WriteSt(props) {
+  return props.U.write.para ? <ParaWrite {...props} /> : <WriteLetters {...props} />;
+}
+function ParaWrite({
+  U,
+  onDone
+}) {
+  const W = U.write;
+  const [tick, setTick] = useState([]);
+  const [show, setShow] = useState(false);
+  const [msg, setMsg] = useState('');
+  const checks = ['كَتَبَ أَوْقَاتَ الْيَوْمِ: فِي الصَّبَاحِ، بَعْدَ الْعَصْرِ، فِي الْمَسَاءِ', 'رَبَطَ الْأَحْدَاثَ بِـ«ثُمَّ» وَ«بَعْدَ ذَلِكَ»', 'كُلُّ أَفْعَالِهِ بِـ«أَ»، وَلَيْسَ فِيهَا «بْـ»', 'لَيْسَ فِي فِقْرَتِهِ كَلِمَةٌ عَامِّيَّةٌ', 'وَضَعَ نُقْطَةً فِي آخِرِ كُلِّ جُمْلَةٍ'];
+  return <div className="col" style={{
+    gap: 12
+  }}>
+      <div className="papertask"><div className="ttl">اكْتُبْ يَوْمَكَ فِي فِقْرَةٍ وَاحِدَةٍ عَلَى وَرَقَتِكَ، بِالْفُصْحَى</div><div className="task naskh" style={{
+        fontSize: 20
+      }}>اسْتَعْمِلْ: فِي الصَّبَاحِ · ثُمَّ · بَعْدَ ذَلِكَ · بَعْدَ الْعَصْرِ · فِي الْمَسَاءِ</div></div>
+      <div className="row wrapf" style={{
+      gap: 6
+    }}>{U.templates.map(t => <span key={t} className="chip naskh">{t}</span>)}</div>
+      {show ? <div className="papercard fade"><TT text={W.model} /></div> : <button className="btn ghost sm" onClick={() => setShow(true)}>أَظْهِرِ الْفِقْرَةَ النَّمُوذَجِيَّةَ (لِلْمُعَلِّمِ)</button>}
+      <b className="naskh" style={{
+      fontSize: 18
+    }}>مُرَاجَعَةُ الْوَرَقَةِ:</b>
+      <div className="row wrapf" style={{
+      gap: 6
+    }}>{checks.map((c, i) => <button key={i} className={'ckb' + (tick.includes(i) ? ' on' : '')} onClick={() => {
+        sfx.pop();
+        setTick(tick.includes(i) ? tick.filter(x => x !== i) : [...tick, i]);
+      }}>{tick.includes(i) ? '✓' : '○'} {c}</button>)}</div>
+      {msg && <div className="warnline">{msg}</div>}
+      <div className="tbar">
+        <span className="lbl">رَأْيُ الْمُعَلِّمِ:</span>
+        <button className="tb g" disabled={tick.length < checks.length} onClick={() => {
+        sfx.win();
+        onDone();
+      }}>✓ فِقْرَةٌ صَحِيحَةٌ</button>
+        <button className="tb w" onClick={() => {
+        sfx.bad();
+        setTick([]);
+        setMsg('صَحِّحِ الْجُمَلَ عَلَى وَرَقَتِكَ: ابْحَثْ عَنْ «بْـ» وَعَنِ الْكَلِمَاتِ الْعَامِّيَّةِ.');
+      }}>✎ فِيهَا خَطَأٌ</button>
+      </div>
+    </div>;
+}
+function WriteLetters({
   U,
   onDone
 }) {

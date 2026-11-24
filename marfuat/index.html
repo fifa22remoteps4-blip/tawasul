@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محاضرة المرفوعات</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Aref+Ruqaa:wght@400;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* VOICE formal, literary, academic: a lecture series for master's and doctoral students
+   IDEA the author's own house style: a brown-banded library website whose content sits in thin-framed pages, like a bound monograph
+   PICTURE each slide's framed Arabic example, set large in Amiri, whose case endings change ink as the grammar changes
+   COLOUR white paper and #f4f4f4 margins, coffee brown #795548 for structure and for raf', navy-black #040422 for openers, ink blue for nasb, olive for jarr
+   TYPE Aref Ruqaa for titles (echoing the calligraphic logo) + Amiri for examples + IBM Plex Sans Arabic for apparatus
+   LAYOUT brown header band with series and lecture number, framed slide body, navy footer with controls; phones stack */
+:root{color-scheme:light dark;
+--paper:light-dark(#ffffff,#0b0b26);--margin:light-dark(#f4f4f4,#070719);--ink:light-dark(#2b2b2b,#ecebf2);--soft:light-dark(#6b6b6b,#a9a8bd);
+--line:light-dark(#e1e1e1,#24244a);--frame:light-dark(#795548,#b08a7c);--brown:#795548;--brown-d:#5d4037;--taupe:#c8ada2;--sand:light-dark(#f6f0ed,#17152e);--night:#040422;
+--raf:light-dark(#795548,#d2a796);--nsb:light-dark(#1f4e79,#8db8e3);--jar:light-dark(#4b7a3a,#9cce86);--mb:light-dark(#8c8c8c,#8f8fa3)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html,body{height:100%}
+body{margin:0;background:var(--margin);color:var(--ink);font:17px/1.75 "IBM Plex Sans Arabic",Tahoma,sans-serif;overflow-x:clip}
+button{font:inherit;cursor:pointer;color:inherit}
+h1,h2{font-family:"Aref Ruqaa",Amiri,serif;font-weight:700;line-height:1.25;margin:0;text-wrap:balance}
+h2{font-size:clamp(32px,3.6vw,50px);color:var(--frame)}
+h3{font-family:"IBM Plex Sans Arabic";font-size:18px;font-weight:700;margin:0;color:var(--frame)}
+p{margin:0}
+.ar{font-family:Amiri,"Traditional Arabic",serif}
+.r{color:var(--raf)}.n{color:var(--nsb)}.j{color:var(--jar)}.mb{color:var(--mb)}
+em{font-style:normal;transition:color .45s}
+.view{display:none}.view.on{display:block}
+.btn{border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:4px;padding:8px 16px;min-height:44px;font-weight:600;transition:background .2s,border-color .2s}
+.btn:hover{border-color:var(--frame)}
+.btn.pri{background:var(--brown);border-color:var(--brown);color:#fff}.btn.pri:hover{background:var(--brown-d)}
+.btn[disabled]{opacity:.45;cursor:default}
+.btn:focus-visible,.chip:focus-visible,.tok:focus-visible,.op:focus-visible,.opt:focus-visible,.node:focus-visible{outline:2px solid var(--brown);outline-offset:3px}
+.chip{border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 16px;min-height:42px;font-size:15px;font-weight:600}
+.chip[aria-pressed=true]{background:var(--brown);border-color:var(--brown);color:#fff}
+/* deck shell */
+#deck.on{position:fixed;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
+.band{background:var(--brown);color:#fff;display:flex;align-items:center;gap:16px;padding:0 max(3vw,16px);min-height:50px}
+.band .series{font-weight:600;font-size:15px;opacity:.9}
+.band .lec{font-family:"Aref Ruqaa";font-size:20px}
+.band .grow{flex:1}
+.band a{color:#fff;font-size:15px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
+.stage{position:relative;overflow:hidden}
+.sl{position:absolute;inset:0;overflow-y:auto;padding:clamp(12px,2vw,28px) max(4vw,14px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.sl.on{opacity:1;visibility:visible}
+.page{background:var(--paper);border:1.6px solid var(--frame);outline:12px solid var(--margin);min-height:100%;padding:clamp(18px,2.6vw,40px) clamp(18px,3vw,48px);max-width:1280px;margin:0 auto;position:relative}
+.sl.on .page>*{animation:rise .6s both}
+.sl.on .page>*:nth-child(2){animation-delay:.08s}.sl.on .page>*:nth-child(3){animation-delay:.16s}.sl.on .page>*:nth-child(4){animation-delay:.24s}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kick{color:var(--soft);font-size:15px;font-weight:600;margin-bottom:6px}
+.lead{max-width:68ch;margin-top:8px;color:var(--soft)}
+.cols{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3vw,44px);margin-top:clamp(14px,2.4vh,28px);align-items:start}
+.box{border:1.6px solid var(--line);border-radius:4px;padding:16px 18px;background:var(--paper)}
+.box.tint{background:var(--sand);border-color:transparent}
+.note{border-inline-start:3px solid var(--frame);padding:4px 14px;color:var(--soft);font-size:15px;margin-top:12px}
+.foot{background:var(--night);color:#e9e7f3;display:flex;align-items:center;gap:12px;padding:8px max(3vw,14px)}
+.foot .btn{white-space:nowrap;background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
+.foot .btn.pri{background:var(--brown);border-color:var(--brown)}
+.toc{display:flex;gap:4px;flex:1;max-width:560px}
+.toc button{flex:1;height:6px;border:0;border-radius:0;background:rgba(255,255,255,.18);padding:0;min-height:0}
+.toc button.on{background:var(--taupe)}.toc button.cur{background:#fff}
+.count{color:#c9c6da;font-size:14px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.foot .grow{flex:1}
+/* cover */
+.cover .page{background:var(--night);color:#fff;border-color:var(--taupe);display:grid;align-content:center;justify-items:start;gap:14px;overflow:hidden}
+.cover .page::before{content:"";position:absolute;inset:14px;border:1px solid rgba(200,173,162,.45);pointer-events:none}
+.cover h1{font-size:clamp(54px,11vw,170px);line-height:1.1;color:#fff}
+.cover .sub{font-size:clamp(17px,1.7vw,22px);color:#d9d4e6;max-width:44ch}
+.cover .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;color:var(--taupe);font-weight:600}
+.cover .meta b{display:block;color:#fff;font-family:"Aref Ruqaa";font-size:24px;font-weight:700}
+.cover .mark{position:absolute;inset-inline-end:6%;top:50%;transform:translateY(-50%);width:clamp(180px,26vw,380px);opacity:.9}
+/* series */
+.series{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:20px}
+.series ol{list-style:none;margin:0;padding:0;counter-reset:l var(--start)}
+.series li{counter-increment:l;display:grid;grid-template-columns:2.6em minmax(0,1fr);gap:10px;align-items:baseline;padding:9px 4px;border-bottom:1px solid var(--line)}
+.series li::before{content:counter(l,arabic-indic);font-family:"Aref Ruqaa";font-size:22px;color:var(--taupe);text-align:center}
+.series li.cur{background:var(--sand);border-bottom-color:var(--frame)}
+.series li.cur::before{color:var(--frame)}
+.series li small{color:var(--soft);display:block;font-size:14px}
+.series li .now{font-size:13px;color:#fff;background:var(--brown);border-radius:3px;padding:1px 8px;margin-inline-start:6px}
+/* problem */
+.q{font-family:Amiri;font-size:clamp(30px,3.6vw,46px);line-height:1.6;color:var(--ink);border-top:1.6px solid var(--frame);border-bottom:1.6px solid var(--frame);padding:16px 0;margin-top:18px}
+.obj{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+.obj li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px}
+.obj li::before{content:"";width:10px;height:10px;border:2px solid var(--frame);transform:rotate(45deg);margin-top:10px;justify-self:center}
+/* positions */
+.pos{display:grid;gap:0;margin-top:20px;border-top:1.6px solid var(--frame)}
+.prow{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;border-bottom:1px solid var(--line);padding:6px 0}
+.prow .ex{font-family:Amiri;font-size:clamp(30px,3.8vw,52px);line-height:1.7}
+.prow .ex .gap{border-bottom:2px dotted var(--soft);color:var(--soft)}
+.prow .rv{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.tag{font-size:14px;font-weight:700;border:1.6px solid currentColor;border-radius:3px;padding:1px 10px;white-space:nowrap}
+.prow .mbc{font-family:Amiri;font-size:26px;color:var(--mb)}
+/* tree */
+.tree{margin-top:18px;display:grid;justify-items:center}
+.tree .root{border:1.6px solid var(--frame);padding:6px 26px;font-family:"Aref Ruqaa";font-size:26px;color:var(--frame);background:var(--paper)}
+.tree .stem{width:1.6px;height:22px;background:var(--frame)}
+.tree .lvl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;width:100%;border-top:1.6px solid var(--frame);padding-top:16px;position:relative}
+.branch h3{text-align:center;margin-bottom:8px;font-size:20px}
+.branch.x h3{color:var(--soft)}
+.node{display:block;width:100%;text-align:start;border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:7px 12px;margin-bottom:6px;min-height:42px;border-radius:3px}
+.branch.raf .node{border-inline-start:4px solid var(--raf)}
+.branch.raf .node:hover{background:var(--sand)}
+.branch.x .node{color:var(--soft);cursor:default;font-size:15px;min-height:0}
+/* signs table */
+table{border-collapse:collapse;width:100%}
+.sig th,.sig td{border:1px solid var(--line);padding:8px 10px;text-align:center}
+.sig thead th{background:var(--brown);color:#fff;font-weight:600;border-color:var(--brown)}
+.sig tbody th{text-align:start;font-weight:600;background:var(--margin)}
+.sig tbody tr{cursor:pointer;transition:background .2s}
+.sig tbody tr:hover td{background:var(--sand)}
+.sig tbody tr.on th{background:var(--brown);color:#fff}
+.sig tbody tr.on td{background:var(--sand);font-weight:700}
+.sig td:nth-child(2){color:var(--raf)}
+.big{font-family:Amiri;font-size:clamp(64px,9vw,128px);line-height:1.5;text-align:center}
+.scroll{overflow-x:auto}
+/* tiles */
+.sent{display:flex;flex-wrap:wrap;gap:.45em;align-items:flex-start;font-family:Amiri;font-size:clamp(38px,5.2vw,74px);line-height:1.6;min-height:2.4em}
+.w{display:inline-flex;flex-direction:column;align-items:center;transition:opacity .55s,transform .55s,max-width .7s,margin .55s;max-width:7em}
+.w .lb{font-family:"IBM Plex Sans Arabic";font-size:14px;font-weight:700;border-top:2px solid currentColor;padding-top:2px;margin-top:-.15em;white-space:nowrap;transition:color .45s}
+.w.gone{opacity:0;transform:translateY(-24px);max-width:0;margin-inline-end:-.45em}
+.flash{animation:flash .9s}
+@keyframes flash{0%{background:transparent}30%{background:color-mix(in srgb,var(--taupe) 45%,transparent)}100%{background:transparent}}
+.steps{list-style:none;padding:0;margin:0;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:2em minmax(0,1fr);gap:10px;padding:10px 0;border-bottom:1px solid var(--line);opacity:.4;transition:.4s}
+.steps li::before{content:counter(s,arabic-indic);font-family:"Aref Ruqaa";font-size:24px;color:var(--frame);line-height:1.2}
+.steps li.on{opacity:1}
+.stage2{background:var(--sand);padding:16px 22px;border-radius:4px}
+.forms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;border-top:1.6px solid var(--frame);margin-top:10px}
+.forms div{padding:10px 6px;border-bottom:1px solid var(--line)}
+.forms div:nth-child(odd){border-inline-end:1px solid var(--line);padding-inline-end:12px}
+.forms small{color:var(--frame);font-weight:700;display:block}
+.forms .ar{font-size:23px;line-height:1.7}
+/* lab */
+.ops{display:grid;gap:10px;margin-top:14px}
+.og{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.og span{width:9em;font-weight:700;font-size:15px;color:var(--soft)}
+.op{border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;min-height:44px;min-width:56px;padding:2px 12px;font-family:Amiri;font-size:23px}
+.op[aria-pressed=true]{background:var(--brown);border-color:var(--brown);color:#fff}
+.law{width:100%;font-size:15px;margin-bottom:10px}
+.law th,.law td{border:1px solid var(--line);padding:7px 8px;text-align:center}
+.law thead th{background:var(--margin)}
+.law tr.on td,.law tr.on th{background:var(--sand);font-weight:700}
+.irab div{border-bottom:1px dotted var(--line);padding:5px 0;font-size:16px;line-height:1.9}
+.irab b{font-family:Amiri;font-size:22px}
+/* verse */
+.verse{font-family:Amiri;font-size:clamp(32px,4.4vw,58px);line-height:2.1;display:flex;flex-wrap:wrap;gap:.05em .35em;margin-top:14px}
+.tok{border:0;background:none;font:inherit;color:inherit;padding:0 .1em;border-bottom:2px solid transparent;transition:.3s}
+.tok:hover{background:var(--sand)}
+.tok.hit{color:var(--raf);border-bottom-color:var(--raf)}
+.tok.hit.mh{border-bottom-style:dashed}
+.tok.miss{color:var(--soft)}
+.tally{font-family:"Aref Ruqaa";font-size:30px;color:var(--frame)}
+/* chain */
+.chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
+.chain .w{font-family:Amiri;font-size:clamp(38px,5vw,70px);border:1.6px solid var(--frame);padding:0 .4em .2em;background:var(--paper)}
+.chain .arr{font-size:28px;color:var(--frame)}
+
+/* summary */
+.sum th,.sum td{border-bottom:1px solid var(--line);padding:10px 8px;text-align:start;vertical-align:top}
+.sum thead th{border-bottom:1.6px solid var(--frame);color:var(--frame)}
+.sum td.ar{font-size:24px;white-space:nowrap}
+.sum tbody th{font-family:"Aref Ruqaa";font-size:22px;color:var(--frame);white-space:nowrap}
+/* qr */
+.qrcol{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4vw,56px);margin-top:16px;align-items:start}
+.qr{background:#fff;border:1.6px solid var(--frame);outline:10px solid var(--sand);padding:16px;aspect-ratio:1;max-width:360px;width:100%}
+.qr svg{width:100%;height:100%;display:block}
+.qlink{font-size:13px;color:var(--soft);overflow-wrap:anywhere;margin-top:18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:0;border-top:1.6px solid var(--frame);border-bottom:1px solid var(--line)}
+.kpi{padding:10px 12px}
+.kpi+.kpi{border-inline-start:1px solid var(--line)}
+.kpi b{display:block;font-family:"Aref Ruqaa";font-size:clamp(32px,3.6vw,48px);line-height:1.1;color:var(--frame);font-variant-numeric:tabular-nums}
+.kpi span{color:var(--soft);font-size:14px}
+.bars{display:grid;gap:7px;margin-top:14px}
+.brow{display:grid;grid-template-columns:3em minmax(0,1fr) 3.2em;gap:10px;align-items:center;font-size:15px}
+.tr{height:12px;background:var(--margin);border:1px solid var(--line)}
+.tr i{display:block;height:100%;background:var(--brown);transition:width .7s}
+.tr i.low{background:var(--nsb)}
+.brow .v{text-align:left;font-variant-numeric:tabular-nums;white-space:nowrap}
+.small{font-size:14px;color:var(--soft);margin-top:10px}
+/* student */
+#student.on{min-height:100%}
+.sband{background:var(--brown);color:#fff;padding:10px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+.sband b{font-family:"Aref Ruqaa";font-size:22px}
+.sw{max-width:660px;margin:0 auto;padding:16px 14px 40px}
+.sbar{height:4px;background:var(--line);margin-bottom:14px}.sbar i{display:block;height:100%;background:var(--brown);transition:width .4s}
+.qcard{background:var(--paper);border:1.6px solid var(--frame);outline:8px solid var(--margin);padding:18px}
+.qcard .stem{font-weight:700;font-size:18px}
+.qcard .src{font-family:Amiri;font-size:30px;line-height:1.9;text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:12px 0;padding:4px 0}
+.opt{display:grid;grid-template-columns:2.2em minmax(0,1fr);gap:10px;align-items:center;width:100%;text-align:start;border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:10px 12px;margin-bottom:8px;min-height:52px;font-size:16px}
+.opt .k{font-family:"Aref Ruqaa";font-size:22px;color:var(--frame);text-align:center}
+.opt.ar{font-family:Amiri;font-size:21px}
+.opt.right{border-color:var(--jar);background:color-mix(in srgb,var(--jar) 10%,var(--paper))}
+.opt.wrong{border-color:var(--nsb);background:color-mix(in srgb,var(--nsb) 9%,var(--paper))}
+.opt.dim{opacity:.55}
+.toks{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.toks button{font-family:Amiri;font-size:32px;border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:0 18px;min-height:58px}
+.toks button.pick{border-color:var(--frame);background:var(--sand)}
+.fb{margin-top:12px;border-inline-start:3px solid var(--jar);background:var(--sand);padding:10px 14px}
+.fb.no{border-inline-start-color:var(--nsb)}
+.fb b{display:block}
+input[type=text],textarea{width:100%;font:inherit;font-size:17px;border:1.6px solid var(--line);border-radius:3px;padding:10px 12px;background:var(--paper);color:var(--ink)}
+textarea{min-height:110px;resize:vertical}
+label{font-weight:700;display:block;margin-bottom:6px}
+.snav{display:flex;justify-content:space-between;gap:10px;margin-top:16px}
+.done{text-align:center}
+.done .sc{font-family:"Aref Ruqaa";font-size:64px;color:var(--frame);line-height:1.2}
+/* teacher */
+#teacher.on{min-height:100%}
+.tw{max-width:1240px;margin:0 auto;padding:18px max(3vw,14px) 48px}
+.tgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:18px}
+.dt th,.dt td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap;font-size:15px}
+.dt th:first-child,.dt td:first-child{text-align:start}
+.dt thead th{border-bottom:1.6px solid var(--frame);color:var(--frame)}
+td.ok{color:var(--jar);font-weight:700}td.no{color:var(--nsb);font-weight:700}td.pend{color:var(--soft)}
+.dt tbody tr{cursor:pointer}.dt tr.pick{background:var(--sand)}
+.mis div{border-inline-start:3px solid var(--nsb);padding:6px 12px;margin-bottom:8px;background:var(--margin)}
+.mis small{color:var(--soft);display:block}
+.open .it{border-bottom:1px solid var(--line);padding:10px 0;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.mk{display:flex;gap:6px}.mk button{min-height:40px;min-width:44px;border:1.6px solid var(--line);background:var(--paper);border-radius:3px}
+.mk button.y[aria-pressed=true]{background:var(--jar);color:#fff;border-color:var(--jar)}.mk button.x[aria-pressed=true]{background:var(--nsb);color:#fff;border-color:var(--nsb)}
+.detail div{padding:5px 0;border-bottom:1px dotted var(--line);font-size:15px}
+.toast{position:fixed;bottom:72px;left:50%;transform:translateX(-50%);background:var(--night);color:#fff;padding:10px 18px;border-radius:4px;opacity:0;transition:.3s;pointer-events:none;z-index:30}
+.toast.on{opacity:1}
+
+/* algorithm */
+.bank{display:grid;gap:6px;max-height:46vh;overflow-y:auto;padding-inline-end:4px}
+.bank button{display:block;text-align:start;border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:6px 12px;font-family:Amiri;font-size:21px;line-height:1.7}
+.bank button small{display:block;font-family:"IBM Plex Sans Arabic";font-size:13px;color:var(--soft)}
+.bank button[aria-pressed=true]{border-color:var(--frame);background:var(--sand)}
+.bank u{text-decoration-color:var(--frame);text-decoration-thickness:2px;text-underline-offset:8px}
+.target{font-family:Amiri;font-size:clamp(28px,3.4vw,44px);line-height:1.8;border-bottom:1.6px solid var(--frame);padding-bottom:6px}
+.target u{text-decoration:none;border-bottom:3px solid var(--frame)}
+.trail{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+.trail li{display:grid;grid-template-columns:2em minmax(0,1fr) auto;gap:10px;align-items:center;border:1.6px solid var(--line);border-radius:3px;padding:8px 12px;animation:rise .45s both}
+.trail li::before{content:attr(data-n);font-family:"Aref Ruqaa";font-size:22px;color:var(--frame);text-align:center}
+.trail .ans{font-weight:700;border-radius:3px;padding:2px 12px;font-size:14px;white-space:nowrap}
+.trail .yes{background:var(--brown);color:#fff}.trail .no{background:var(--margin);color:var(--soft);border:1px solid var(--line)}
+.trail li.res{border-color:var(--frame);background:var(--sand);grid-template-columns:minmax(0,1fr)}
+.trail li.res::before{display:none}
+.trail li.res b{font-family:"Aref Ruqaa";font-size:26px;color:var(--frame)}
+.ctrl{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.flowmap{display:grid;gap:4px;font-size:14px;margin-top:12px;color:var(--soft)}
+.flowmap span{border-inline-start:3px solid var(--line);padding:2px 10px;transition:.3s}
+.flowmap span.on{border-color:var(--frame);color:var(--ink);font-weight:600}
+/* formula */
+.fsel{display:grid;gap:12px}
+.fsel .og span{width:7em}
+.formula{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch;margin-top:8px}
+.seg{border:1.6px solid var(--frame);border-radius:3px;padding:6px 12px;display:grid;gap:2px;animation:rise .4s both}
+.seg small{color:var(--soft);font-size:12px;font-weight:600}
+.seg b{font-size:19px}
+.seg.s1{background:var(--sand)}.seg.s2 b{color:var(--raf)}.seg.s3{border-style:dashed}.seg.s4{border-color:var(--line)}
+.fout{font-size:20px;line-height:2;margin-top:14px;border-top:1.6px solid var(--frame);padding-top:10px}
+.fout .wd{font-family:Amiri;font-size:30px}
+/* connection */
+.conn{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:center;margin-top:8px}
+.st{font-size:14px;margin-top:6px;color:var(--soft)}
+.st.ok{color:var(--jar)}.st.bad{color:var(--nsb)}
+@media(max-width:900px){.cols,.qrcol,.tgrid,.series{grid-template-columns:minmax(0,1fr)}.cover .mark{display:none}}
+@media(max-width:600px){.band .series{display:none}.toc{display:none}.page{outline-width:4px}.tree .lvl{grid-template-columns:minmax(0,1fr)}.prow{grid-template-columns:minmax(0,1fr) auto}.prow .mbc{display:none}.forms{grid-template-columns:minmax(0,1fr)}.forms div:nth-child(odd){border-inline-end:0}.og span{width:100%}#fsBtn{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<div id="deck" class="view">
+ <div class="band"><span class="lec">المحاضرة الثانية: المرفوعات</span><span class="series">سلسلة: أساسيات في قواعد اللغة العربية</span><span class="grow"></span><a href="#teacher">لوحة المحاضر</a></div>
+ <div class="stage">
+
+  <section class="sl cover" data-n="الغلاف"><div class="page">
+   <p style="color:var(--taupe);font-weight:600">سلسلة محاضرات · أساسيات في قواعد اللغة العربية · القسم الأول: النحو</p>
+   <h1>المرفوعات</h1>
+   <p class="sub">مواقع الرفع الستّة وتوابعها، وعلاماته الأصليّة والفرعيّة، وأثر النواسخ في الجملة الاسميّة.</p>
+   <div class="meta"><span>إعداد<b>د. أيمن العتوم</b></span><span>المحاضرة<b>الثانية من اثنتي عشرة</b></span><span>الجمهور<b>طلبة الدراسات العليا</b></span></div>
+   <svg class="mark" viewBox="0 0 300 300" aria-hidden="true"><g fill="none" stroke="#c8ada2"><rect x="40" y="40" width="220" height="220" opacity=".5"/><rect x="40" y="40" width="220" height="220" transform="rotate(45 150 150)" opacity=".5"/><circle cx="150" cy="150" r="74" opacity=".7"/></g><text x="150" y="196" text-anchor="middle" font-family="Aref Ruqaa" font-size="110" fill="#c8ada2">رَفْع</text></svg>
+  </div></section>
+
+  <section class="sl" data-n="السلسلة"><div class="page">
+   <p class="kick">خريطة السلسلة</p><h2>موقع هذه المحاضرة من السلسلة</h2>
+   <div class="series">
+    <div><h3 style="margin-bottom:6px">القسم الأوّل: النحو</h3><ol id="serN" style="--start:0"></ol></div>
+    <div><h3 style="margin-bottom:6px">القسم الثاني: الصرف</h3><ol id="serS" style="--start:8"></ol></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="الإشكاليّة"><div class="page">
+   <p class="kick">إشكاليّة المحاضرة</p><h2>ما الذي يقرّر حركة آخر الكلمة؟</h2>
+   <div class="cols">
+    <div><p class="q">الكلمة واحدة، والحركة تتبدّل: فما الذي يتحكّم في الحركة، الكلمةُ نفسها أم موقعها من الجملة؟</p><p class="note">نعود إلى هذا السؤال في كلّ موضع من المحاضرة.</p></div>
+    <div class="box tint"><h3 style="margin-bottom:10px">مخرجات المحاضرة</h3><ul class="obj">
+     <li>التمييز بين المعرب والمبنيّ، وبين الإعراب الظاهر والمقدّر والمحلّيّ.</li>
+     <li>تعيين المواقع الستّة للرفع ومعيار التعرّف على كلّ منها.</li>
+     <li>ربط علامة الرفع بنوع الاسم: الضمّة ونوائبها.</li>
+     <li>تفسير أثر الناسخ في ركنَي الجملة الاسميّة.</li>
+     <li>تطبيق ذلك على نصّ قرآنيّ إعرابًا تامًّا.</li></ul></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="المعرب والمبنيّ"><div class="page">
+   <p class="kick">مدخل</p><h2>الموقع يقرّر، والكلمة تستجيب</h2>
+   <p class="lead">اطلب من الحضور ضبط آخر «المدرسة» في كلّ جملة قبل الكشف. اضغط الجملة لكشف ضبطها.</p>
+   <div class="pos" id="pos"></div>
+   <p class="note">العمود الأيسر: «هٰذِهِ» اسم إشارة مبنيّ على الكسر، يلزم حالة واحدة في المواقع الثلاثة، ويُعرب إعرابًا محلّيًّا.</p>
+  </div></section>
+
+  <section class="sl" data-n="شجرة المعربات"><div class="page">
+   <p class="kick">التصنيف</p><h2>الأسماء المعربة: ثلاث عائلات</h2>
+   <p class="lead">نرسم شجرة الدوسية ونفتح فرع المرفوعات. اضغط أيّ موقع للانتقال إلى شرحه.</p>
+   <div class="tree"><div class="root">الأسماء المُعرَبة</div><div class="stem"></div>
+    <div class="lvl">
+     <div class="branch raf"><h3 class="r">المرفوعات</h3><div id="leaves"></div></div>
+     <div class="branch x"><h3>المنصوبات</h3><div class="node">المفاعيل الخمسة</div><div class="node">الحال، التمييز</div><div class="node">خبر كان، اسم إنّ</div><div class="node">التوابع</div></div>
+     <div class="branch x"><h3>المجرورات</h3><div class="node">بحرف الجرّ</div><div class="node">بالإضافة</div><div class="node">بالتبعيّة</div></div>
+    </div></div>
+  </div></section>
+
+  <section class="sl" data-n="علامات الرفع"><div class="page">
+   <p class="kick">العلامات</p><h2>الضمّة ونوائبها</h2>
+   <p class="lead">الموقع يقرّر الرفع، ونوع الاسم يقرّر العلامة. اضغط صفًّا من جدول الدوسية.</p>
+   <div class="cols">
+    <div class="scroll"><table class="sig"><thead><tr><th>الاسم</th><th>الرفع</th><th>النصب</th><th>الجرّ</th></tr></thead><tbody id="sigBody"></tbody></table></div>
+    <div><div class="box tint"><div class="big" id="sigWord"></div><p class="ar" id="sigEx" style="font-size:26px;text-align:center"></p></div><p class="note" id="sigNote"></p></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="الفاعل ونائبه"><div class="page">
+   <p class="kick">الموقعان الأوّل والثاني</p><h2>الفاعل ونائبه: تحويل البنية</h2>
+   <p class="lead">الفاعل: مَن قام بالفعل، وفعله مبنيّ للمعلوم. نائب الفاعل: فعله مبنيّ للمجهول، وأصله مفعول به.</p>
+   <div class="cols">
+    <div><div class="stage2"><div class="sent" id="morph"></div></div>
+     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px"><button class="btn pri" id="morphBtn">ابنِ الفعل للمجهول</button><button class="btn" id="morphReset">أعِد الجملة</button></div>
+     <p class="note">مثال الدوسية للفاعل: «قَدِمَ مُحَمَّدٌ»، والسؤال الكاشف: مَن القادم؟</p></div>
+    <div class="box"><ol class="steps" id="morphSteps"><li>يُحذف الفاعل «القارئُ».</li><li>تتغيّر صيغة الفعل: يُضمّ أوّله ويُكسر ما قبل آخره، «تَلَا» تصير «تُلِيَ».</li><li>يقوم المفعول به مقام الفاعل فيُرفع: «القرآنُ» نائب فاعل.</li></ol></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="المبتدأ والخبر"><div class="page">
+   <p class="kick">الموقعان الثالث والرابع</p><h2>المبتدأ والخبر: الإسناد الاسميّ</h2>
+   <p class="lead">المبتدأ: تبدأ به الجملة وهو المُخبَر عنه. الخبر: هو الذي يتمّ به المعنى، وبدونه تبقى الجملة ناقصة.</p>
+   <div class="cols">
+    <div><div class="stage2"><div class="sent"><span class="w"><span class="ar">المَدْرَسَ<em class="r">ةُ</em></span><span class="lb r">مبتدأ</span></span><span class="w" id="khW" style="opacity:.2"><span class="ar">عَرِيقَ<em class="r">ةٌ</em></span><span class="lb r">خبر</span></span></div></div>
+     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;align-items:center"><button class="btn pri" id="khBtn">أتمّ الإسناد</button><span class="ar" style="font-size:24px">المُؤْمِنُو<em class="r">نَ</em> مُتَكَاتِفُو<em class="r">نَ</em></span><span class="small" style="margin:0">رفعٌ بالواو لأنهما جمعا مذكّر سالمان</span></div></div>
+    <div class="box"><h3>أشكال الخبر، من تمرين الدوسية</h3><div class="forms">
+     <div><small>مفرد</small><span class="ar">مُحَمَّدٌ رَسُولُ اللهِ</span></div><div><small>جملة فعليّة</small><span class="ar">أُولٰئِكَ يَنَالُهُمْ نَصِيبُهُمْ</span></div>
+     <div><small>جملة اسميّة</small><span class="ar">أُولٰئِكَ مَأْوَاهُمْ جَهَنَّمُ</span></div><div><small>شبه جملة</small><span class="ar">يَدُ اللهِ فَوْقَ أَيْدِيهِمْ</span></div></div></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="النواسخ"><div class="page">
+   <p class="kick">الموقعان الخامس والسادس</p><h2>النواسخ: تحويل الجملة الاسميّة</h2>
+   <p class="lead">اسم كان أصله مبتدأ، وخبر إنّ أصله خبر. أدخِل ناسخًا وراقب أثره في الركنين.</p>
+   <div class="cols">
+    <div><div style="display:flex;gap:8px;flex-wrap:wrap" id="baseTabs" role="group" aria-label="الجملة الأصل"></div>
+     <div class="stage2" style="margin-top:12px"><div class="sent" id="labSent"></div></div>
+     <div class="ops" id="ops"></div></div>
+    <div><table class="law"><thead><tr><th></th><th>الاسم</th><th>الخبر</th></tr></thead><tbody><tr id="lk"><th>كان وأخواتها</th><td class="r">مرفوع</td><td class="n">منصوب</td></tr><tr id="li"><th>إنّ وأخواتها</th><td class="n">منصوب</td><td class="r">مرفوع</td></tr></tbody></table>
+     <div class="irab" id="labIrab" aria-live="polite"></div>
+     <p class="note">كان وأخواتها: كان، أصبح، أضحى، ظلّ، صار، أمسى، بات، ما زال، ما انفكّ، ما برح، ما دام، ليس. إنّ وأخواتها: إنّ، أنّ، كأنّ، لكنّ، ليت، لعلّ.</p></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="تطبيق قرآنيّ"><div class="page">
+   <p class="kick">تطبيق</p><h2>استخراج المرفوعات من النصّ</h2>
+   <p class="lead">في الآية أربعة مرفوعات، أحدها مرفوع محلًّا. اطلب من الحضور تعيينها، ثم اضغط الكلمة لكشف إعرابها.</p>
+   <div class="verse" id="verse"></div>
+   <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><span class="tally" id="tally">٠ من ٤</span><button class="btn" id="hReset">إعادة</button></div>
+   <div class="box" id="hNote" style="margin-top:10px;min-height:5em"><p class="small" style="margin:0">اختر كلمة من الآية.</p></div>
+  </div></section>
+
+  <section class="sl" data-n="التوابع"><div class="page">
+   <p class="kick">ملحق المرفوعات</p><h2>التوابع: الحكم واحد والعلامة قد تختلف</h2>
+   <p class="lead">التوابع أربعة: العطف، والنعت، والتوكيد، والبدل. يتبع التابع متبوعه في الرفع.</p>
+   <div class="chain"><span class="w"><span>الرَّبَّانِيُّ<em class="r">ونَ</em></span><span class="lb r">فاعل · بالواو</span></span><span class="arr">←</span><span class="w"><span>وَالأَحْبَا<em class="r">رُ</em></span><span class="lb r">معطوف · بالضمّة</span></span></div>
+   <p class="ar" style="font-size:28px;margin-top:20px">﴿ لَوْلَا يَنْهَاهُمُ الرَّبَّانِيُّونَ وَالأَحْبَارُ ﴾</p>
+   <p class="note">«الأحبارُ» معطوف مرفوع كمتبوعه، وعلامته الضمّة لأنه جمع تكسير، بينما علامة المتبوع الواو لأنه جمع مذكّر سالم. التبعيّة في الحكم الإعرابيّ لا في العلامة.</p>
+  </div></section>
+
+
+  <section class="sl" data-n="خوارزمية التعرّف"><div class="page">
+   <p class="kick">أداة فهم</p><h2>خوارزمية التعرّف على المرفوع</h2>
+   <p class="lead">سلسلة أسئلة ثابتة تقود إلى موقع الكلمة. اختر شاهدًا من تمرين الدوسية، واطلب من الحضور الإجابة عن كلّ سؤال قبل كشفه.</p>
+   <div class="cols">
+    <div><div class="bank" id="bank" role="group" aria-label="شواهد الدوسية"></div>
+     <div class="flowmap" id="flowmap"></div></div>
+    <div><div class="target" id="target"></div><ol class="trail" id="trail"></ol>
+     <div class="ctrl"><button class="btn pri" id="algNext">السؤال التالي</button><button class="btn" id="algAll">اكشف المسار كاملًا</button><button class="btn" id="algReset">من البداية</button></div></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="بنية الإعراب"><div class="page">
+   <p class="kick">أداة فهم</p><h2>تشريح جملة الإعراب</h2>
+   <p class="lead">كلّ إعراب تامّ لمرفوع يتألّف من أربعة أجزاء: الموقع، والحكم، والعلامة، وعلّة العلامة. اختر الموقع ونوع الاسم لتُبنى الجملة.</p>
+   <div class="cols">
+    <div class="fsel"><div class="og" id="fPos"><span>الموقع</span></div><div class="og" id="fType"><span>نوع الاسم</span></div>
+     <div class="box tint"><div class="formula" id="formula"></div><p class="fout" id="fout"></p></div></div>
+    <div class="box"><h3>لماذا هذا التشريح؟</h3><p style="margin-top:8px">يفصل الطالب بين ما يقرّره الموقع (الحكم: الرفع) وما يقرّره نوع الكلمة (العلامة وعلّتها). أكثر أخطاء الإعراب تقع في الخلط بين الأمرين: يصيب الطالب الموقع ويخطئ العلامة، أو العكس.</p><p class="note">علامات الرفع وعللها من جدول الدوسية؛ والتقدير للتعذّر على الألف في الاسم المقصور.</p></div>
+   </div>
+  </div></section>
+
+  <section class="sl" data-n="الخلاصة"><div class="page">
+   <p class="kick">خلاصة</p><h2>المرفوعات في جدول واحد</h2>
+   <div class="scroll" style="margin-top:16px"><table class="sum"><thead><tr><th>الموقع</th><th>كيف تعرفه</th><th>مثال الدوسية</th></tr></thead><tbody id="sum"></tbody></table></div>
+  </div></section>
+
+  <section class="sl" data-n="التقويم"><div class="page">
+   <p class="kick">التقويم</p><h2>قياس الفهم قبل الانتقال</h2>
+   <p class="lead">امسحوا الرمز، واكتبوا أسماءكم، وأجيبوا عن ثمانية أسئلة مأخوذة من تمارين الدوسية. تظهر النتائج هنا مجمّعة بلا أسماء.</p>
+   <div class="qrcol">
+    <div><div class="qr" id="qr" role="img" aria-label="رمز QR لصفحة الأسئلة"></div><p class="qlink" id="qrLink"></p></div>
+    <div><div class="kpis"><div class="kpi"><b id="kN">٠</b><span>مشاركًا</span></div><div class="kpi"><b id="kAvg">–</b><span>نسبة الصواب</span></div></div>
+     <div class="bars" id="liveBars"></div>
+     <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:16px"><button class="btn" id="simBtn">محاكاة قاعة</button><a class="btn" href="#student" style="text-decoration:none;display:inline-flex;align-items:center">صفحة الطالب</a><a class="btn pri" href="#teacher" style="text-decoration:none;display:inline-flex;align-items:center">لوحة المحاضر</a></div>
+     <p class="small">زرّ المحاكاة يضيف بيانات تجريبيّة للعرض.</p></div>
+   </div>
+  </div></section>
+
+ </div>
+ <div class="foot"><button class="btn" id="prevBtn" aria-label="السابق">→ السابق</button><div class="toc" id="toc"></div><span class="count" id="count"></span><span class="grow"></span><button class="btn" id="fsBtn">ملء الشاشة</button><button class="btn pri" id="nextBtn" aria-label="التالي">التالي ←</button></div>
+</div>
+
+<div id="student" class="view"><div class="sband"><b>تقويم: المرفوعات</b><span id="sProg"></span></div><div class="sw"><div class="sbar"><i id="sBar" style="width:0"></i></div><div id="sBody"></div></div></div>
+
+<div id="teacher" class="view"><div class="sband"><b>لوحة المحاضر: المرفوعات</b><span style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="#deck" style="text-decoration:none;display:inline-flex;align-items:center">العرض</a><button class="btn" id="tSim">محاكاة</button><button class="btn" id="tCsv">نسخ CSV</button><button class="btn" id="tClear">مسح</button></span></div>
+ <div class="tw">
+  <div class="box" style="margin-bottom:18px"><h3>ربط الإجابات بجدول Google</h3><p class="small" style="margin-top:4px">الصق رابط تطبيق Google Apps Script (ينتهي بـ /exec). يُحفظ في هذا المتصفّح، ويُضاف تلقائيًّا إلى رمز QR فتصل إجابات الهواتف إلى جدولك.</p>
+   <div class="conn"><input type="text" id="apiIn" dir="ltr" placeholder="https://script.google.com/macros/s/…/exec" aria-label="رابط Apps Script"><button class="btn pri" id="apiSave">حفظ واختبار</button><button class="btn" id="apiClear">إلغاء الربط</button></div><p class="st" id="apiSt"></p></div>
+  <div class="kpis"><div class="kpi"><b id="tN">٠</b><span>مشاركًا</span></div><div class="kpi"><b id="tAvg">–</b><span>متوسط الدرجة من ٨</span></div><div class="kpi"><b id="tHard">–</b><span>أصعب سؤال</span></div><div class="kpi"><b id="tPend">٠</b><span>إجابات تنتظر التصحيح</span></div></div>
+  <div class="tgrid"><div class="box"><h3>نسبة الصواب لكلّ سؤال</h3><div class="bars" id="tBars"></div></div><div class="box"><h3 style="margin-bottom:10px">الأخطاء الشائعة وتفسيرها</h3><div class="mis" id="tMis"></div></div></div>
+  <div class="box" style="margin-top:18px"><h3>إجابات كلّ مشارك</h3><p class="small">اضغط صفًّا لعرض إجاباته.</p><div class="scroll" style="margin-top:6px"><table class="dt" id="tTable"></table></div><div class="detail" id="tDetail"></div></div>
+  <div class="box" style="margin-top:18px"><div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:space-between;align-items:center"><h3>السؤال السابع: الإعراب الكتابيّ</h3><button class="btn" id="tAuto">اعتمد الاقتراح الآليّ لغير المصحّح</button></div><div class="open" id="tOpen"></div></div>
+ </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+<script>
+{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const AR=n=>Number(n).toLocaleString('ar-EG');
+const ARTIFACT_URL='https://claude.ai/artifact/BTPWirJMfSL8PUw1ARXJq8';
+const LECTURE='marfuat';
+const onWeb=/^https?:$/.test(location.protocol)&&!/claude|anthropic/.test(location.hostname);
+const qp=new URLSearchParams(location.search);
+const getApi=()=>{const q=qp.get('api');if(q&&/^https:\/\/script\.google(usercontent)?\.com\//.test(q))return q;try{return localStorage.getItem('marfuat-api')||''}catch(e){return''}};
+const studentUrl=()=>{const base=onWeb?location.origin+location.pathname:ARTIFACT_URL;const a=getApi();return base+(a&&onWeb?'?api='+encodeURIComponent(a):'')+'#student'};
+const netSend=r=>{const a=getApi();if(!a)return;try{fetch(a,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({id:r.id,name:r.name,ts:r.ts,ans:r.ans,lecture:LECTURE})}).catch(()=>{})}catch(e){}};
+let netOk=null;
+const netPull=async()=>{const a=getApi();if(!a)return null;try{const res=await fetch(a+(a.includes('?')?'&':'?')+'lecture='+LECTURE,{cache:'no-store'});const arr=await res.json();if(Array.isArray(arr)){arr.forEach(r=>{if(r&&r.id&&typeof r.name==='string'&&r.ans&&typeof r.ans==='object')upsert({id:String(r.id),name:String(r.name),ts:Number(r.ts)||0,ans:r.ans},'net')});netOk=arr.length;return arr.length}}catch(e){netOk=false}return null};
+const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(toast.h);toast.h=setTimeout(()=>t.classList.remove('on'),1800)};
+
+/* questions */
+const QS=[
+ {id:'q1',type:'mc',stem:'ما إعراب «المُتَلَقِّيَانِ»؟',src:'إِذْ يَتَلَقَّى المُتَلَقِّيَانِ',opts:['فاعل مرفوع وعلامة رفعه الألف لأنه مثنّى','فاعل مرفوع وعلامة رفعه الضمّة','مفعول به منصوب','مبتدأ مرفوع'],ok:0,mis:{1:'يعرف الموقع ويغفل عن العلامة الفرعيّة للمثنّى',2:'يخلط بين الفاعل والمفعول به',3:'يحكم بنوع الجملة دون النظر إلى الفعل'},ex:'«المتلقيان» مثنّى، فعلامة رفعه الألف نيابةً عن الضمّة.'},
+ {id:'q2',type:'mc',stem:'ما موقع «القُرْآنُ»؟',src:'تُلِيَ القُرْآنُ',opts:['فاعل','نائب فاعل','مفعول به','مبتدأ'],ok:1,mis:{0:'لا يلاحظ بناء الفعل للمجهول',2:'يقف عند الأصل ولا يرى التحويل',3:'يعكس رتبة الجملة'},ex:'«تُلِيَ» مبنيّ للمجهول، فالمرفوع بعده نائب فاعل، وأصله مفعول به.'},
+ {id:'q3',type:'mc',stem:'أدخِل «أصبح» على الجملة. ما الصواب؟',src:'المُؤْمِنُونَ مُتَكَاتِفُونَ',opts:['أَصْبَحَ المُؤْمِنُونَ مُتَكَاتِفِينَ','أَصْبَحَ المُؤْمِنِينَ مُتَكَاتِفُونَ','أَصْبَحَ المُؤْمِنُونَ مُتَكَاتِفُونَ','أَصْبَحُوا المُؤْمِنُونَ مُتَكَاتِفِينَ'],ok:0,ar:1,mis:{1:'يعكس عمل كان فيعاملها معاملة إنّ',2:'يغفل نصب خبر كان',3:'يُلحق الفعل علامة الجمع مع الاسم الظاهر'},ex:'«أصبح» من أخوات كان: ترفع الاسم «المؤمنون» بالواو، وتنصب الخبر «متكاتفين» بالياء.'},
+ {id:'q4',type:'tap',stem:'اضغط الكلمة المرفوعة.',toks:['إِنَّ','الرِّحْلَةَ','جَمِيلَةٌ'],ok:2,mis:{0:'يعدّ الحرف الناسخ معربًا',1:'يُبقي اسم إنّ على حكم المبتدأ'},ex:'«إنّ» تنصب اسمها «الرحلةَ» وترفع خبرها «جميلةٌ».'},
+ {id:'q5',type:'mc',stem:'ما نوع الخبر؟',src:'يَدُ اللهِ فَوْقَ أَيْدِيهِمْ',opts:['مفرد','جملة فعليّة','جملة اسميّة','شبه جملة'],ok:3,mis:{0:'يعدّ الظرف وحده خبرًا مفردًا',1:'يخلط بين الفعل وشبه الجملة',2:'يرى اسمين فيظنّها جملة اسميّة'},ex:'«فوقَ أيديهم» ظرف ومضاف إليه: شبه جملة في محلّ رفع خبر.'},
+ {id:'q6',type:'mc',stem:'ما إعراب «وَجْهُهُ»؟',src:'ظَلَّ وَجْهُهُ مُسْوَدًّا',opts:['اسم ظلّ مرفوع','فاعل مرفوع','مبتدأ مرفوع','خبر ظلّ مرفوع'],ok:0,mis:{1:'يعامل الفعل الناقص معاملة التامّ',2:'يُسقط أثر الناسخ',3:'يخلط بين ركنَي الناسخ'},ex:'«ظلّ» فعل ناقص من أخوات كان، فالمرفوع بعده اسمها لا فاعل.'},
+ {id:'q7',type:'open',stem:'أعرب الكلمة التي تحتها خطّ إعرابًا تامًّا.',src:'لَوْلَا يَنْهَاهُمُ <u>الرَّبَّانِيُّونَ</u>',keys:['فاعل','الواو'],ex:'النموذج: فاعل مرفوع وعلامة رفعه الواو لأنه جمع مذكّر سالم.'},
+ {id:'q8',type:'mc',stem:'كتب طالب هذه الجملة. أين الخطأ؟',src:'كَانَ الجَوُّ جَمِيلٌ',opts:['في «الجوُّ»: حقّه النصب','في «جميلٌ»: خبر كان منصوب، والصواب «جميلًا»','لا خطأ في الجملة','في «كان»: حقّها «كانت»'],ok:1,mis:{0:'يعكس عمل كان',2:'لا يلاحظ عمل الناسخ',3:'يخلط في المطابقة'},ex:'خبر كان منصوب: «كانَ الجوُّ جميلًا».'}];
+const NQ=QS.length,KEYS=['أ','ب','ج','د'];
+
+/* store */
+const KEY='marfuat-v3';let RECS={};
+const load=()=>{try{RECS=JSON.parse(localStorage.getItem(KEY)||'{}')||{}}catch(e){RECS={}}};
+const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(RECS))}catch(e){}};
+let bc=null;try{bc=new BroadcastChannel('marfuat3')}catch(e){}
+const upsert=(r,from)=>{if(!r||!r.id||typeof r.name!=='string'||typeof r.ans!=='object')return;const old=RECS[r.id];if(old&&old.ts>r.ts)return;if(old&&old.marks)r.marks={...r.marks,...old.marks};RECS[r.id]=r;save();if(from!=='bc'&&bc)bc.postMessage(r);renderLive()};
+if(bc)bc.onmessage=e=>upsert(e.data,'bc');
+window.addEventListener('storage',e=>{if(e.key===KEY){load();renderLive()}});
+let room=null;const pushRoom=r=>{try{room&&room.presence({app:'marfuat',rec:r})}catch(e){}};
+setTimeout(async()=>{try{if(window.claude&&window.claude.use){room=await window.claude.use('room');if(room&&room.onPeers)room.onPeers(ps=>{(ps||[]).forEach(p=>{const s=p&&(p.presence||p.state||p.data);if(s&&s.app==='marfuat'&&s.rec)upsert(s.rec,'room')})})}}catch(e){}},0);
+const grade=(q,a,r)=>{if(a==null||a==='')return null;if(q.type==='open'){const m=r.marks&&r.marks[q.id];return m==null?null:m}return a===q.ok};
+const auto=(q,a)=>q.keys.every(k=>String(a||'').includes(k));
+const stats=()=>{const rs=Object.values(RECS);const per=QS.map(q=>{let c=0,n=0;const wr={};rs.forEach(r=>{const a=r.ans[q.id];if(a==null||a==='')return;const g=grade(q,a,r);if(g==null)return;n++;if(g)c++;else if(q.type!=='open')wr[a]=(wr[a]||0)+1});return{q,c,n,wr}});
+ const scores=rs.map(r=>QS.reduce((s,q)=>s+(grade(q,r.ans[q.id],r)?1:0),0));const avg=rs.length?scores.reduce((a,b)=>a+b,0)/rs.length:null;
+ return{rs,per,avg,scores,pend:rs.filter(r=>r.ans.q7&&r.marks?.q7==null).length}};
+const pct=x=>Math.round(x*100),qS=i=>'س'+AR(i+1);
+
+/* deck */
+const sls=$$('.sl');let cur=0;
+$('#toc').innerHTML=sls.map((s,i)=>`<button title="${s.dataset.n}" aria-label="${s.dataset.n}" data-i="${i}"></button>`).join('');
+const go=i=>{i=Math.max(0,Math.min(sls.length-1,i));sls.forEach((s,k)=>s.classList.toggle('on',k===i));cur=i;$$('#toc button').forEach((b,k)=>{b.classList.toggle('on',k<i);b.classList.toggle('cur',k===i)});
+ $('#count').textContent=AR(i+1)+' / '+AR(sls.length)+' · '+sls[i].dataset.n;$('#prevBtn').disabled=i===0;$('#nextBtn').disabled=i===sls.length-1;if(sls[i].dataset.n==='الفاعل ونائبه')renderMorph(0)};
+$('#toc').onclick=e=>{const b=e.target.closest('[data-i]');if(b)go(+b.dataset.i)};
+$('#nextBtn').onclick=()=>go(cur+1);$('#prevBtn').onclick=()=>go(cur-1);
+document.addEventListener('keydown',e=>{if(!$('#deck').classList.contains('on')||/INPUT|TEXTAREA/.test(e.target.tagName))return;if(['ArrowLeft','PageDown',' '].includes(e.key)){e.preventDefault();go(cur+1)}if(['ArrowRight','PageUp'].includes(e.key)){e.preventDefault();go(cur-1)}});
+$('#fsBtn').onclick=()=>{try{document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen().catch(()=>toast('ملء الشاشة غير متاح هنا'))}catch(e){toast('ملء الشاشة غير متاح هنا')}};
+
+/* series */
+const SER_N=[['مفاهيم أوّليّة وأقسام الكلمة','المعرب والمبنيّ، علامات الإعراب'],['المرفوعات','ستّة مواقع والتوابع'],['المنصوبات','المفاعيل، الحال، التمييز'],['المجرورات والأسماء المبنيّة','حروف الجرّ، الإضافة، الضمائر'],['الأفعال والحروف','أنواع الأفعال، عمل الحروف'],['العدد','المطابقة والمخالفة، الإعراب، التمييز'],['الهمزة','الوصل والقطع، الوسط والآخر'],['الممنوع من الصرف','العلل وحالات الصرف']];
+const SER_S=[['المشتقّات (١)','اسم الفاعل والمفعول، الصفة المشبّهة'],['المشتقّات (٢)','المبالغة، الزمان والمكان، التفضيل، الآلة'],['المصادر','الصريح، الميميّ، المرّة، الهيئة، المؤوّل، الصناعيّ'],['الجموع','السالم، التكسير، اسم الجمع، جمع الجمع']];
+const ser=(arr,off)=>arr.map((x,i)=>`<li class="${i+off===1?'cur':''}"><span><b>${x[0]}</b>${i+off===1?'<span class="now">هذه المحاضرة</span>':''}<small>${x[1]}</small></span></li>`).join('');
+$('#serN').innerHTML=ser(SER_N,0);$('#serS').innerHTML=ser(SER_S,8);
+
+/* positions */
+const POS=[['','المَدْرَسَ','ةُ',' عَرِيقَةٌ','r','مبتدأ','رفع','هٰذِهِ مَدْرَسَةٌ'],['إِنَّ ','المَدْرَسَ','ةَ',' عَرِيقَةٌ','n','اسم إنّ','نصب','إِنَّ هٰذِهِ مَدْرَسَةٌ'],['فِي ','المَدْرَسَ','ةِ',' مَكْتَبَةٌ','j','اسم مجرور','جرّ','فِي هٰذِهِ المَدْرَسَةِ']];
+$('#pos').innerHTML=POS.map((p,i)=>`<div class="prow"><button class="ex" data-p="${i}" style="all:unset;cursor:pointer;font-family:Amiri;font-size:clamp(30px,3.8vw,52px);line-height:1.7">${p[0]}${p[1]}<span class="gap">ة</span>${p[3]}</button><span class="rv" id="rv${i}"></span><span class="mbc">${p[7]}</span></div>`).join('');
+$('#pos').onclick=e=>{const b=e.target.closest('[data-p]');if(!b)return;const p=POS[+b.dataset.p];b.innerHTML=`${p[0]}${p[1]}<em class="${p[4]}">${p[2]}</em>${p[3]}`;b.classList.add('flash');$('#rv'+b.dataset.p).innerHTML=`<span class="tag ${p[4]}">${p[5]}</span><span class="small" style="margin:0">${p[6]}</span>`};
+
+/* tree */
+const LEAVES=[['الفاعل',6],['نائب الفاعل',6],['المبتدأ',7],['الخبر',7],['اسم كان وأخواتها',8],['خبر إنّ وأخواتها',8],['التوابع: العطف، النعت، التوكيد، البدل',10]];
+$('#leaves').innerHTML=LEAVES.map(([t,s])=>`<button class="node" data-go="${s}">${t}</button>`).join('');
+$('#leaves').onclick=e=>{const b=e.target.closest('[data-go]');if(b)go(+b.dataset.go)};
+
+/* signs */
+const SIG=[['المفرد','الضمّة','الفتحة','الكسرة',['الطَّالِ','بُ',''],'نَجَحَ الطَّالِبُ',''],['جمع التكسير','الضمّة','الفتحة','الكسرة ما لم يكن ممنوعًا من الصرف',['الطُّلَّا','بُ',''],'نَجَحَ الطُّلَّابُ',''],['جمع المؤنّث السالم','الضمّة','الكسرة','الكسرة',['المُعَلِّمَا','تُ',''],'حَضَرَتِ المُعَلِّمَاتُ',''],['المثنّى','الألف','الياء','الياء',['الطَّالِبَ','ا','نِ'],'نَجَحَ الطَّالِبَانِ','الألف علامة فرعيّة تنوب عن الضمّة.'],['جمع المذكّر السالم','الواو','الياء','الياء',['المُعَلِّمُ','و','نَ'],'حَضَرَ المُعَلِّمُونَ','الواو علامة فرعيّة تنوب عن الضمّة.'],['الأسماء الخمسة','الواو','الألف','الياء',['أَبُ','و','كَ'],'حَضَرَ أَبُوكَ','الأسماء الخمسة: أب، أخ، حم، فو، ذو.'],['الاسم المقصور','ضمّة مقدّرة','فتحة مقدّرة','كسرة مقدّرة',['الفَتَ','ى',''],'نَجَحَ الفَتَى','تُقدّر الحركات على الألف للتعذّر، كما في الدوسية.']];
+let si=0;
+const renderSig=()=>{$('#sigBody').innerHTML=SIG.map((s,i)=>`<tr class="${i===si?'on':''}" data-i="${i}" tabindex="0"><th>${s[0]}</th><td>${s[1]}</td><td>${s[2]}</td><td>${s[3]}</td></tr>`).join('');const d=SIG[si];const w=$('#sigWord');w.innerHTML=`${d[4][0]}<em class="r">${d[4][1]}</em>${d[4][2]}`;w.classList.remove('flash');void w.offsetWidth;w.classList.add('flash');$('#sigEx').textContent=d[5];$('#sigNote').textContent=d[6]||'علامة أصليّة: الضمّة الظاهرة.'};
+$('#sigBody').onclick=e=>{const r=e.target.closest('[data-i]');if(r){si=+r.dataset.i;renderSig()}};
+$('#sigBody').onkeydown=e=>{if(e.key==='Enter'){const r=e.target.closest('[data-i]');if(r){si=+r.dataset.i;renderSig()}}};renderSig();
+
+/* morph */
+let mT=[];
+const renderMorph=st=>{mT.forEach(clearTimeout);mT=[];const L=$$('#morphSteps li');
+ if(!st){$('#morph').innerHTML=`<span class="w" id="mv"><span>تَلَا</span><span class="lb mb">فعل مبنيّ للمعلوم</span></span><span class="w" id="mf"><span>القَارِ<em class="r">ئُ</em></span><span class="lb r">فاعل مرفوع</span></span><span class="w" id="mo"><span>القُرْآ<em class="n">نَ</em></span><span class="lb n">مفعول به منصوب</span></span>`;L.forEach(l=>l.classList.remove('on'));$('#morphBtn').disabled=false;return}
+ $('#morphBtn').disabled=true;L[0].classList.add('on');$('#mf').classList.add('gone');
+ mT.push(setTimeout(()=>{L[1].classList.add('on');const v=$('#mv');v.firstElementChild.textContent='تُلِيَ';v.querySelector('.lb').textContent='فعل مبنيّ للمجهول';v.classList.add('flash')},900));
+ mT.push(setTimeout(()=>{L[2].classList.add('on');const o=$('#mo');o.querySelector('em').className='r';o.querySelector('em').textContent='نُ';const lb=o.querySelector('.lb');lb.className='lb r';lb.textContent='نائب فاعل مرفوع';o.classList.add('flash')},1900))};
+$('#morphBtn').onclick=()=>renderMorph(1);$('#morphReset').onclick=()=>renderMorph(0);renderMorph(0);
+$('#khBtn').onclick=()=>{const k=$('#khW');const on=k.style.opacity==='1';k.style.opacity=on?'.2':'1';k.classList.toggle('flash',!on);$('#khBtn').textContent=on?'أتمّ الإسناد':'احذف الخبر'};
+
+/* lab */
+const BASES=[{t:'المدرسةُ عريقةٌ',a:['المَدْرَسَ','ةُ','ةَ'],b:['عَرِيقَ','ةٌ','ةً'],fem:1,sg:['الضمّة الظاهرة','الفتحة الظاهرة'],why:''},{t:'المؤمنون متكاتفون',a:['المُؤْمِ','نُونَ','نِينَ'],b:['مُتَكَاتِ','فُونَ','فِينَ'],fem:0,sg:['الواو','الياء'],why:' لأنه جمع مذكّر سالم'},{t:'الرحلةُ جميلةٌ',a:['الرِّحْلَ','ةُ','ةَ'],b:['جَمِيلَ','ةٌ','ةً'],fem:1,sg:['الضمّة الظاهرة','الفتحة الظاهرة'],why:''}];
+const OPS=[{n:'بلا ناسخ',k:'none'},{n:'كان',m:'كَانَ',f:'كَانَتِ',k:'kana'},{n:'أصبح',m:'أَصْبَحَ',f:'أَصْبَحَتِ',k:'kana'},{n:'ظلّ',m:'ظَلَّ',f:'ظَلَّتِ',k:'kana'},{n:'صار',m:'صَارَ',f:'صَارَتِ',k:'kana'},{n:'بات',m:'بَاتَ',f:'بَاتَتِ',k:'kana'},{n:'ليس',m:'لَيْسَ',f:'لَيْسَتِ',k:'kana',j:1},{n:'إنّ',m:'إِنَّ',k:'inna',d:'توكيد'},{n:'كأنّ',m:'كَأَنَّ',k:'inna',d:'تشبيه'},{n:'ليت',m:'لَيْتَ',k:'inna',d:'تمنٍّ'},{n:'لعلّ',m:'لَعَلَّ',k:'inna',d:'ترجٍّ'}];
+let bi=0,oi=0;
+$('#ops').innerHTML=`<div class="og"><span>الجملة الاسميّة</span><button class="op" data-o="0" style="font-family:inherit;font-size:15px">بلا ناسخ</button></div><div class="og"><span>كان وأخواتها</span>${OPS.map((o,i)=>o.k==='kana'?`<button class="op" data-o="${i}">${o.m}</button>`:'').join('')}</div><div class="og"><span>إنّ وأخواتها</span>${OPS.map((o,i)=>o.k==='inna'?`<button class="op" data-o="${i}">${o.m}</button>`:'').join('')}</div>`;
+const renderLab=anim=>{const B=BASES[bi],O=OPS[oi];$('#baseTabs').innerHTML=BASES.map((x,i)=>`<button class="chip" aria-pressed="${i===bi}" data-b="${i}">${x.t}</button>`).join('');$$('#ops .op').forEach(b=>b.setAttribute('aria-pressed',+b.dataset.o===oi));
+ const aR=O.k!=='inna',bR=O.k!=='kana',an=O.k==='none'?'مبتدأ':'اسم '+O.n,bn=O.k==='none'?'خبر':'خبر '+O.n,verb=O.k==='none'?'':(O.k==='kana'&&B.fem?O.f:O.m),f=anim?' flash':'';
+ let h=verb?`<span class="w${f}"><span class="mb">${verb}</span><span class="lb mb">${O.k==='kana'?'فعل ناسخ':'حرف ناسخ'}</span></span>`:'';
+ h+=`<span class="w${f}"><span>${B.a[0]}<em class="${aR?'r':'n'}">${aR?B.a[1]:B.a[2]}</em></span><span class="lb ${aR?'r':'n'}">${an} · ${aR?'رفع':'نصب'}</span></span><span class="w${f}"><span>${B.b[0]}<em class="${bR?'r':'n'}">${bR?B.b[1]:B.b[2]}</em></span><span class="lb ${bR?'r':'n'}">${bn} · ${bR?'رفع':'نصب'}</span></span>`;
+ $('#labSent').innerHTML=h;$('#lk').classList.toggle('on',O.k==='kana');$('#li').classList.toggle('on',O.k==='inna');
+ const aw=B.a[0]+(aR?B.a[1]:B.a[2]),bw=B.b[0]+(bR?B.b[1]:B.b[2]);let ir='';
+ if(O.k==='kana')ir+=`<div><b>${verb}</b>: فعل ماضٍ ناقص${O.j?' جامد':''} مبنيّ على الفتح${B.fem?'، والتاء للتأنيث حُرّكت بالكسر لالتقاء الساكنين':''}.</div>`;
+ if(O.k==='inna')ir+=`<div><b>${verb}</b>: حرف ${O.d} ونصب مبنيّ على الفتح، لا محلّ له من الإعراب.</div>`;
+ ir+=`<div><b>${aw}</b>: ${an} ${aR?'مرفوع وعلامة رفعه':'منصوب وعلامة نصبه'} ${aR?B.sg[0]:B.sg[1]}${B.why}.</div><div><b>${bw}</b>: ${bn} ${bR?'مرفوع وعلامة رفعه':'منصوب وعلامة نصبه'} ${bR?B.sg[0]:B.sg[1]}${B.why}.</div>`;$('#labIrab').innerHTML=ir};
+$('#ops').onclick=e=>{const b=e.target.closest('[data-o]');if(b){oi=+b.dataset.o;renderLab(1)}};$('#baseTabs').onclick=e=>{const b=e.target.closest('[data-b]');if(b){bi=+b.dataset.b;renderLab(1)}};renderLab();
+
+/* verse */
+const VERSE=[['وَإِذَا',0,'الواو بحسب ما قبلها، و«إذا» ظرف لما يُستقبل من الزمان متضمّن معنى الشرط، مبنيّ على السكون.'],['بُشِّرَ',0,'فعل ماضٍ مبنيّ للمجهول، مبنيّ على الفتح.'],['أَحَدُهُمْ',1,'«أحدُ» نائب فاعل مرفوع وعلامة رفعه الضمّة الظاهرة، و«هم» ضمير متّصل مبنيّ في محلّ جرّ بالإضافة.'],['بِالأُنْثَى',0,'جارّ ومجرور، وعلامة الجرّ الكسرة المقدّرة على الألف منع من ظهورها التعذّر.'],['ظَلَّ',0,'فعل ماضٍ ناقص مبنيّ على الفتح.'],['وَجْهُهُ',1,'«وجهُ» اسم ظلّ مرفوع وعلامة رفعه الضمّة الظاهرة، والهاء ضمير متّصل مبنيّ في محلّ جرّ بالإضافة.'],['مُسْوَدًّا',0,'خبر ظلّ منصوب وعلامة نصبه تنوين الفتح الظاهر.'],['وَهُوَ',2,'الواو حاليّة، و«هو» ضمير منفصل مبنيّ على الفتح في محلّ رفع مبتدأ.'],['كَظِيمٌ',1,'خبر المبتدأ مرفوع وعلامة رفعه تنوين الضمّ الظاهر، والجملة الاسميّة في محلّ نصب حال.']];
+let found=new Set();
+const resetHunt=()=>{$('#verse').innerHTML='﴿ '+VERSE.map((v,i)=>`<button class="tok" data-v="${i}">${v[0]}</button>`).join(' ')+' ﴾';found=new Set();$('#tally').textContent='٠ من ٤';$('#hNote').innerHTML='<p class="small" style="margin:0">اختر كلمة من الآية.</p>'};
+$('#verse').onclick=e=>{const b=e.target.closest('[data-v]');if(!b)return;const v=VERSE[+b.dataset.v];
+ if(v[1]){b.classList.add('hit');if(v[1]===2)b.classList.add('mh');found.add(b.dataset.v);$('#tally').textContent=AR(found.size)+' من ٤';$('#hNote').innerHTML=`<b class="ar r" style="font-size:28px">${v[0]}</b> <span class="tag r" style="margin-inline-start:8px">${v[1]===2?'مرفوع محلًّا':'مرفوع'}</span><p style="margin-top:4px">${v[2]}</p>`;if(found.size===4)toast('اكتمل استخراج المرفوعات الأربعة')}
+ else{b.classList.add('miss');$('#hNote').innerHTML=`<b class="ar" style="font-size:28px">${v[0]}</b> <span class="tag mb" style="margin-inline-start:8px">ليس مرفوعًا</span><p style="margin-top:4px">${v[2]}</p>`}};
+$('#hReset').onclick=resetHunt;resetHunt();
+
+/* algorithm */
+const NODES={t:'هل الكلمة تابعة لمرفوع قبلها، بعطف أو نعت أو توكيد أو بدل؟',v:'هل تُسند الكلمة إلى فعل قبلها؟',k:'هل هذا الفعل ناقص من أخوات كان؟',m:'هل الفعل مبنيّ للمعلوم؟',i:'هل في الجملة حرف ناسخ من أخوات إنّ؟',s:'هل الكلمة هي المحدَّث عنه في جملة اسميّة، ولو تأخّرت؟',x:'هل يتمّ بها معنى المبتدأ؟'};
+const FLOW=['t','v','k','m','i','s','x'];
+const BANK=[
+ {src:'آية',pre:'قَالُوا أَنُؤْمِنُ كَمَا آمَنَ ',w:'السُّفَهَاءُ',post:'',path:[['t',0],['v',1],['k',0],['m',1]],res:'فاعل',ir:'فاعل مرفوع وعلامة رفعه الضمّة الظاهرة.'},
+ {src:'آية',pre:'',w:'اللَّهُ',post:' نُورُ السَّمَاوَاتِ وَالأَرْضِ',path:[['t',0],['v',0],['i',0],['s',1]],res:'مبتدأ',ir:'لفظ الجلالة مبتدأ مرفوع وعلامة رفعه الضمّة الظاهرة.'},
+ {src:'آية',pre:'اللَّهُ ',w:'نُورُ',post:' السَّمَاوَاتِ وَالأَرْضِ',path:[['t',0],['v',0],['i',0],['s',0],['x',1]],res:'خبر',ir:'خبر مرفوع وعلامة رفعه الضمّة الظاهرة، وهو مضاف.'},
+ {src:'آية',pre:'فِيهَا ',w:'مِصْبَاحٌ',post:'',path:[['t',0],['v',0],['i',0],['s',1]],res:'مبتدأ مؤخّر',ir:'مبتدأ مؤخّر مرفوع وعلامة رفعه تنوين الضمّ، وشبه الجملة «فيها» في محلّ رفع خبر مقدّم.'},
+ {src:'أبو ذؤيب',pre:'وَ',w:'النَّفْسُ',post:' رَاغِبَةٌ إِذَا رَغَّبْتَهَا',path:[['t',0],['v',0],['i',0],['s',1]],res:'مبتدأ',ir:'مبتدأ مرفوع وعلامة رفعه الضمّة الظاهرة.'},
+ {src:'المتنبّي',pre:'وَلَوْ كَانَ مِنْ أَعْدَائِكَ ',w:'القَمَرَانِ',post:'',path:[['t',0],['v',1],['k',1]],res:'اسم كان مؤخّر',ir:'اسم كان مؤخّر مرفوع وعلامة رفعه الألف لأنه مثنّى، وشبه الجملة «من أعدائك» في محلّ نصب خبر كان مقدّم.'},
+ {src:'الشافعيّ',pre:'إِنَّ الجَوَابَ لِبَابِ الشَّرِّ ',w:'مِفْتَاحُ',post:'',path:[['t',0],['v',0],['i',1]],res:'خبر إنّ',ir:'خبر إنّ مرفوع وعلامة رفعه الضمّة الظاهرة.'},
+ {src:'شوقي',pre:'وَيُسْأَلُ فِي الحَوَادِثِ ',w:'ذُو',post:' صَوَابٍ',path:[['t',0],['v',1],['k',0],['m',0]],res:'نائب فاعل',ir:'نائب فاعل مرفوع وعلامة رفعه الواو لأنه من الأسماء الخمسة، وهو مضاف.'},
+ {src:'المتنبّي',pre:'لَعَلَّ عَتْبَكَ ',w:'مَحْمُودٌ',post:' عَوَاقِبُهُ',path:[['t',0],['v',0],['i',1]],res:'خبر لعلّ',ir:'خبر لعلّ مرفوع وعلامة رفعه تنوين الضمّ.'},
+ {src:'آية',pre:'لَوْلَا يَنْهَاهُمُ الرَّبَّانِيُّونَ ',w:'وَالأَحْبَارُ',post:'',path:[['t',1]],res:'معطوف مرفوع',ir:'الواو حرف عطف، و«الأحبارُ» معطوف على «الربّانيّون» مرفوع وعلامة رفعه الضمّة الظاهرة.'}];
+let bk=0,step=0;
+const renderBank=()=>{$('#bank').innerHTML=BANK.map((b,i)=>`<button aria-pressed="${i===bk}" data-k="${i}">${b.pre}<u>${b.w}</u>${b.post}<small>${b.src}</small></button>`).join('')};
+const renderAlg=()=>{const b=BANK[bk];$('#target').innerHTML=`${b.pre}<u>${b.w}</u>${b.post}`;
+ const shown=b.path.slice(0,step);let h=shown.map((p,i)=>`<li data-n="${AR(i+1)}"><span>${NODES[p[0]]}</span><span class="ans ${p[1]?'yes':'no'}">${p[1]?'نعم':'لا'}</span></li>`).join('');
+ if(step>b.path.length)h+=`<li class="res"><b>${b.res}</b><span>${b.ir}</span></li>`;
+ else if(step<=b.path.length&&step<b.path.length+1)h+=step<b.path.length?`<li data-n="${AR(step+1)}" style="border-style:dashed"><span>${NODES[b.path[step][0]]}</span><span class="ans no" style="opacity:.6">؟</span></li>`:'';
+ $('#trail').innerHTML=h;const done=step>b.path.length;$('#algNext').textContent=step===b.path.length?'اكشف الموقع':'السؤال التالي';$('#algNext').disabled=done;
+ const vis=new Set(shown.map(p=>p[0]));if(step<b.path.length)vis.add(b.path[step][0]);
+ $('#flowmap').innerHTML='<b style="color:var(--frame)">ترتيب الأسئلة الثابت</b>'+FLOW.map(k=>`<span class="${vis.has(k)?'on':''}">${NODES[k]}</span>`).join('')};
+$('#bank').onclick=e=>{const b=e.target.closest('[data-k]');if(b){bk=+b.dataset.k;step=0;renderBank();renderAlg()}};
+$('#algNext').onclick=()=>{step++;renderAlg()};$('#algAll').onclick=()=>{step=BANK[bk].path.length+1;renderAlg()};$('#algReset').onclick=()=>{step=0;renderAlg()};
+renderBank();renderAlg();
+
+/* formula */
+const FPOS=[['فاعل','فاعل'],['نائب فاعل','نائب فاعل'],['مبتدأ','مبتدأ'],['خبر','خبر'],['اسم كان','اسم كان'],['خبر إنّ','خبر إنّ'],['معطوف','معطوف على مرفوع']];
+const FTYPE=[['مفرد','الضمّة','الظاهرة على آخره','المُعَلِّمُ'],['جمع تكسير','الضمّة','الظاهرة على آخره','الطُّلَّابُ'],['جمع مؤنّث سالم','الضمّة','الظاهرة على آخره','المُعَلِّمَاتُ'],['مثنّى','الألف','لأنه مثنّى','الطَّالِبَانِ'],['جمع مذكّر سالم','الواو','لأنه جمع مذكّر سالم','المُعَلِّمُونَ'],['الأسماء الخمسة','الواو','لأنه من الأسماء الخمسة','أَبُوكَ'],['مقصور','الضمّة المقدّرة على الألف','منع من ظهورها التعذّر','الفَتَى']];
+let fp=0,ft=0;
+const renderF=()=>{$('#fPos').innerHTML='<span>الموقع</span>'+FPOS.map((p,i)=>`<button class="op" style="font-family:inherit;font-size:15px" aria-pressed="${i===fp}" data-fp="${i}">${p[0]}</button>`).join('');
+ $('#fType').innerHTML='<span>نوع الاسم</span>'+FTYPE.map((t,i)=>`<button class="op" style="font-family:inherit;font-size:15px" aria-pressed="${i===ft}" data-ft="${i}">${t[0]}</button>`).join('');
+ const P=FPOS[fp],T=FTYPE[ft];
+ $('#formula').innerHTML=`<div class="seg s1"><small>١ الموقع: يقرّره السياق</small><b>${P[1]}</b></div><div class="seg s2" style="animation-delay:.08s"><small>٢ الحكم: يقرّره الموقع</small><b>مرفوع</b></div><div class="seg s3" style="animation-delay:.16s"><small>٣ العلامة: يقرّرها نوع الاسم</small><b>وعلامة رفعه ${T[1]}</b></div><div class="seg s4" style="animation-delay:.24s"><small>٤ العلّة</small><b>${T[2]}</b></div>`;
+ $('#fout').innerHTML=`<span class="wd">${T[3]}</span>: ${P[1]} <span class="r">مرفوع</span> وعلامة رفعه <b>${T[1]}</b> ${T[2]}${ft===5?'، وهو مضاف، والكاف ضمير متّصل مبنيّ في محلّ جرّ بالإضافة':''}.`};
+$('#fPos').onclick=e=>{const b=e.target.closest('[data-fp]');if(b){fp=+b.dataset.fp;renderF()}};$('#fType').onclick=e=>{const b=e.target.closest('[data-ft]');if(b){ft=+b.dataset.ft;renderF()}};renderF();
+
+/* connection */
+const apiStatus=(t,c)=>{const el=$('#apiSt');el.textContent=t;el.className='st '+(c||'')};
+$('#apiIn').value=getApi();
+$('#apiSave').onclick=async()=>{const v=$('#apiIn').value.trim();if(!/^https:\/\/script\.google\.com\/macros\/s\/[\w-]+\/exec$/.test(v)){apiStatus('الرابط غير صالح: يجب أن يبدأ بـ https://script.google.com/macros/s/ وينتهي بـ /exec','bad');return}try{localStorage.setItem('marfuat-api',v)}catch(e){}apiStatus('جارٍ الاختبار…');const n=await netPull();if(n==null)apiStatus('تعذّر الاتّصال. تأكّد من نشر التطبيق بصلاحية «أيّ شخص».','bad');else{apiStatus('متّصل. في الجدول '+AR(n)+' إجابة.','ok');drawQR()}};
+$('#apiClear').onclick=()=>{try{localStorage.removeItem('marfuat-api')}catch(e){}$('#apiIn').value='';apiStatus('أُلغي الربط.');drawQR()};
+setInterval(()=>{if(getApi()&&!$('#student').classList.contains('on'))netPull()},6000);
+if(getApi()&&!$('#student').classList.contains('on'))setTimeout(netPull,500);
+
+/* summary */
+const SUM=[['الفاعل','مَن قام بالفعل، وفعله مبنيّ للمعلوم.','قَدِمَ مُحَمَّدٌ'],['نائب الفاعل','فعله مبنيّ للمجهول، وأصله مفعول به.','تُلِيَ القُرْآنُ'],['المبتدأ','تبدأ به الجملة، وهو المُخبَر عنه.','المَدْرَسَةُ عَرِيقَةٌ'],['الخبر','الذي يتمّ به معنى المبتدأ.','المُؤْمِنُونَ مُتَكَاتِفُونَ'],['اسم كان وأخواتها','أصله مبتدأ قبل دخول كان وأخواتها.','ظَلَّ وَجْهُهُ مُسْوَدًّا'],['خبر إنّ وأخواتها','أصله خبر لمبتدأ قبل دخول إنّ وأخواتها.','إِنَّ الرِّحْلَةَ جَمِيلَةٌ']];
+$('#sum').innerHTML=SUM.map(s=>`<tr><th>${s[0]}</th><td>${s[1]}</td><td class="ar">${s[2]}</td></tr>`).join('');
+
+/* QR + live */
+const drawQR=()=>{const u=studentUrl();$('#qrLink').textContent=u;try{const q=qrcode(0,'M');q.addData(u);q.make();const n=q.getModuleCount();let d='';for(let r=0;r<n;r++)for(let c=0;c<n;c++)if(q.isDark(r,c))d+=`M${c} ${r}h1v1h-1z`;$('#qr').innerHTML=`<svg viewBox="-1 -1 ${n+2} ${n+2}" shape-rendering="crispEdges"><path d="${d}" fill="#2b1d18"/></svg>`}catch(e){$('#qr').innerHTML='<p style="padding:16px;color:#333">تعذّر تحميل مولّد الرمز؛ استخدم الرابط أدناه.</p>'}};
+function renderLive(){const S=stats();$('#kN').textContent=AR(S.rs.length);$('#kAvg').textContent=S.avg==null?'–':AR(Math.round(S.avg/NQ*100))+'٪';
+ $('#liveBars').innerHTML=S.per.map((p,i)=>{const v=p.n?p.c/p.n:0;return`<div class="brow"><span>${qS(i)}</span><div class="tr"><i class="${v<.6&&p.n?'low':''}" style="width:${pct(v)}%"></i></div><span class="v">${p.n?AR(pct(v))+'٪':'–'}</span></div>`}).join('');if($('#teacher').classList.contains('on'))renderTeacher()}
+
+/* simulate */
+const NAMES=['سلمى','ليث','رنا','هبة','أحمد','دانة','يزن','منى','عبير','خالد','نور','سامر','ريم','إيمان','باسل','لينا','عمر','غدير'];
+const OPEN=['فاعل مرفوع وعلامة رفعه الواو لأنه جمع مذكر سالم','فاعل مرفوع وعلامة رفعه الضمة','فاعل مرفوع بالواو لأنه جمع مذكر سالم','مفعول به منصوب','فاعل مرفوع وعلامة رفعه الواو'];
+const simulate=()=>{let s=11;const rnd=()=>(s=s*16807%2147483647)/2147483647;const P={q1:.75,q2:.85,q3:.65,q4:.8,q5:.6,q6:.5,q8:.75};NAMES.forEach((nm,k)=>{const ans={};QS.forEach(q=>{if(q.type==='open'){ans[q.id]=OPEN[Math.floor(rnd()*OPEN.length)];return}if(rnd()<P[q.id])ans[q.id]=q.ok;else{const w=Object.keys(q.mis).map(Number);ans[q.id]=rnd()<.6?w[0]:w[Math.floor(rnd()*w.length)]}});upsert({id:'sim'+k,name:nm,ans,ts:Date.now()+k,sim:1},'local')});toast('أُضيف ١٨ مشاركًا تجريبيًّا')};
+$('#simBtn').onclick=simulate;$('#tSim').onclick=simulate;
+
+/* student */
+let me=null,qi=-1;try{me=JSON.parse(sessionStorage.getItem('marfuat-me3')||'null')}catch(e){}
+const persist=()=>{try{sessionStorage.setItem('marfuat-me3',JSON.stringify(me))}catch(e){}};
+const sendMe=()=>{me.ts=Date.now();persist();upsert(JSON.parse(JSON.stringify(me)),'local');pushRoom(me);netSend(me)};
+function renderStudent(){const b=$('#sBody');
+ if(!me){$('#sProg').textContent='';$('#sBar').style.width='0';b.innerHTML=`<div class="qcard"><p>ثمانية أسئلة من تمارين الدوسية. بعد كلّ إجابة يظهر التصحيح وتعليله، وتصل إجابتك إلى المحاضر.</p><div style="margin-top:14px"><label for="sName">الاسم</label><input type="text" id="sName" maxlength="40" autocomplete="name"></div><button class="btn pri" id="sStart" style="margin-top:14px;width:100%">ابدأ</button></div>`;
+  $('#sStart').onclick=()=>{const n=$('#sName').value.trim();if(!n){$('#sName').focus();return}me={id:'s'+Math.random().toString(36).slice(2,9),name:n.slice(0,40),ans:{},ts:Date.now()};qi=0;sendMe();renderStudent()};return}
+ if(qi<0)qi=0;$('#sBar').style.width=Math.min(100,Object.keys(me.ans).length/NQ*100)+'%';
+ if(qi>=NQ){const sc=QS.reduce((s,q)=>s+(q.type!=='open'&&me.ans[q.id]===q.ok?1:0),0);$('#sProg').textContent='';b.innerHTML=`<div class="qcard done"><div class="sc">${AR(sc)} من ${AR(NQ-1)}</div><p>أُرسلت إجاباتك. السؤال الكتابيّ يصحّحه المحاضر.</p><button class="btn" id="sAgain" style="margin-top:14px">مراجعة الأسئلة</button></div>`;$('#sAgain').onclick=()=>{qi=0;renderStudent()};return}
+ const q=QS[qi],a=me.ans[q.id],done=a!=null&&a!=='';$('#sProg').textContent=AR(qi+1)+' من '+AR(NQ);let body='';
+ if(q.type==='mc')body=`<div class="src">${q.src}</div>`+q.opts.map((o,i)=>`<button class="opt ${q.ar?'ar':''} ${done?(i===q.ok?'right':a===i?'wrong':'dim'):''}" data-a="${i}" ${done?'disabled':''}><span class="k">${KEYS[i]}</span><span>${o}</span></button>`).join('');
+ if(q.type==='tap')body=`<div class="toks">${q.toks.map((t,i)=>`<button class="${done&&a===i?'pick':''}" data-a="${i}" ${done?'disabled':''}>${t}</button>`).join('')}</div>`;
+ if(q.type==='open')body=`<div class="src">${q.src}</div>${done?`<p style="background:var(--margin);padding:10px">${esc(a)}</p>`:`<label for="sOpen">إعرابك</label><textarea id="sOpen"></textarea><button class="btn pri" id="sSend" style="margin-top:10px">إرسال</button>`}`;
+ let fb='';if(done){if(q.type==='open')fb=`<div class="fb"><b>وصلت إجابتك إلى المحاضر</b>${q.ex}</div>`;else{const ok=a===q.ok;fb=`<div class="fb ${ok?'':'no'}"><b>${ok?'إجابة صحيحة':'إجابة غير صحيحة'}</b>${q.ex}</div>`}}
+ b.innerHTML=`<div class="qcard"><p class="stem">${q.stem}</p>${body}${fb}</div><div class="snav"><button class="btn" id="sPrev" ${qi===0?'disabled':''}>السابق</button><button class="btn ${done?'pri':''}" id="sNext" ${done?'':'disabled'}>${qi===NQ-1?'النتيجة':'التالي'}</button></div>`;
+ b.onclick=e=>{const o=e.target.closest('[data-a]');if(!o||o.disabled)return;me.ans[q.id]=+o.dataset.a;sendMe();renderStudent()};
+ const sb=$('#sSend');if(sb)sb.onclick=e=>{e.stopPropagation();const v=$('#sOpen').value.trim();if(!v){$('#sOpen').focus();return}me.ans[q.id]=v.slice(0,400);sendMe();renderStudent()};
+ $('#sPrev').onclick=e=>{e.stopPropagation();qi--;renderStudent()};$('#sNext').onclick=e=>{e.stopPropagation();qi++;renderStudent()}}
+
+/* teacher */
+let picked=null;
+function renderTeacher(){const S=stats();$('#tN').textContent=AR(S.rs.length);$('#tAvg').textContent=S.avg==null?'–':AR(S.avg.toFixed(1));const hard=S.per.filter(p=>p.n).sort((a,b)=>a.c/a.n-b.c/b.n)[0];$('#tHard').textContent=hard?qS(QS.indexOf(hard.q)):'–';$('#tPend').textContent=AR(S.pend);
+ $('#tBars').innerHTML=S.per.map((p,i)=>{const v=p.n?p.c/p.n:0;return`<div class="brow" title="${esc(p.q.stem)}"><span>${qS(i)}</span><div class="tr"><i class="${v<.6&&p.n?'low':''}" style="width:${pct(v)}%"></i></div><span class="v">${p.n?AR(pct(v))+'٪':'–'}</span></div>`}).join('');
+ const mis=S.per.filter(p=>p.q.mis&&Object.keys(p.wr).length).map(p=>{const[o,c]=Object.entries(p.wr).sort((a,b)=>b[1]-a[1])[0];return{p,o:+o,c}}).sort((a,b)=>b.c-a.c).slice(0,4);
+ $('#tMis').innerHTML=mis.length?mis.map(m=>{const q=m.p.q,lab=q.type==='tap'?q.toks[m.o]:q.opts[m.o];return`<div><b>${qS(QS.indexOf(q))}: ${esc(q.mis[m.o]||'اختيار خاطئ')}</b><small>${AR(m.c)} اختاروا «${esc(lab)}»</small></div>`}).join(''):'<p class="small">لا بيانات بعد.</p>';
+ const rows=[...S.rs].sort((a,b)=>a.name.localeCompare(b.name,'ar'));
+ $('#tTable').innerHTML=`<thead><tr><th>المشارك</th>${QS.map((q,i)=>`<th>${qS(i)}</th>`).join('')}<th>الدرجة</th></tr></thead><tbody>${rows.map(r=>`<tr data-r="${esc(r.id)}" class="${picked===r.id?'pick':''}"><td>${esc(r.name)}${r.sim?' <span class="small">تجريبي</span>':''}</td>${QS.map(q=>{const a=r.ans[q.id];if(a==null||a==='')return'<td class="pend">·</td>';const g=grade(q,a,r);return g==null?'<td class="pend">؟</td>':g?'<td class="ok">✓</td>':'<td class="no">✗</td>'}).join('')}<td>${AR(S.scores[S.rs.indexOf(r)])}</td></tr>`).join('')}</tbody>`;
+ const R=picked&&RECS[picked];$('#tDetail').innerHTML=R?`<h3 style="margin-top:10px">${esc(R.name)}</h3>`+QS.map((q,i)=>{const a=R.ans[q.id],g=grade(q,a,R),t=a==null||a===''?'لم يُجب':q.type==='mc'?q.opts[a]:q.type==='tap'?q.toks[a]:a;return`<div><b>${qS(i)}</b> ${esc(q.stem)} ← <span class="${g===true?'j':g===false?'n':''}">${esc(t)}</span></div>`}).join(''):'';
+ const op=S.rs.filter(r=>r.ans.q7);$('#tOpen').innerHTML=op.length?op.map(r=>{const m=r.marks?.q7;return`<div class="it"><p><b>${esc(r.name)}:</b> ${esc(r.ans.q7)}<br><span class="small">اقتراح آليّ: ${auto(QS[6],r.ans.q7)?'صحيح':'يحتاج مراجعة'}</span></p><div class="mk"><button class="y" aria-pressed="${m===true}" data-m="1" data-id="${esc(r.id)}" aria-label="صحيح">✓</button><button class="x" aria-pressed="${m===false}" data-m="0" data-id="${esc(r.id)}" aria-label="خطأ">✗</button></div></div>`}).join(''):'<p class="small">لا إجابات بعد.</p>'}
+$('#tTable').onclick=e=>{const tr=e.target.closest('[data-r]');if(tr){picked=picked===tr.dataset.r?null:tr.dataset.r;renderTeacher()}};
+$('#tOpen').onclick=e=>{const b=e.target.closest('[data-m]');if(!b)return;const r=RECS[b.dataset.id];if(!r)return;r.marks={...(r.marks||{}),q7:b.dataset.m==='1'};r.ts=Date.now();upsert(r,'local')};
+$('#tAuto').onclick=()=>{let n=0;Object.values(RECS).forEach(r=>{if(r.ans.q7&&r.marks?.q7==null){r.marks={...(r.marks||{}),q7:auto(QS[6],r.ans.q7)};r.ts=Date.now();upsert(r,'local');n++}});toast('صُحّحت '+AR(n)+' إجابة')};
+$('#tClear').onclick=()=>{RECS={};save();picked=null;renderLive();toast('مُسحت النتائج')};
+$('#tCsv').onclick=()=>{const S=stats();const L=[['الاسم',...QS.map((q,i)=>'س'+(i+1)),'الدرجة'].join(',')];S.rs.forEach((r,k)=>L.push([r.name,...QS.map(q=>{const a=r.ans[q.id];return a==null?'':q.type==='mc'?q.opts[a]:q.type==='tap'?q.toks[a]:a}),S.scores[k]].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')));try{navigator.clipboard.writeText(L.join('\n')).then(()=>toast('نُسخت النتائج'),()=>toast('تعذّر النسخ'))}catch(e){toast('تعذّر النسخ')}};
+
+const route=()=>{const h=location.hash.replace('#','')||'deck';const v=['deck','student','teacher'].includes(h)?h:'deck';$$('.view').forEach(x=>x.classList.toggle('on',x.id===v));if(v==='student'){qi=me?Math.max(qi,0):-1;renderStudent()}if(v==='teacher')renderTeacher();if(v==='deck')renderLive()};
+window.addEventListener('hashchange',route);load();go(0);drawQR();route();
+}
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ html,body{height:100%}
 body{margin:0;background:var(--margin);color:var(--ink);font:17px/1.75 "IBM Plex Sans Arabic",Tahoma,sans-serif;overflow-x:clip}
 button{font:inherit;cursor:pointer;color:inherit}
 h1,h2{font-family:"Aref Ruqaa",Amiri,serif;font-weight:700;line-height:1.25;margin:0;text-wrap:balance}
-h2{font-size:clamp(32px,3.6vw,50px);color:var(--frame)}
+h2{font-size:clamp(32px,3.6cqw,50px);color:var(--frame)}
 h3{font-family:"IBM Plex Sans Arabic";font-size:18px;font-weight:700;margin:0;color:var(--frame)}
 p{margin:0}
 .ar{font-family:Amiri,"Traditional Arabic",serif}
@@ -39,26 +39,28 @@ em{font-style:normal;transition:color .45s}
 .chip{border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 16px;min-height:42px;font-size:15px;font-weight:600}
 .chip[aria-pressed=true]{background:var(--brown);border-color:var(--brown);color:#fff}
 /* deck shell */
-#deck.on{position:fixed;inset:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto}
-.band{background:var(--brown);color:#fff;display:flex;align-items:center;gap:16px;padding:0 max(3vw,16px);min-height:50px}
+#deck.on{position:fixed;inset:0;background:var(--night)}
+.canvas{width:100%;height:100%;display:grid;grid-template-rows:auto minmax(0,1fr) auto;background:var(--margin)}
+#deck.fit .canvas{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform:translate(-50%,-50%) scale(var(--s,1));container-type:size;grid-template-rows:56px minmax(0,1fr) 64px}
+.band{background:var(--brown);color:#fff;display:flex;align-items:center;gap:16px;padding:0 max(3cqw,16px);min-height:50px}
 .band .series{font-weight:600;font-size:15px;opacity:.9}
 .band .lec{font-family:"Aref Ruqaa";font-size:20px}
 .band .grow{flex:1}
 .band a{color:#fff;font-size:15px;font-weight:600;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.5)}
 .stage{position:relative;overflow:hidden}
-.sl{position:absolute;inset:0;overflow-y:auto;padding:clamp(12px,2vw,28px) max(4vw,14px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.sl{position:absolute;inset:0;overflow-y:auto;padding:clamp(12px,2cqw,28px) max(4cqw,14px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
 .sl.on{opacity:1;visibility:visible}
-.page{background:var(--paper);border:1.6px solid var(--frame);outline:12px solid var(--margin);min-height:100%;padding:clamp(18px,2.6vw,40px) clamp(18px,3vw,48px);max-width:1280px;margin:0 auto;position:relative}
+.page{background:var(--paper);border:1.6px solid var(--frame);outline:12px solid var(--margin);min-height:100%;padding:clamp(18px,2.6cqw,40px) clamp(18px,3cqw,48px);max-width:1280px;margin:0 auto;position:relative}
 .sl.on .page>*{animation:rise .6s both}
 .sl.on .page>*:nth-child(2){animation-delay:.08s}.sl.on .page>*:nth-child(3){animation-delay:.16s}.sl.on .page>*:nth-child(4){animation-delay:.24s}
 @keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 .kick{color:var(--soft);font-size:15px;font-weight:600;margin-bottom:6px}
 .lead{max-width:68ch;margin-top:8px;color:var(--soft)}
-.cols{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3vw,44px);margin-top:clamp(14px,2.4vh,28px);align-items:start}
+.cols{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:clamp(18px,3cqw,44px);margin-top:clamp(14px,2.4cqh,28px);align-items:start}
 .box{border:1.6px solid var(--line);border-radius:4px;padding:16px 18px;background:var(--paper)}
 .box.tint{background:var(--sand);border-color:transparent}
 .note{border-inline-start:3px solid var(--frame);padding:4px 14px;color:var(--soft);font-size:15px;margin-top:12px}
-.foot{background:var(--night);color:#e9e7f3;display:flex;align-items:center;gap:12px;padding:8px max(3vw,14px)}
+.foot{background:var(--night);color:#e9e7f3;display:flex;align-items:center;gap:12px;padding:8px max(3cqw,14px)}
 .foot .btn{white-space:nowrap;background:transparent;color:#fff;border-color:rgba(255,255,255,.3)}
 .foot .btn.pri{background:var(--brown);border-color:var(--brown)}
 .toc{display:flex;gap:4px;flex:1;max-width:560px}
@@ -69,11 +71,11 @@ em{font-style:normal;transition:color .45s}
 /* cover */
 .cover .page{background:var(--night);color:#fff;border-color:var(--taupe);display:grid;align-content:center;justify-items:start;gap:14px;overflow:hidden}
 .cover .page::before{content:"";position:absolute;inset:14px;border:1px solid rgba(200,173,162,.45);pointer-events:none}
-.cover h1{font-size:clamp(54px,11vw,170px);line-height:1.1;color:#fff}
-.cover .sub{font-size:clamp(17px,1.7vw,22px);color:#d9d4e6;max-width:44ch}
+.cover h1{font-size:clamp(54px,11cqw,170px);line-height:1.1;color:#fff}
+.cover .sub{font-size:clamp(17px,1.7cqw,22px);color:#d9d4e6;max-width:44ch}
 .cover .meta{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:22px;color:var(--taupe);font-weight:600}
 .cover .meta b{display:block;color:#fff;font-family:"Aref Ruqaa";font-size:24px;font-weight:700}
-.cover .mark{position:absolute;inset-inline-end:6%;top:50%;transform:translateY(-50%);width:clamp(180px,26vw,380px);opacity:.9}
+.cover .mark{position:absolute;inset-inline-end:6%;top:50%;transform:translateY(-50%);width:clamp(180px,26cqw,380px);opacity:.9}
 /* series */
 .series{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;margin-top:20px}
 .series ol{list-style:none;margin:0;padding:0;counter-reset:l var(--start)}
@@ -84,14 +86,14 @@ em{font-style:normal;transition:color .45s}
 .series li small{color:var(--soft);display:block;font-size:14px}
 .series li .now{font-size:13px;color:#fff;background:var(--brown);border-radius:3px;padding:1px 8px;margin-inline-start:6px}
 /* problem */
-.q{font-family:Amiri;font-size:clamp(30px,3.6vw,46px);line-height:1.6;color:var(--ink);border-top:1.6px solid var(--frame);border-bottom:1.6px solid var(--frame);padding:16px 0;margin-top:18px}
+.q{font-family:Amiri;font-size:clamp(30px,3.6cqw,46px);line-height:1.6;color:var(--ink);border-top:1.6px solid var(--frame);border-bottom:1.6px solid var(--frame);padding:16px 0;margin-top:18px}
 .obj{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .obj li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px}
 .obj li::before{content:"";width:10px;height:10px;border:2px solid var(--frame);transform:rotate(45deg);margin-top:10px;justify-self:center}
 /* positions */
 .pos{display:grid;gap:0;margin-top:20px;border-top:1.6px solid var(--frame)}
 .prow{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(0,1fr) minmax(0,1fr);gap:16px;align-items:center;border-bottom:1px solid var(--line);padding:6px 0}
-.prow .ex{font-family:Amiri;font-size:clamp(30px,3.8vw,52px);line-height:1.7}
+.prow .ex{font-family:Amiri;font-size:clamp(30px,3.8cqw,52px);line-height:1.7}
 .prow .ex .gap{border-bottom:2px dotted var(--soft);color:var(--soft)}
 .prow .rv{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
 .tag{font-size:14px;font-weight:700;border:1.6px solid currentColor;border-radius:3px;padding:1px 10px;white-space:nowrap}
@@ -117,10 +119,10 @@ table{border-collapse:collapse;width:100%}
 .sig tbody tr.on th{background:var(--brown);color:#fff}
 .sig tbody tr.on td{background:var(--sand);font-weight:700}
 .sig td:nth-child(2){color:var(--raf)}
-.big{font-family:Amiri;font-size:clamp(64px,9vw,128px);line-height:1.5;text-align:center}
+.big{font-family:Amiri;font-size:clamp(64px,9cqw,128px);line-height:1.5;text-align:center}
 .scroll{overflow-x:auto}
 /* tiles */
-.sent{display:flex;flex-wrap:wrap;gap:.45em;align-items:flex-start;font-family:Amiri;font-size:clamp(38px,5.2vw,74px);line-height:1.6;min-height:2.4em}
+.sent{display:flex;flex-wrap:wrap;gap:.45em;align-items:flex-start;font-family:Amiri;font-size:clamp(38px,5.2cqw,74px);line-height:1.6;min-height:2.4em}
 .w{display:inline-flex;flex-direction:column;align-items:center;transition:opacity .55s,transform .55s,max-width .7s,margin .55s;max-width:7em}
 .w .lb{font-family:"IBM Plex Sans Arabic";font-size:14px;font-weight:700;border-top:2px solid currentColor;padding-top:2px;margin-top:-.15em;white-space:nowrap;transition:color .45s}
 .w.gone{opacity:0;transform:translateY(-24px);max-width:0;margin-inline-end:-.45em}
@@ -149,7 +151,7 @@ table{border-collapse:collapse;width:100%}
 .irab div{border-bottom:1px dotted var(--line);padding:5px 0;font-size:16px;line-height:1.9}
 .irab b{font-family:Amiri;font-size:22px}
 /* verse */
-.verse{font-family:Amiri;font-size:clamp(32px,4.4vw,58px);line-height:2.1;display:flex;flex-wrap:wrap;gap:.05em .35em;margin-top:14px}
+.verse{font-family:Amiri;font-size:clamp(32px,4.4cqw,58px);line-height:2.1;display:flex;flex-wrap:wrap;gap:.05em .35em;margin-top:14px}
 .tok{border:0;background:none;font:inherit;color:inherit;padding:0 .1em;border-bottom:2px solid transparent;transition:.3s}
 .tok:hover{background:var(--sand)}
 .tok.hit{color:var(--raf);border-bottom-color:var(--raf)}
@@ -158,7 +160,7 @@ table{border-collapse:collapse;width:100%}
 .tally{font-family:"Aref Ruqaa";font-size:30px;color:var(--frame)}
 /* chain */
 .chain{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-top:18px}
-.chain .w{font-family:Amiri;font-size:clamp(38px,5vw,70px);border:1.6px solid var(--frame);padding:0 .4em .2em;background:var(--paper)}
+.chain .w{font-family:Amiri;font-size:clamp(38px,5cqw,70px);border:1.6px solid var(--frame);padding:0 .4em .2em;background:var(--paper)}
 .chain .arr{font-size:28px;color:var(--frame)}
 
 /* summary */
@@ -167,14 +169,14 @@ table{border-collapse:collapse;width:100%}
 .sum td.ar{font-size:24px;white-space:nowrap}
 .sum tbody th{font-family:"Aref Ruqaa";font-size:22px;color:var(--frame);white-space:nowrap}
 /* qr */
-.qrcol{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4vw,56px);margin-top:16px;align-items:start}
+.qrcol{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(20px,4cqw,56px);margin-top:16px;align-items:start}
 .qr{background:#fff;border:1.6px solid var(--frame);outline:10px solid var(--sand);padding:16px;aspect-ratio:1;max-width:360px;width:100%}
 .qr svg{width:100%;height:100%;display:block}
 .qlink{font-size:13px;color:var(--soft);overflow-wrap:anywhere;margin-top:18px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(9em,1fr));gap:0;border-top:1.6px solid var(--frame);border-bottom:1px solid var(--line)}
 .kpi{padding:10px 12px}
 .kpi+.kpi{border-inline-start:1px solid var(--line)}
-.kpi b{display:block;font-family:"Aref Ruqaa";font-size:clamp(32px,3.6vw,48px);line-height:1.1;color:var(--frame);font-variant-numeric:tabular-nums}
+.kpi b{display:block;font-family:"Aref Ruqaa";font-size:clamp(32px,3.6cqw,48px);line-height:1.1;color:var(--frame);font-variant-numeric:tabular-nums}
 .kpi span{color:var(--soft);font-size:14px}
 .bars{display:grid;gap:7px;margin-top:14px}
 .brow{display:grid;grid-template-columns:3em minmax(0,1fr) 3.2em;gap:10px;align-items:center;font-size:15px}
@@ -212,7 +214,7 @@ label{font-weight:700;display:block;margin-bottom:6px}
 .done .sc{font-family:"Aref Ruqaa";font-size:64px;color:var(--frame);line-height:1.2}
 /* teacher */
 #teacher.on{min-height:100%}
-.tw{max-width:1240px;margin:0 auto;padding:18px max(3vw,14px) 48px}
+.tw{max-width:1240px;margin:0 auto;padding:18px max(3cqw,14px) 48px}
 .tgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;margin-top:18px}
 .dt th,.dt td{padding:8px 6px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap;font-size:15px}
 .dt th:first-child,.dt td:first-child{text-align:start}
@@ -229,12 +231,12 @@ td.ok{color:var(--jar);font-weight:700}td.no{color:var(--nsb);font-weight:700}td
 .toast.on{opacity:1}
 
 /* algorithm */
-.bank{display:grid;gap:6px;max-height:46vh;overflow-y:auto;padding-inline-end:4px}
+.bank{display:grid;gap:6px;max-height:46cqh;overflow-y:auto;padding-inline-end:4px}
 .bank button{display:block;text-align:start;border:1.6px solid var(--line);background:var(--paper);color:var(--ink);border-radius:3px;padding:6px 12px;font-family:Amiri;font-size:21px;line-height:1.7}
 .bank button small{display:block;font-family:"IBM Plex Sans Arabic";font-size:13px;color:var(--soft)}
 .bank button[aria-pressed=true]{border-color:var(--frame);background:var(--sand)}
 .bank u{text-decoration-color:var(--frame);text-decoration-thickness:2px;text-underline-offset:8px}
-.target{font-family:Amiri;font-size:clamp(28px,3.4vw,44px);line-height:1.8;border-bottom:1.6px solid var(--frame);padding-bottom:6px}
+.target{font-family:Amiri;font-size:clamp(28px,3.4cqw,44px);line-height:1.8;border-bottom:1.6px solid var(--frame);padding-bottom:6px}
 .target u{text-decoration:none;border-bottom:3px solid var(--frame)}
 .trail{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
 .trail li{display:grid;grid-template-columns:2em minmax(0,1fr) auto;gap:10px;align-items:center;border:1.6px solid var(--line);border-radius:3px;padding:8px 12px;animation:rise .45s both}
@@ -265,11 +267,55 @@ td.ok{color:var(--jar);font-weight:700}td.no{color:var(--nsb);font-weight:700}td
 @media(max-width:900px){.cols,.qrcol,.tgrid,.series{grid-template-columns:minmax(0,1fr)}.cover .mark{display:none}}
 @media(max-width:600px){.band .series{display:none}.toc{display:none}.page{outline-width:4px}.tree .lvl{grid-template-columns:minmax(0,1fr)}.prow{grid-template-columns:minmax(0,1fr) auto}.prow .mbc{display:none}.forms{grid-template-columns:minmax(0,1fr)}.forms div:nth-child(odd){border-inline-end:0}.og span{width:100%}#fsBtn{display:none}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* fit-mode density (16:9 canvas) */
+#deck.fit .sl{padding:22px 40px}
+#deck.fit .page{padding:28px 44px}
+#deck.fit .bank{max-height:none}
+/* series compact */
+.series li{padding:6px 4px}
+.series li>span{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 12px}
+.series li small{display:inline}
+/* algorithm compact */
+.bank{grid-template-columns:repeat(2,minmax(0,1fr))}
+.bank button{font-size:19px;padding:4px 10px;line-height:1.6}
+.fsteps{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.fsteps span{font-size:13px;border:1px solid var(--line);border-radius:3px;padding:2px 8px;color:var(--soft);transition:.3s}
+.fsteps span.on{border-color:var(--frame);color:#fff;background:var(--brown)}
+/* phone flow */
+@media(max-width:899px),(max-height:559px){
+ .sl{padding:8px 8px}
+ .page{outline:0;padding:16px 14px}
+ h2{font-size:26px}
+ .lead{font-size:15px}
+ .kick{font-size:13px}
+ .sent{font-size:34px}
+ .big{font-size:56px}
+ .q{font-size:24px}
+ .series{gap:8px}
+ .series li small{display:none}
+ .tree .lvl{grid-template-columns:minmax(0,1fr)}
+ .branch.x .node{display:none}
+ .branch.x h3{font-size:16px;text-align:start}
+ .sig th,.sig td{padding:5px 4px;font-size:13px}
+ .bank{grid-template-columns:minmax(0,1fr)}
+ .qr{max-width:220px}
+ .cover h1{font-size:64px}
+ .cover .page{min-height:100%;align-content:center;padding:28px 30px}
+ .sum thead{display:none}
+ .sum tr{display:grid;padding:8px 0;border-bottom:1px solid var(--line)}
+ .sum th,.sum td{border:0;padding:2px 0}
+ .sum td.ar{white-space:normal}
+ .foot{padding:6px 8px;gap:6px}
+ .foot .btn{min-height:40px;padding:6px 10px}
+ .band{min-height:44px}
+ .band .lec{font-size:17px}
+}
 </style>
 </head>
 <body>
 
-<div id="deck" class="view">
+<div id="deck" class="view"><div class="canvas">
  <div class="band"><span class="lec">المحاضرة الثانية: المرفوعات</span><span class="series">سلسلة: أساسيات في قواعد اللغة العربية</span><span class="grow"></span><a href="#teacher">لوحة المحاضر</a></div>
  <div class="stage">
 
@@ -387,8 +433,8 @@ td.ok{color:var(--jar);font-weight:700}td.no{color:var(--nsb);font-weight:700}td
    <p class="lead">سلسلة أسئلة ثابتة تقود إلى موقع الكلمة. اختر شاهدًا من تمرين الدوسية، واطلب من الحضور الإجابة عن كلّ سؤال قبل كشفه.</p>
    <div class="cols">
     <div><div class="bank" id="bank" role="group" aria-label="شواهد الدوسية"></div>
-     <div class="flowmap" id="flowmap"></div></div>
-    <div><div class="target" id="target"></div><ol class="trail" id="trail"></ol>
+     </div>
+    <div><div class="fsteps" id="flowmap"></div><div class="target" id="target"></div><ol class="trail" id="trail"></ol>
      <div class="ctrl"><button class="btn pri" id="algNext">السؤال التالي</button><button class="btn" id="algAll">اكشف المسار كاملًا</button><button class="btn" id="algReset">من البداية</button></div></div>
    </div>
   </div></section>
@@ -422,7 +468,7 @@ td.ok{color:var(--jar);font-weight:700}td.no{color:var(--nsb);font-weight:700}td
 
  </div>
  <div class="foot"><button class="btn" id="prevBtn" aria-label="السابق">→ السابق</button><div class="toc" id="toc"></div><span class="count" id="count"></span><span class="grow"></span><button class="btn" id="fsBtn">ملء الشاشة</button><button class="btn pri" id="nextBtn" aria-label="التالي">التالي ←</button></div>
-</div>
+</div></div>
 
 <div id="student" class="view"><div class="sband"><b>تقويم: المرفوعات</b><span id="sProg"></span></div><div class="sw"><div class="sbar"><i id="sBar" style="width:0"></i></div><div id="sBody"></div></div></div>
 
@@ -488,7 +534,7 @@ const pct=x=>Math.round(x*100),qS=i=>'س'+AR(i+1);
 /* deck */
 const sls=$$('.sl');let cur=0;
 $('#toc').innerHTML=sls.map((s,i)=>`<button title="${s.dataset.n}" aria-label="${s.dataset.n}" data-i="${i}"></button>`).join('');
-const go=i=>{i=Math.max(0,Math.min(sls.length-1,i));sls.forEach((s,k)=>s.classList.toggle('on',k===i));cur=i;$$('#toc button').forEach((b,k)=>{b.classList.toggle('on',k<i);b.classList.toggle('cur',k===i)});
+const go=i=>{i=Math.max(0,Math.min(sls.length-1,i));if(sls[i])sls[i].scrollTop=0;sls.forEach((s,k)=>s.classList.toggle('on',k===i));cur=i;$$('#toc button').forEach((b,k)=>{b.classList.toggle('on',k<i);b.classList.toggle('cur',k===i)});
  $('#count').textContent=AR(i+1)+' / '+AR(sls.length)+' · '+sls[i].dataset.n;$('#prevBtn').disabled=i===0;$('#nextBtn').disabled=i===sls.length-1;if(sls[i].dataset.n==='الفاعل ونائبه')renderMorph(0)};
 $('#toc').onclick=e=>{const b=e.target.closest('[data-i]');if(b)go(+b.dataset.i)};
 $('#nextBtn').onclick=()=>go(cur+1);$('#prevBtn').onclick=()=>go(cur-1);
@@ -512,7 +558,7 @@ $('#leaves').innerHTML=LEAVES.map(([t,s])=>`<button class="node" data-go="${s}">
 $('#leaves').onclick=e=>{const b=e.target.closest('[data-go]');if(b)go(+b.dataset.go)};
 
 /* signs */
-const SIG=[['المفرد','الضمّة','الفتحة','الكسرة',['الطَّالِ','بُ',''],'نَجَحَ الطَّالِبُ',''],['جمع التكسير','الضمّة','الفتحة','الكسرة ما لم يكن ممنوعًا من الصرف',['الطُّلَّا','بُ',''],'نَجَحَ الطُّلَّابُ',''],['جمع المؤنّث السالم','الضمّة','الكسرة','الكسرة',['المُعَلِّمَا','تُ',''],'حَضَرَتِ المُعَلِّمَاتُ',''],['المثنّى','الألف','الياء','الياء',['الطَّالِبَ','ا','نِ'],'نَجَحَ الطَّالِبَانِ','الألف علامة فرعيّة تنوب عن الضمّة.'],['جمع المذكّر السالم','الواو','الياء','الياء',['المُعَلِّمُ','و','نَ'],'حَضَرَ المُعَلِّمُونَ','الواو علامة فرعيّة تنوب عن الضمّة.'],['الأسماء الخمسة','الواو','الألف','الياء',['أَبُ','و','كَ'],'حَضَرَ أَبُوكَ','الأسماء الخمسة: أب، أخ، حم، فو، ذو.'],['الاسم المقصور','ضمّة مقدّرة','فتحة مقدّرة','كسرة مقدّرة',['الفَتَ','ى',''],'نَجَحَ الفَتَى','تُقدّر الحركات على الألف للتعذّر، كما في الدوسية.']];
+const SIG=[['المفرد','الضمّة','الفتحة','الكسرة',['الطَّالِ','بُ',''],'نَجَحَ الطَّالِبُ',''],['جمع التكسير','الضمّة','الفتحة','الكسرة',['الطُّلَّا','بُ',''],'نَجَحَ الطُّلَّابُ','يُجرّ بالكسرة ما لم يكن ممنوعًا من الصرف.'],['جمع المؤنّث السالم','الضمّة','الكسرة','الكسرة',['المُعَلِّمَا','تُ',''],'حَضَرَتِ المُعَلِّمَاتُ',''],['المثنّى','الألف','الياء','الياء',['الطَّالِبَ','ا','نِ'],'نَجَحَ الطَّالِبَانِ','الألف علامة فرعيّة تنوب عن الضمّة.'],['جمع المذكّر السالم','الواو','الياء','الياء',['المُعَلِّمُ','و','نَ'],'حَضَرَ المُعَلِّمُونَ','الواو علامة فرعيّة تنوب عن الضمّة.'],['الأسماء الخمسة','الواو','الألف','الياء',['أَبُ','و','كَ'],'حَضَرَ أَبُوكَ','الأسماء الخمسة: أب، أخ، حم، فو، ذو.'],['الاسم المقصور','ضمّة مقدّرة','فتحة مقدّرة','كسرة مقدّرة',['الفَتَ','ى',''],'نَجَحَ الفَتَى','تُقدّر الحركات على الألف للتعذّر، كما في الدوسية.']];
 let si=0;
 const renderSig=()=>{$('#sigBody').innerHTML=SIG.map((s,i)=>`<tr class="${i===si?'on':''}" data-i="${i}" tabindex="0"><th>${s[0]}</th><td>${s[1]}</td><td>${s[2]}</td><td>${s[3]}</td></tr>`).join('');const d=SIG[si];const w=$('#sigWord');w.innerHTML=`${d[4][0]}<em class="r">${d[4][1]}</em>${d[4][2]}`;w.classList.remove('flash');void w.offsetWidth;w.classList.add('flash');$('#sigEx').textContent=d[5];$('#sigNote').textContent=d[6]||'علامة أصليّة: الضمّة الظاهرة.'};
 $('#sigBody').onclick=e=>{const r=e.target.closest('[data-i]');if(r){si=+r.dataset.i;renderSig()}};
@@ -555,7 +601,7 @@ $('#hReset').onclick=resetHunt;resetHunt();
 
 /* algorithm */
 const NODES={t:'هل الكلمة تابعة لمرفوع قبلها، بعطف أو نعت أو توكيد أو بدل؟',v:'هل تُسند الكلمة إلى فعل قبلها؟',k:'هل هذا الفعل ناقص من أخوات كان؟',m:'هل الفعل مبنيّ للمعلوم؟',i:'هل في الجملة حرف ناسخ من أخوات إنّ؟',s:'هل الكلمة هي المحدَّث عنه في جملة اسميّة، ولو تأخّرت؟',x:'هل يتمّ بها معنى المبتدأ؟'};
-const FLOW=['t','v','k','m','i','s','x'];
+const FLOW=['t','v','k','m','i','s','x'];const SHORT={t:'تابع؟',v:'بعد فعل؟',k:'فعل ناقص؟',m:'مبنيّ للمعلوم؟',i:'حرف ناسخ؟',s:'محدَّث عنه؟',x:'يتمّ المعنى؟'};
 const BANK=[
  {src:'آية',pre:'قَالُوا أَنُؤْمِنُ كَمَا آمَنَ ',w:'السُّفَهَاءُ',post:'',path:[['t',0],['v',1],['k',0],['m',1]],res:'فاعل',ir:'فاعل مرفوع وعلامة رفعه الضمّة الظاهرة.'},
  {src:'آية',pre:'',w:'اللَّهُ',post:' نُورُ السَّمَاوَاتِ وَالأَرْضِ',path:[['t',0],['v',0],['i',0],['s',1]],res:'مبتدأ',ir:'لفظ الجلالة مبتدأ مرفوع وعلامة رفعه الضمّة الظاهرة.'},
@@ -575,7 +621,7 @@ const renderAlg=()=>{const b=BANK[bk];$('#target').innerHTML=`${b.pre}<u>${b.w}<
  else if(step<=b.path.length&&step<b.path.length+1)h+=step<b.path.length?`<li data-n="${AR(step+1)}" style="border-style:dashed"><span>${NODES[b.path[step][0]]}</span><span class="ans no" style="opacity:.6">؟</span></li>`:'';
  $('#trail').innerHTML=h;const done=step>b.path.length;$('#algNext').textContent=step===b.path.length?'اكشف الموقع':'السؤال التالي';$('#algNext').disabled=done;
  const vis=new Set(shown.map(p=>p[0]));if(step<b.path.length)vis.add(b.path[step][0]);
- $('#flowmap').innerHTML='<b style="color:var(--frame)">ترتيب الأسئلة الثابت</b>'+FLOW.map(k=>`<span class="${vis.has(k)?'on':''}">${NODES[k]}</span>`).join('')};
+ $('#flowmap').innerHTML=FLOW.map((k,i)=>`<span class="${vis.has(k)?'on':''}" title="${NODES[k]}">${AR(i+1)} ${SHORT[k]}</span>`).join('')};
 $('#bank').onclick=e=>{const b=e.target.closest('[data-k]');if(b){bk=+b.dataset.k;step=0;renderBank();renderAlg()}};
 $('#algNext').onclick=()=>{step++;renderAlg()};$('#algAll').onclick=()=>{step=BANK[bk].path.length+1;renderAlg()};$('#algReset').onclick=()=>{step=0;renderAlg()};
 renderBank();renderAlg();
@@ -650,6 +696,8 @@ $('#tClear').onclick=()=>{RECS={};save();picked=null;renderLive();toast('مُس�
 $('#tCsv').onclick=()=>{const S=stats();const L=[['الاسم',...QS.map((q,i)=>'س'+(i+1)),'الدرجة'].join(',')];S.rs.forEach((r,k)=>L.push([r.name,...QS.map(q=>{const a=r.ans[q.id];return a==null?'':q.type==='mc'?q.opts[a]:q.type==='tap'?q.toks[a]:a}),S.scores[k]].map(x=>'"'+String(x).replace(/"/g,'""')+'"').join(',')));try{navigator.clipboard.writeText(L.join('\n')).then(()=>toast('نُسخت النتائج'),()=>toast('تعذّر النسخ'))}catch(e){toast('تعذّر النسخ')}};
 
 const route=()=>{const h=location.hash.replace('#','')||'deck';const v=['deck','student','teacher'].includes(h)?h:'deck';$$('.view').forEach(x=>x.classList.toggle('on',x.id===v));if(v==='student'){qi=me?Math.max(qi,0):-1;renderStudent()}if(v==='teacher')renderTeacher();if(v==='deck')renderLive()};
+const fit=()=>{const d=$('#deck'),f=innerWidth>=900&&innerHeight>=560;d.classList.toggle('fit',f);$('.canvas').style.setProperty('--s',Math.min(innerWidth/1600,innerHeight/900))};
+window.addEventListener('resize',fit);fit();
 window.addEventListener('hashchange',route);load();go(0);drawQR();route();
 }
 </script>

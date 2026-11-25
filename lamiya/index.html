@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>سينما لامية ابن الوردي</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;700;800&display=swap">
+<style>
+/* VOICE everyday learning, hushed cinema: a short film for a classroom
+   IDEA a dark screening room; each verse is one animated scene with subtitles
+   PICTURE a 16:9 screen with a stick-figure hero acting out each verse
+   COLOUR warm off-black room, toned paper ink, coral accent; each scene has its own sky
+   TYPE Amiri for the verses, Tajawal for everything else
+   LAYOUT title, screen, chapter bar and controls, then a lesson panel synced to the scene */
+:root{color-scheme:dark;--bg:#141210;--panel:#1d1a17;--line:#2e2924;--ink:#f1ece4;--mut:#aaa294;--acc:#ff8a6b}
+*{box-sizing:border-box;min-width:0}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 Tajawal,Tahoma,Arial,sans-serif;overflow-x:clip}
+.wrap{max-width:1240px;margin:0 auto;padding:clamp(18px,3vw,40px) max(4vw,16px) 48px}
+header{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 24px;margin-bottom:16px}
+h1{font:700 clamp(28px,4vw,44px)/1.1 Amiri,serif;margin:0;letter-spacing:0}
+header p{margin:0;color:var(--mut);font-size:15px}
+.screen{position:relative;aspect-ratio:16/9;width:100%;border-radius:12px;overflow:hidden;background:#000;box-shadow:0 0 0 1px #2a2622,0 30px 80px -30px #000}
+.screen>svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.sub{position:absolute;inset:auto 0 0 0;padding:clamp(18px,4vw,56px) 16px clamp(10px,2vw,26px);background:linear-gradient(transparent,rgba(8,7,6,.82) 45%);display:none;text-align:center;font:700 clamp(17px,2.7vw,36px)/1.5 Amiri,serif;color:#fff;text-shadow:0 2px 8px #000}
+.sub.on{display:block}
+.sub .h{display:inline-block;padding:0 .5em}
+.sub .sep{color:var(--acc);padding:0 .2em}
+.sub.on .h1{animation:fu .9s .5s both}
+.sub.on .sep{animation:fu .6s 4.4s both}
+.sub.on .h2{animation:fu .9s 4.8s both}
+.cover{position:absolute;inset:0;display:grid;place-items:center;align-content:center;gap:14px;background:rgba(14,12,10,.72);text-align:center;padding:16px;z-index:3}
+.cover[hidden]{display:none}
+.cover h2{margin:0;font:700 clamp(26px,5vw,60px)/1.15 Amiri,serif}
+.cover p{margin:0;color:#ddd5c8;font-size:clamp(14px,1.8vw,18px)}
+.big{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--acc);color:#1b0f0a;font:800 18px Tajawal,sans-serif;padding:12px 28px;cursor:pointer;min-height:48px}
+.big:focus-visible,.ctl>button:focus-visible,.chap button:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.bar{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin:14px 0 10px}
+.bar button{height:22px;border:0;padding:8px 0;background:none;cursor:pointer}
+.bar i{display:block;height:6px;border-radius:3px;background:#3a342e;overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:var(--acc)}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.ctl>button{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:50%;border:1px solid var(--line);background:var(--panel);color:var(--ink);cursor:pointer}
+.ctl>button.pp{width:56px;height:56px;background:var(--ink);color:var(--bg);border:0}
+.ctl>button svg{width:22px;height:22px;fill:currentColor}
+.ctl .now{margin-inline-start:6px;color:var(--mut);font-size:15px}
+.chap{display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-top:6px}
+.chap .grp{width:100%;color:var(--mut);font-size:14px;margin-top:4px}
+.chap button{border:1px solid var(--line);background:transparent;color:var(--mut);border-radius:999px;padding:8px 14px;font:500 15px Tajawal,sans-serif;cursor:pointer;min-height:44px}
+.chap button.cur{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lesson{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:16px;margin-top:22px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px 22px}
+.card h3{margin:0 0 8px;font:700 15px Tajawal,sans-serif;color:var(--acc)}
+.verse{font:700 clamp(22px,2.6vw,30px)/1.7 Amiri,serif;margin:0 0 12px}
+.verse span{display:block}
+.mean{margin:0;font-size:17px;color:#e5ded2}
+.voc{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:8px}
+.voc li{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}
+.voc b{font:700 20px Amiri,serif;color:#fff;white-space:nowrap}
+.voc span{color:#d6cfc3}
+.q{margin:0;padding:12px 14px;border-radius:10px;background:#2a2420;font-size:16px}
+.src{margin:12px 0 0;color:var(--mut);font-size:14px}
+.note{margin-top:18px;color:var(--mut);font-size:14px}
+@keyframes fu{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(max-width:760px){.lesson{grid-template-columns:minmax(0,1fr)}.chap{margin-inline-start:0;width:100%}.sub .h{display:block}.sub .sep{display:none}}
+
+/* scenes */
+.scene{opacity:0;visibility:hidden}
+.scene.on{opacity:1;visibility:visible}
+.scene g{transform-box:view-box;transform-origin:0 0}
+.lbl{font:700 48px Tajawal,sans-serif}
+.paused .scene *,.paused .sub *{animation-play-state:paused!important}
+.on .fin{animation:fin .8s var(--d,0s) both}
+.on .fio{animation:fio var(--l,5s) var(--d,0s) both}
+.fio{opacity:0}
+.on .bob{animation:bob .42s var(--d,0s) infinite alternate ease-in-out}
+.on .nt{animation:nt 2.6s var(--d,0s) infinite ease-out}
+.on .tw{animation:tw 1.4s var(--d,0s) infinite alternate}
+.on .walker .lg.a{animation:la .5s var(--ws,0s) var(--wn,0) alternate}
+.on .walker .lg.b{animation:lb .5s var(--ws,0s) var(--wn,0) alternate}
+.on .walker .am.a{animation:lb .5s var(--ws,0s) var(--wn,0) alternate}
+.on .walker .am.b{animation:la .5s var(--ws,0s) var(--wn,0) alternate}
+@keyframes la{from{transform:rotate(22deg)}to{transform:rotate(-22deg)}}
+@keyframes lb{from{transform:rotate(-22deg)}to{transform:rotate(22deg)}}
+@keyframes fin{from{opacity:0}to{opacity:1}}
+@keyframes fio{0%{opacity:0}12%{opacity:1}80%{opacity:1}100%{opacity:0}}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-10px)}}
+@keyframes nt{0%{transform:translate(0,0);opacity:0}20%{opacity:1}100%{transform:translate(40px,-170px);opacity:0}}
+@keyframes tw{from{opacity:.25}to{opacity:1}}
+/* scene 1 */
+.w0{transform:translateX(560px)}
+.on .w0{animation:w0 3.6s 2s linear both}
+@keyframes w0{from{transform:translateX(0)}to{transform:translateX(560px)}}
+/* scene 2 */
+.star{transform:translate(260px,470px);opacity:0}
+.on .star{animation:star 3.6s 4.4s ease-in both}
+@keyframes star{0%{transform:translate(0,0);opacity:1}70%{opacity:.9}100%{transform:translate(260px,470px);opacity:0}}
+.w1{transform:translateX(430px)}
+.on .w1{animation:w1 3s 9s linear both}
+@keyframes w1{from{transform:translateX(0)}to{transform:translateX(430px)}}
+.dawn{opacity:.85}
+.on .dawn{animation:fin 3s 8.4s both}
+/* scene 3 */
+.bal{transform:translate(300px,-560px);opacity:0}
+.on .bal{animation:bal 4.2s 2.6s ease-in both}
+@keyframes bal{0%{transform:translate(0,0);opacity:1}75%{opacity:.8}100%{transform:translate(300px,-560px);opacity:0}}
+.sack{transform:none}
+.on .sack{animation:sack 1s 6.4s cubic-bezier(.5,0,.8,.6) both}
+@keyframes sack{0%{transform:translateY(-700px)}80%{transform:translateY(10px)}100%{transform:none}}
+.sq{transform:scale(1,.93) rotate(4deg)}
+.on .sq{animation:sq .5s 7.3s ease-out both}
+@keyframes sq{from{transform:none}to{transform:scale(1,.93) rotate(4deg)}}
+/* scene 4 */
+.w3{transform:translate(900px,-310px)}
+.on .w3{animation:w3 7s 3s linear both}
+@keyframes w3{0%{transform:translate(0,0)}20%{transform:translate(260px,0)}85%{transform:translate(760px,-310px)}100%{transform:translate(900px,-310px)}}
+.rays{transform:scale(1);opacity:1}
+.on .rays{animation:rays 1.2s 10s ease-out both}
+@keyframes rays{from{transform:scale(.4);opacity:0}to{transform:scale(1);opacity:1}}
+/* scene 5 */
+.on .arc{animation:arc 1.8s 1s 4 linear both}
+.arc{transform:rotate(62deg)}
+@keyframes arc{from{transform:rotate(-62deg)}to{transform:rotate(62deg)}}
+.pf{transform:translate(var(--x),var(--y))}
+.on .pf{animation:pf 1.6s var(--d) ease-in both}
+@keyframes pf{from{transform:translate(0,0)}to{transform:translate(var(--x),var(--y))}}
+.pf ellipse{fill:#b98f7d}
+.on .pf ellipse{animation:pc 1.6s var(--d) both}
+@keyframes pc{from{fill:#ef5d8a}to{fill:#b98f7d}}
+.droop{transform:rotate(38deg)}
+.on .droop{animation:droop 1.8s 6.6s ease-in-out both}
+@keyframes droop{from{transform:none}to{transform:rotate(38deg)}}
+.core{fill:#8d6b3e}
+.on .core{animation:core 3s 4s both}
+@keyframes core{from{fill:#f6c945}to{fill:#8d6b3e}}
+.stem{stroke:#9b9150}
+.on .stem{animation:stem 3s 5s both}
+@keyframes stem{from{stroke:#3f8f4a}to{stroke:#9b9150}}
+/* verse 7 */
+.glow{opacity:.6}
+.on .glow{animation:glowA 6s 2s both}
+@keyframes glowA{0%{opacity:.4}25%{opacity:.06}60%{opacity:.06}100%{opacity:.6}}
+.gob{opacity:0;transform:translateX(-600px)}
+.on .gob{animation:gob 7s 1s both}
+@keyframes gob{0%{transform:translateX(-600px);opacity:0}25%{transform:none;opacity:1}65%{transform:none;opacity:1}100%{transform:translateX(-600px);opacity:0}}
+/* verse 8 */
+.w6{transform:translateX(1000px)}
+.on .w6{animation:w6 4s 6.5s linear both}
+@keyframes w6{from{transform:translateX(0)}to{transform:translateX(1000px)}}
+/* verse 9 */
+.w7{transform:translateX(170px)}
+.on .w7{animation:w7 1.5s 4.5s linear both}
+@keyframes w7{from{transform:translateX(0)}to{transform:translateX(170px)}}
+.sk2{transform:translate(-118px,-14px)}
+.on .sk2{animation:sk2 1.2s 6.2s ease-in-out both}
+@keyframes sk2{from{transform:none}to{transform:translate(-118px,-14px)}}
+/* verse 10 */
+.w8{transform:translateX(260px)}
+.on .w8{animation:w8 2.5s 7.4s linear both}
+@keyframes w8{from{transform:translateX(0)}to{transform:translateX(260px)}}
+/* verse 11 */
+.w9{transform:translateX(420px)}
+.on .w9{animation:w9 3s 9s linear both}
+@keyframes w9{from{transform:translateX(0)}to{transform:translateX(420px)}}
+@media(prefers-reduced-motion:reduce){.scene *,.sub *{animation:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+<h1>لاميّة ابن الوردي في عشرة مشاهد</h1>
+<p>الأبيات ١ إلى ١١ دون البيت الخامس · لكل بيت مشهد ومعنى وسؤال للحوار</p>
+</header>
+
+<div class="screen" id="screen">
+<svg id="stage" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid meet" role="img" aria-label="مشهد متحرك يشرح البيت"></svg>
+<div id="subs"></div>
+<div class="cover" id="cover">
+<h2 id="cvT">اعتزِلْ ذِكْرَ الأغاني والغَزَلْ</h2>
+<p id="cvP">وصيّة عمر بن الوردي لابنه، مشهدًا مشهدًا</p>
+<button class="big" id="cvB" type="button"><svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17 5v14L5 12z"/></svg><span>ابدأ العرض</span></button>
+</div>
+</div>
+
+<div class="bar" id="bar"></div>
+<div class="ctl">
+<button type="button" id="prev" aria-label="المشهد السابق"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM9.5 12 19 5v14z" transform="rotate(180 12 12)"/></svg></button>
+<button type="button" class="pp" id="pp" aria-label="تشغيل"><svg viewBox="0 0 24 24" id="ppI"><path d="M17 5v14L5 12z"/></svg></button>
+<button type="button" id="next" aria-label="المشهد التالي"><svg viewBox="0 0 24 24"><path d="M6 5h2v14H6zM9.5 12 19 5v14z"/></svg></button>
+<button type="button" id="again" aria-label="أعد المشهد"><svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/></svg></button>
+<span class="now" id="now"></span>
+<div class="chap" id="chap"></div>
+</div>
+
+<section class="lesson" aria-live="polite">
+<div class="card">
+<h3 id="lTag">البيت</h3>
+<p class="verse" id="lV"></p>
+<h3>المعنى</h3>
+<p class="mean" id="lM"></p>
+<p class="src" id="lS" hidden></p>
+</div>
+<div class="card">
+<h3>المفردات</h3>
+<ul class="voc" id="lW"></ul>
+<h3>سؤال للحوار</h3>
+<p class="q" id="lQ"></p>
+</div>
+</section>
+<p class="note">النص من «جواهر الأدب» للهاشمي و«نزهة الأبصار» لابن درهم. الأسهم ← → للتنقّل بين المشاهد، والمسافة للتشغيل والإيقاف. ومعنى «جَلَل» في البيت السادس، أي «هيّن»، اعتمادًا على ابن الأنباري في «الأضداد».</p>
+</div>
+
+<script>
+{
+const S=[
+{b:'البيت ١',c:'اعتزِلْ',h1:'اعتزِلْ ذِكْرَ الأغاني والغَزَلْ',h2:'وقُلِ الفَصْلَ وجانِبْ مَنْ هَزَلْ',
+m:'ابتعِدْ عن الكلام في الغناء والغزل، وقُلِ القولَ الجادَّ الحاسم، واتركْ صحبةَ أهلِ الهزل.',
+v:[['اعتزِلْ','ابتعِدْ واتركْ'],['الفَصْل','القولُ الجادُّ الحاسم'],['جانِبْ','ابتعِدْ عن'],['هَزَلَ','مزَحَ بلا فائدة']],
+q:'متى يكون المزاح جميلًا، ومتى يصير هزلًا مذمومًا؟'},
+{b:'البيت ٢',c:'ودَعِ الذِّكرى',h1:'ودَعِ الذِّكرى لأيّامِ الصِّبا',h2:'فلأيّامِ الصِّبا نَجْمٌ أفَلْ',
+m:'لا تُطِلِ الحنينَ إلى أيّامِ الطفولة والشباب، فقد مضَتْ كنجمٍ غاب.',
+v:[['الصِّبا','الطفولة وأوّل الشباب'],['أفَلَ','غابَ، وضدّها: طلَعَ'],['دَعْ','اتركْ']],
+q:'ما ذكرى جميلة من طفولتك؟ وهل يمنعك التفكير فيها من شيء الآن؟'},
+{b:'البيت ٣',c:'ذهبَتْ لذّاتُها',h1:'إنّ أهنى عيشةٍ قضّيتَها',h2:'ذهبَتْ لذّاتُها والإثمُ حَلّْ',
+m:'أطيبُ أيّام اللهو التي عشتَها ذهبَتْ لذّتُها، وبقيَ إثمُها عليك.',
+v:[['أهنى','أطيبُ وأهنأ'],['قضّيتَها','عِشتَها وأمضيتَها'],['حَلَّ','نزَلَ وبقيَ']],
+q:'اذكرْ شيئًا ممتعًا فعلتَه ثم ندمتَ عليه. ما الذي ذهب؟ وما الذي بقي؟'},
+{b:'البيت ٤',c:'تُمْسِ في عِزٍّ',h1:'واترُكِ الغادةَ لا تحفِلْ بها',h2:'تُمْسِ في عِزٍّ رفيعٍ وتُجَلّْ',
+m:'لا تنشغلْ بما يفتن قلبَك ويصرفك عن غايتك، فإن تركتَه أصبحتَ في عزٍّ وإجلال.',
+v:[['الغادة','الفتاة الناعمة الحسناء'],['لا تحفِلْ بها','لا تهتمَّ بها'],['تُمْسِ','تُصبحْ، مجزوم بحذف الياء في جواب الطلب'],['تُجَلّ','تُعظَّمْ وتُكرَّمْ']],
+q:'أكمِلْ: «إن تركتُ… صرتُ…». ما الشيء الذي إن تركتَه ارتفعت مكانتك؟'},
+{b:'البيت ٦',c:'تجِدْ أمرًا جَلَلْ',h1:'وافتكِرْ في مُنتهى حُسنِ الذي',h2:'أنتَ تهواهُ تجِدْ أمرًا جَلَلْ',
+m:'تأمَّلْ آخِرَ ما يصير إليه جمالُ ما تحبّه، تجدْه شيئًا يسيرًا هيّنًا، فلا تُعلِّقْ قلبَك به.',
+v:[['افتكِرْ','تأمَّلْ بإمعان'],['مُنتهى','آخِر، لا أعلى'],['جَلَل','من الأضداد، وهنا معناه: هيّن يسير']],
+s:'شاهده: «كلُّ شيءٍ ما خلا الموتَ جَلَلْ»، أي: كلُّ شيءٍ سهل. ابن الأنباري، «الأضداد».',
+q:'ما الشيء الذي إذا افتكرتَ في منتهاه وجدتَه هيّنًا؟'},
+{b:'البيت ٧',c:'كيف يسعى في جنون',h1:'واهجُرِ الخمرةَ إن كنتَ فتًى',h2:'كيف يسعى في جنونٍ مَن عَقَلْ',
+m:'اتركِ الخمرَ إن كنتَ رجلًا حقًّا، فكيف يسعى العاقلُ بنفسه إلى ما يُذهِب عقلَه؟',
+v:[['اهجُرْ','اترُكْ وابتعِدْ'],['فتًى','شابٌّ فيه مروءةٌ ورجولة'],['عَقَلَ','صارَ عاقلًا يفهم'],['كيف…؟','استفهامٌ إنكاري، أي: لا يليق ذلك بعاقل']],
+q:'ما الأشياء في عصرنا التي تُذهب العقلَ أو تشوّشه، ولو لم تكن خمرًا؟'},
+{b:'البيت ٨',c:'التقوى توصِل',h1:'واتّقِ اللهَ فتقوى اللهِ ما',h2:'جاورَتْ قلبَ امرئٍ إلا وصَلْ',
+m:'اجعلْ تقوى الله في قلبك، فما سكنَتِ التقوى قلبَ إنسانٍ إلا أوصلَتْه إلى غايته.',
+v:[['اتّقِ','أمرٌ من التقوى، مبنيٌّ على حذف الياء'],['جاورَتْ','سكنَتْ قريبًا منه وخالطَتْه'],['ما… إلا','نفيٌ واستثناء يفيد الحصر'],['وصَلَ','بلغَ غايتَه']],
+s:'في «نزهة الأبصار»: «باشرَتْ» بدل «جاورَتْ»، والمعنى قريب.',
+q:'كيف تظهر التقوى في تصرّفاتك اليومية؟ اذكرْ مثالًا.'},
+{b:'البيت ٩',c:'مَنِ البطل؟',h1:'ليس مَن يقطعُ طُرْقًا بطلًا',h2:'إنما مَن يتّقي اللهَ البطَلْ',
+m:'ليس البطلُ مَن يقطع الطريق على الناس ويُخيفهم، بل البطلُ الحقيقيُّ مَن يتّقي الله.',
+v:[['قطعَ الطريقَ','سلبَ المارّةَ وأخافهم'],['طُرْق','جمعُ طريق'],['إنما','أداةُ قصر: البطولةُ محصورةٌ في التقوى']],
+q:'مَنِ البطلُ في نظرك؟ اذكرْ موقفًا رأيتَ فيه بطولةً بلا عضلات.'},
+{b:'البيت ١٠',c:'صدِّقِ الشرع',h1:'صدِّقِ الشرعَ ولا تركَنْ إلى',h2:'رجلٍ يرصُدُ في الليلِ زُحَلْ',
+m:'صدِّقْ ما جاء به الشرع، ولا تعتمدْ على المنجّم الذي يراقب الكواكبَ ليلًا ويزعم معرفةَ الغيب.',
+v:[['تركَنْ إلى','تعتمدُ عليه وتميلُ إليه'],['يرصُد','يراقبُ'],['زُحَل','كوكبٌ ربطه المنجّمون بالنَّحْس']],
+q:'ما الفرق بين علم الفلك والتنجيم؟ وأين نرى «التنجيم» اليوم؟'},
+{b:'البيت ١١',c:'حارتِ الأفكار',h1:'حارتِ الأفكارُ في حكمةِ مَن',h2:'قد هدانا سُبْلَنا عزَّ وجلّْ',
+m:'تعجزُ العقولُ عن الإحاطة بحكمة الله عزّ وجلّ، الذي هدانا طرقَنا.',
+v:[['حارَتْ','تحيّرَتْ وعجزَتْ'],['سُبْل','جمعُ سبيل: الطرق، وسُكّنت الباءُ للوزن'],['عزَّ وجلّ','جملةٌ للتعظيم']],
+s:'البيت من «نزهة الأبصار» وحدها، وفيها «سلبنا»، والصواب في السياق «سُبْلَنا».',
+q:'ما الشيءُ في الكون الذي تتعجّبُ من حكمته؟'}
+];
+const D=13500;
+const $=id=>document.getElementById(id);
+let sd=7;const rnd=()=>(sd=sd*16807%2147483647)/2147483647;
+
+const man=(ink)=>`<g class="man" stroke="${ink}" stroke-width="9" stroke-linecap="round" fill="none"><g transform="translate(0,-62)"><g class="lg a"><line x1="0" y1="0" x2="-12" y2="62"/></g><g class="lg b"><line x1="0" y1="0" x2="12" y2="62"/></g></g><line x1="0" y1="-62" x2="0" y2="-138"/><g transform="translate(0,-124)"><g class="am a"><line x1="0" y1="0" x2="-20" y2="50"/></g><g class="am b"><line x1="0" y1="0" x2="20" y2="50"/></g></g><circle cx="0" cy="-166" r="25" fill="${ink}"/></g>`;
+const chip=(x,y,t,bg,fg,cls='',st='')=>{const w=t.length*27+80;return `<g class="${cls}" style="${st}"><rect x="${x-w/2}" y="${y-44}" width="${w}" height="70" rx="35" fill="${bg}"/><text class="lbl" x="${x}" y="${y+6}" fill="${fg}" text-anchor="middle" direction="rtl">${t}</text></g>`};
+const bubble=(x,y,t,cls,st)=>{const w=t.length*27+90;return `<g class="${cls}" style="${st}"><path d="M${x-14} ${y+34} l-26 46 l56 -46z" fill="#fffdf8"/><rect x="${x-w/2}" y="${y-48}" width="${w}" height="86" rx="26" fill="#fffdf8" stroke="#1b1a19" stroke-width="4"/><text class="lbl" x="${x}" y="${y+10}" fill="#1b1a19" text-anchor="middle" direction="rtl">${t}</text></g>`};
+const note=(x,y,d,c)=>`<g transform="translate(${x},${y})"><g class="nt" style="--d:${d}s" fill="${c}" stroke="${c}" stroke-width="6" stroke-linecap="round"><circle cx="-10" cy="0" r="13" stroke="none"/><line x1="2" y1="0" x2="2" y2="-58"/><path d="M2 -58 q24 6 26 26" fill="none"/></g></g>`;
+const grad=(id,a,b)=>`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${a}"/><stop offset="1" stop-color="${b}"/></linearGradient>`;
+const spark=(x,y,d,s=1)=>`<g transform="translate(${x},${y}) scale(${s})"><path class="tw" style="--d:${d}s" d="M0 -22 L6 -6 L22 0 L6 6 L0 22 L-6 6 L-22 0 L-6 -6Z" fill="#fff6c9"/></g>`;
+
+let stars='';for(let k=0;k<46;k++){stars+=`<circle cx="${(rnd()*1600)|0}" cy="${(rnd()*520)|0}" r="${(1.5+rnd()*2.5).toFixed(1)}" fill="#fff" opacity="${(.35+rnd()*.6).toFixed(2)}"/>`}
+
+const sc=[];
+sc[0]=`<rect width="1600" height="900" fill="url(#g0)"/><circle cx="1420" cy="140" r="62" fill="#ffd36e"/><circle cx="1420" cy="140" r="92" fill="#ffd36e" opacity=".22"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#8cc07a"/><path d="M0 690 H1600 V706 H0Z" fill="#a9d495"/>
+<ellipse cx="1325" cy="694" rx="150" ry="14" fill="#5f9150" opacity=".6"/><rect x="1308" y="500" width="34" height="192" rx="6" fill="#7a5235"/><circle cx="1325" cy="450" r="104" fill="#4f9a5d"/><circle cx="1240" cy="505" r="64" fill="#468d54"/><circle cx="1412" cy="500" r="66" fill="#468d54"/><circle cx="1295" cy="410" r="40" fill="#6fb77a" opacity=".55"/>
+${[230,345,460].map((x,k)=>`<g transform="translate(${x},690)"><g class="bob" style="--d:${k*.13}s">${man('#2a2522')}</g></g>`).join('')}
+${note(250,440,0,'#c2410c')}${note(360,420,.9,'#7c3aed')}${note(470,450,1.7,'#be185d')}
+${chip(345,300,'هَزْلٌ ولهو','#2a2522','#fff3e8','fin','--d:.8s')}
+<g class="walker w0" style="--ws:2s;--wn:7"><g transform="translate(610,690)">${man('#1b1a19')}</g></g>
+${bubble(1170,400,'قولٌ فَصْل','fin','--d:6s')}`;
+
+sc[1]=`<rect width="1600" height="900" fill="url(#g1)"/>${stars}
+<ellipse class="dawn" cx="1560" cy="640" rx="420" ry="190" fill="#f6a96b" opacity=".85"/>
+<g class="star"><circle cx="430" cy="160" r="46" fill="#ffd66b" opacity=".25"/><circle cx="430" cy="160" r="18" fill="#ffe7a3"/></g>
+<path d="M0 640 Q400 560 800 615 T1600 600 V900 H0Z" fill="#1d2146"/><path d="M0 700 Q500 650 900 690 T1600 680 V900 H0Z" fill="#161936"/>
+<g class="fio" style="--d:.8s;--l:6.2s"><circle cx="840" cy="420" r="16" fill="#fff" opacity=".5"/><circle cx="880" cy="370" r="24" fill="#fff" opacity=".5"/><ellipse cx="1040" cy="270" rx="170" ry="115" fill="#3b3f7a" stroke="#e8e6ff" stroke-width="5"/><g transform="translate(1010,345) scale(.55)">${man('#ffe7a3')}</g><circle cx="1085" cy="330" r="18" fill="#ff8a6b"/><text class="lbl" x="1040" y="200" fill="#e8e6ff" text-anchor="middle" font-size="40" direction="rtl">أيّامُ الصِّبا</text></g>
+${chip(620,470,'أفَلَ: غابَ','#e8e6ff','#1d2146','fin','--d:7.6s')}
+<g class="walker w1" style="--ws:9s;--wn:6"><g transform="translate(760,612)">${man('#f4f1ff')}</g></g>`;
+
+sc[2]=`<rect width="1600" height="900" fill="url(#g2)"/><circle cx="300" cy="610" r="120" fill="#ffe08a" opacity=".8"/>
+<path d="M0 640 Q300 600 600 640 T1200 630 T1600 640 V900 H0Z" fill="#c96d4f" opacity=".55"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#6f7f4f"/><path d="M0 690 H1600 V704 H0Z" fill="#8a9a62"/>
+<g class="bal"><path d="M820 616 Q850 500 880 404" stroke="#3a2a22" stroke-width="3" fill="none"/><ellipse cx="882" cy="350" rx="62" ry="74" fill="#ffcf4d"/><ellipse cx="862" cy="322" rx="16" ry="24" fill="#fff6d1" opacity=".8"/><text class="lbl" x="882" y="368" fill="#5b3a00" text-anchor="middle" direction="rtl">لذّة</text></g>
+${chip(1180,300,'ذهبَتْ لذّاتُها','#fff4e0','#5b3a00','fin','--d:5s')}
+<g transform="translate(800,690)"><g class="sq">${man('#1b1a19')}</g></g>
+<g transform="translate(-58,34)"><g class="sack"><path d="M700 476 q-8 -50 40 -62 l52 0 q48 12 40 62 l-10 96 q-4 26 -56 26 q-52 0 -56 -26z" fill="#3b2f2a"/><path d="M736 414 l14 -22 l42 0 l14 22" fill="#2a211d"/><text class="lbl" x="772" y="530" fill="#f5e9e0" text-anchor="middle" direction="rtl">الإثم</text></g></g>
+${chip(500,300,'والإثمُ حَلّ','#3b2f2a','#f5e9e0','fin','--d:7.6s')}`;
+
+sc[3]=`<rect width="1600" height="900" fill="url(#g3)"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#b5c7a4"/>
+<g class="tw" style="--d:0s"><path d="M120 690 V500 Q230 360 340 500 V690 H300 V510 Q230 420 160 510 V690Z" fill="url(#gl)"/></g>
+${spark(150,430,0)}${spark(330,420,.5,.8)}${spark(240,350,.9,.7)}${spark(110,560,1.2,.6)}${spark(360,560,.3,.7)}
+${chip(230,250,'ما يَشغَلُك','#fff','#7a2e5b','fin','--d:.6s')}
+<g transform="translate(1350,380)"><g class="rays">${Array.from({length:12},(_,k)=>`<line x1="0" y1="-120" x2="0" y2="-230" stroke="#ffd36e" stroke-width="12" stroke-linecap="round" transform="rotate(${k*30-165} 0 -60)" opacity=".85"/>`).join('')}</g></g>
+<path d="M700 690 V628 H800 V566 H900 V504 H1000 V442 H1100 V380 H1600 V690Z" fill="#ead8bd" stroke="#b49a76" stroke-width="5"/>
+${chip(1120,120,'عِزٌّ رفيعٌ وتُجَلّ','#7a2e5b','#fff','fin','--d:10.4s')}
+<g class="walker w3" style="--ws:3s;--wn:14"><g transform="translate(450,690)">${man('#1b1a19')}</g></g>`;
+
+const pet=[0,60,120,180,240,300].map((a,k)=>{const x=[-110,70,-40,140,-170,20][k];const d=(3+k*.6).toFixed(1);return `<g class="pf" style="--x:${x}px;--y:228px;--d:${d}s"><g transform="translate(980,470) rotate(${a})"><ellipse cx="0" cy="-44" rx="22" ry="36"/></g></g>`}).join('');
+sc[4]=`<rect width="1600" height="900" fill="url(#g4)"/>
+<g transform="translate(800,880)"><g class="arc"><circle cx="0" cy="-720" r="48" fill="#ffd36e"/><circle cx="0" cy="-720" r="76" fill="#ffd36e" opacity=".25"/></g></g>
+<path d="M0 690 H1600 V900 H0Z" fill="#8fbf72"/><path d="M0 690 H1600 V706 H0Z" fill="#a8d38b"/>
+<path class="stem" d="M980 692 Q970 580 980 470" stroke-width="10" fill="none" stroke-linecap="round"/><path d="M976 600 q40 -30 70 -10 q-30 30 -70 10z" fill="#4f9a5d"/>
+<g transform="translate(980,470)"><g class="droop"><circle class="core" r="24"/></g></g>${pet}
+<g class="fio" style="--d:.5s;--l:4.5s"><path d="M800 430 c-30 -40 -80 -10 -50 30 l50 46 l50 -46 c30 -40 -20 -70 -50 -30z" fill="#ef5d8a"/></g>
+${chip(1250,330,'مُنتهى الحُسن: آخِرُه','#fff','#7a2e3e','fin','--d:6.8s')}
+<g transform="translate(640,690)">${man('#1b1a19')}</g>
+${bubble(560,350,'أمرٌ جَلَل… أي هيّن','fin','--d:9.2s')}`;
+
+let stars2='';for(let k=0;k<50;k++){stars2+=`<circle cx="${(rnd()*1600)|0}" cy="${(rnd()*560)|0}" r="${(1.5+rnd()*2.5).toFixed(1)}" fill="#fff" opacity="${(.3+rnd()*.6).toFixed(2)}"/>`}
+const elder=`<g transform="rotate(14)">${man('#1b1a19')}</g><line x1="-40" y1="-80" x2="-62" y2="0" stroke="#6b4a2b" stroke-width="7" stroke-linecap="round"/>`;
+sc[5]=`<rect width="1600" height="900" fill="url(#g5)"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#9fb39a"/><path d="M0 690 H1600 V704 H0Z" fill="#b8caa9"/>
+<g class="gob"><g transform="translate(600,560)"><path d="M-46 -60 h92 q0 70 -46 84 q-46 -14 -46 -84z" fill="#4b2b3a"/><rect x="-6" y="24" width="12" height="80" fill="#4b2b3a"/><rect x="-40" y="100" width="80" height="12" rx="6" fill="#4b2b3a"/><g class="nt" style="--d:0s" fill="#7d7a86"><circle cx="0" cy="-80" r="20"/></g><g class="nt" style="--d:.9s" fill="#7d7a86"><circle cx="-20" cy="-80" r="16"/></g><g class="nt" style="--d:1.7s" fill="#7d7a86"><circle cx="18" cy="-80" r="14"/></g></g>${chip(560,360,'ما يُذهِبُ العقل','#4b2b3a','#fbeef3','','')}</g>
+<circle class="glow" cx="940" cy="600" r="120" fill="#ffd36e"/>
+<g transform="translate(900,690)">${man('#1b1a19')}</g>
+<g transform="translate(936,600)"><line x1="-16" y1="-16" x2="0" y2="-40" stroke="#1b1a19" stroke-width="5"/><rect x="-16" y="-16" width="32" height="44" rx="8" fill="#fff3c4" stroke="#1b1a19" stroke-width="5"/><circle cx="0" cy="6" r="9" fill="#ff9a3c"/></g>
+${chip(1080,470,'العقل','#fff8e0','#5b3a00','','')}
+${bubble(1060,300,'لا! أنا عاقل','fin','--d:4.6s')}`;
+sc[6]=`<rect width="1600" height="900" fill="url(#g6)"/>${stars2}
+<path d="M0 690 H1600 V900 H0Z" fill="#1f2c39"/>
+${[0,1,2,3,4,5,6,7].map(k=>`<circle class="fin" style="--d:${(2.4+k*.35).toFixed(2)}s" cx="${420+k*125}" cy="${672-Math.sin(k/7*Math.PI)*26}" r="13" fill="#ffd36e"/>`).join('')}
+<g class="fin" style="--d:4.6s"><line x1="1420" y1="690" x2="1420" y2="470" stroke="#e8e6ff" stroke-width="8" stroke-linecap="round"/><path d="M1420 474 l120 34 l-120 34z" fill="#ff8a6b"/></g>
+${chip(1420,400,'الغاية','#e8e6ff','#1f2c39','fin','--d:4.8s')}
+<g class="walker w6" style="--ws:6.5s;--wn:8"><g transform="translate(300,690)">${man('#f4f1ff')}<g class="fin" style="--d:1s"><circle cx="0" cy="-104" r="46" fill="#ff6b8a" opacity=".3"/><path class="tw" style="--d:1s" d="M0 -86 c-28 -26 -34 -48 -16 -58 c10 -6 16 0 16 6 c0 -6 6 -12 16 -6 c18 10 12 32 -16 58z" fill="#ff6b8a"/></g></g></g>
+${chip(560,320,'قلبٌ فيه تقوى','#ff6b8a','#2a0d16','fin','--d:1.3s')}
+${chip(1180,250,'إلا وصَلْ','#ffd36e','#2a2000','fin','--d:10.8s')}`;
+sc[7]=`<rect width="1600" height="900" fill="url(#g7)"/><circle cx="1400" cy="150" r="58" fill="#ffd36e"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#d8b783"/><path d="M0 690 H1600 V704 H0Z" fill="#e6c897"/>
+<g transform="translate(560,690)"><path d="M-10 -150 q-90 40 -70 150 h60z" fill="#c0392b"/><g transform="scale(1.35)">${man('#1b1a19')}<rect x="-27" y="-178" width="54" height="13" rx="6" fill="#c0392b"/></g></g>
+${chip(560,240,'بطل؟','#1b1a19','#fff','fin','--d:1s')}
+<g class="fin" style="--d:3.2s" stroke="#e11d48" stroke-width="12" stroke-linecap="round"><line x1="470" y1="190" x2="650" y2="290"/><line x1="650" y1="190" x2="470" y2="290"/></g>
+${chip(560,360,'يقطعُ الطريقَ ويُخيف','#fff','#7a1020','fin','--d:2s')}
+<g transform="translate(1340,690)">${elder}</g>
+<g class="sk2"><g transform="translate(1300,604)"><path d="M-30 -10 q-6 -40 30 -44 q36 4 30 44 l-6 40 q-24 14 -48 0z" fill="#8a6a45"/></g></g>
+<g class="walker w7" style="--ws:4.5s;--wn:3"><g transform="translate(1010,690)">${man('#1b1a19')}</g></g>
+<g class="fin" style="--d:8s"><path d="M1180 210 l14 30 l33 4 l-24 22 l7 32 l-30 -16 l-30 16 l7 -32 l-24 -22 l33 -4z" fill="#ffc83d" stroke="#7a5600" stroke-width="3"/></g>
+${chip(1180,370,'هذا هو البطل','#2a6f4e','#fff','fin','--d:8.3s')}`;
+sc[8]=`<rect width="1600" height="900" fill="url(#g8)"/>${stars}
+<g transform="translate(560,220)"><circle r="62" fill="#e8c27a"/><ellipse rx="118" ry="26" fill="none" stroke="#f3dca6" stroke-width="9" transform="rotate(-16)"/><circle cx="-18" cy="-20" r="14" fill="#f6dca0" opacity=".7"/></g>
+${chip(560,90,'زُحَل','#f3dca6','#2a2000','','')}
+<path d="M0 690 H1600 V900 H0Z" fill="#1b2140"/>
+<g transform="translate(360,690)">${man('#e8e6ff')}<path d="M-30 -186 L30 -186 L8 -268z" fill="#7c5cff"/><line x1="18" y1="-118" x2="120" y2="-250" stroke="#e8e6ff" stroke-width="12" stroke-linecap="round"/></g>
+${bubble(700,420,'غدًا سيحدثُ لك…','fio','--d:1.2s;--l:5.6s')}
+<g class="walker w8" style="--ws:7.4s;--wn:5"><g transform="translate(1080,690)">${man('#f4f1ff')}<g class="fin" style="--d:3.8s"><circle cx="34" cy="-80" r="60" fill="#ffe7a3" opacity=".3"/><path d="M4 -96 q15 -8 30 0 v40 q-15 -8 -30 0z M34 -96 q15 -8 30 0 v40 q-15 -8 -30 0z" fill="#fffdf2" stroke="#ffd36e" stroke-width="3"/></g></g></g>
+${chip(1150,330,'صدِّقِ الشرع','#ffe7a3','#2a2000','fin','--d:4.4s')}
+${chip(940,150,'لا تركَنْ إلى المنجّم','#e8e6ff','#1b2140','fin','--d:6.4s')}`;
+sc[9]=`<rect width="1600" height="900" fill="url(#g9)"/>${stars2}
+<ellipse cx="800" cy="260" rx="430" ry="120" fill="#8f7aa8" opacity=".18"/>
+<path d="M0 690 H1600 V900 H0Z" fill="#221d45"/>
+<g class="fio" style="--d:.6s;--l:6.4s">${[[640,330,0],[760,250,.4],[880,300,.8],[560,260,1.2],[1000,280,.2],[820,380,.6]].map(a=>`<g transform="translate(${a[0]},${a[1]})"><text class="lbl tw" style="--d:${a[2]}s;font-size:110px" x="0" y="0" fill="#e8e6ff" text-anchor="middle">؟</text></g>`).join('')}</g>
+${chip(800,110,'حارَتِ الأفكار','#e8e6ff','#221d45','fin','--d:1s')}
+${[[1500,560,6.2],[1560,650,6.8],[1480,470,7.4]].map(a=>`<line class="fin" style="--d:${a[2]}s" x1="800" y1="690" x2="${a[0]}" y2="${a[1]}" stroke="#ffd36e" stroke-width="10" stroke-dasharray="4 26" stroke-linecap="round"/>`).join('')}
+${chip(1230,420,'هدانا سُبْلَنا','#ffd36e','#2a2000','fin','--d:8s')}
+<g class="walker w9" style="--ws:9s;--wn:6"><g transform="translate(800,690)">${man('#f4f1ff')}</g></g>`;
+const defs=`<defs>${grad('g0','#bfe3f2','#f2f8ef')}${grad('g1','#10153a','#30356f')}${grad('g2','#fbd7a3','#f08a62')}${grad('g3','#fde2e4','#fff3dc')}${grad('g4','#d6eff6','#f5fbf1')}${grad('g5','#cfdfe6','#f0f3ec')}${grad('g6','#16202e','#3a5065')}${grad('g7','#f3d9b1','#fbf0dc')}${grad('g8','#0f1430','#2a3264')}${grad('g9','#141a3e','#3a2f66')}<linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc8ee"/><stop offset="1" stop-color="#b9a7ff"/></linearGradient></defs>`;
+const lab=['ابتعدَ عن أهل الهزل ومشى إلى ظلّ شجرة','نجمٌ يغيب، وذكرى طفولة تتلاشى، وفجرٌ جديد','بالونُ اللذّة يطير، وكيسُ الإثم يبقى على الظهر','ترك ما يشغله وصعد الدرج إلى العزّ','زهرةٌ جميلة تذبل مع الأيام، فيراها هيّنة','يرفض ما يُطفئ مصباح عقله، فيعود المصباح يضيء','قلبٌ تسكنه التقوى يضيء الطريق حتى الغاية','قاطع الطريق ليس بطلًا، والبطل من يُعين الضعيف','يترك المنجّم ونجومه ويحمل كتاب الشرع','أسئلة كثيرة فوق رأسه، ثم تُضيء أمامه الطرق'];
+$('stage').innerHTML=defs+sc.map((s,k)=>`<g class="scene" id="sc${k}" aria-label="${lab[k]}">${s}</g>`).join('');
+$('subs').innerHTML=S.map((s,k)=>`<div class="sub" id="sub${k}"><span class="h h1">${s.h1}</span><span class="sep">…</span><span class="h h2">${s.h2}</span></div>`).join('');
+$('bar').innerHTML=S.map((s,k)=>`<button type="button" data-k="${k}" aria-label="${s.b}"><i><b></b></i></button>`).join('');
+const cb=(s,k)=>`<button type="button" data-k="${k}">${s.b.replace('البيت ','')} · ${s.c}</button>`;
+$('chap').innerHTML='<span class="grp">الدفعة الأولى</span>'+S.slice(0,5).map(cb).join('')+'<span class="grp">الدفعة الثانية</span>'+S.slice(5).map((s,k)=>cb(s,k+5)).join('');
+
+const scr=$('screen'),bars=[...document.querySelectorAll('#bar b')],chs=[...document.querySelectorAll('#chap button')];
+let i=0,t=0,playing=false,last=performance.now(),ended=false;
+const PLAY='<path d="M17 5v14L5 12z"/>',PAUSE='<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+function panel(){const s=S[i];$('lTag').textContent=s.b;$('lV').innerHTML=`<span>${s.h1}</span><span>${s.h2}</span>`;$('lM').textContent=s.m;
+$('lW').innerHTML=s.v.map(w=>`<li><b>${w[0]}</b><span>${w[1]}</span></li>`).join('');$('lQ').textContent=s.q;
+const src=$('lS');src.hidden=!s.s;src.textContent=s.s||'';$('now').textContent=`المشهد ${i+1} من ${S.length}`;
+chs.forEach((c,k)=>c.classList.toggle('cur',k===i));$('stage').setAttribute('aria-label',lab[i])}
+function setP(p){playing=p;scr.classList.toggle('paused',!p);$('ppI').innerHTML=p?PAUSE:PLAY;$('pp').setAttribute('aria-label',p?'إيقاف مؤقت':'تشغيل')}
+function show(n,p){i=Math.max(0,Math.min(S.length-1,n));t=0;ended=false;
+document.querySelectorAll('.scene.on,.sub.on').forEach(e=>e.classList.remove('on'));void scr.offsetWidth;
+$('sc'+i).classList.add('on');$('sub'+i).classList.add('on');panel();setP(p);if(p)$('cover').hidden=true}
+function finish(){setP(false);ended=true;$('cvT').textContent='انتهى العرض';$('cvP').textContent='أعِدِ المشاهدة، أو اختَرْ بيتًا من الأزرار للنقاش';$('cvB').querySelector('span').textContent='أعِدِ العرض';$('cover').hidden=false}
+function loop(now){const dt=now-last;last=now;if(playing){t+=dt;if(t>=D){if(i<S.length-1)show(i+1,true);else{t=D;finish()}}}
+bars.forEach((b,k)=>b.style.width=(k<i?100:k>i?0:Math.min(100,t/D*100))+'%');requestAnimationFrame(loop)}
+$('cvB').onclick=()=>{$('cover').hidden=true;if(ended)show(0,true);else setP(true)};
+$('pp').onclick=()=>{if(ended){$('cover').hidden=true;show(0,true);return}$('cover').hidden=true;setP(!playing)};
+$('next').onclick=()=>show(i+1,true);
+$('prev').onclick=()=>show(i-1,true);
+$('again').onclick=()=>show(i,true);
+document.querySelectorAll('#bar button,#chap button').forEach(b=>b.onclick=()=>show(+b.dataset.k,true));
+document.addEventListener('keydown',e=>{if(e.target.closest&&e.target.closest('button')&&e.key===' ')return;
+if(e.key===' '){e.preventDefault();$('pp').click()}else if(e.key==='ArrowLeft')show(i+1,true);else if(e.key==='ArrowRight')show(i-1,true)});
+show(0,false);requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

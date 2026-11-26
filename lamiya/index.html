@@ -36,8 +36,8 @@ header p{margin:0;color:var(--mut);font-size:15px}
 .cover p{margin:0;color:#ddd5c8;font-size:clamp(14px,1.8vw,18px)}
 .big{display:inline-flex;align-items:center;gap:10px;border:0;border-radius:999px;background:var(--acc);color:#1b0f0a;font:800 18px Tajawal,sans-serif;padding:12px 28px;cursor:pointer;min-height:48px}
 .big:focus-visible,.ctl>button:focus-visible,.chap button:focus-visible{outline:3px solid #fff;outline-offset:3px}
-.bar{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:6px;margin:14px 0 10px}
-.bar button{height:22px;border:0;padding:8px 0;background:none;cursor:pointer}
+.bar{display:flex;gap:4px;margin:14px 0 10px}
+.bar button{flex:1;height:22px;border:0;padding:8px 0;background:none;cursor:pointer}
 .bar i{display:block;height:6px;border-radius:3px;background:#3a342e;overflow:hidden}
 .bar b{display:block;height:100%;width:0;background:var(--acc)}
 .ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px}
@@ -163,14 +163,38 @@ header p{margin:0;color:var(--mut);font-size:15px}
 .w9{transform:translateX(420px)}
 .on .w9{animation:w9 3s 9s linear both}
 @keyframes w9{from{transform:translateX(0)}to{transform:translateX(420px)}}
+/* batch 3 generic */
+.fout{opacity:0}
+.on .fout{animation:fout 1s var(--d,0s) both}
+@keyframes fout{from{opacity:1}to{opacity:0}}
+.half{opacity:var(--o,.3)}
+.on .half{animation:half 2s var(--d,0s) both}
+@keyframes half{from{opacity:1}to{opacity:var(--o,.3)}}
+.sink{transform:translate(var(--dx,0px),var(--dy,200px));opacity:var(--o,0)}
+.on .sink{animation:sink var(--l,3s) var(--d,0s) ease-in both}
+@keyframes sink{from{transform:none;opacity:1}to{transform:translate(var(--dx,0px),var(--dy,200px));opacity:var(--o,0)}}
+.slide{transform:translate(var(--dx,0px),var(--dy,0px))}
+.on .slide{animation:slide var(--l,3s) var(--d,0s) ease-in-out both}
+@keyframes slide{from{transform:none}to{transform:translate(var(--dx,0px),var(--dy,0px))}}
+.rise{transform:none}
+.on .rise{animation:rise 2s var(--d,0s) ease-out both}
+@keyframes rise{from{transform:translateY(var(--ry,220px));opacity:0}to{transform:none;opacity:1}}
+.grow{transform:none}
+.on .grow{animation:grow 1.4s var(--d,0s) ease-out both}
+@keyframes grow{from{transform:scale(0,1)}to{transform:none}}
+.on .rock{animation:rock 1.4s var(--d,0s) 5 alternate ease-in-out}
+@keyframes rock{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.w17{transform:translateX(780px)}
+.on .w17{animation:w17 6s 2s linear both}
+@keyframes w17{from{transform:translateX(0)}to{transform:translateX(780px)}}
 @media(prefers-reduced-motion:reduce){.scene *,.sub *{animation:none!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <header>
-<h1>لاميّة ابن الوردي في عشرة مشاهد</h1>
-<p>الأبيات ١ إلى ١١ دون البيت الخامس · لكل بيت مشهد ومعنى وسؤال للحوار</p>
+<h1>لاميّة ابن الوردي في ثمانية عشر مشهدًا</h1>
+<p>الأبيات ١ إلى ١٩ دون البيت الخامس · لكل بيت مشهد ومعنى وسؤال للحوار</p>
 </header>
 
 <div class="screen" id="screen">
@@ -256,7 +280,40 @@ q:'ما الفرق بين علم الفلك والتنجيم؟ وأين نرى �
 m:'تعجزُ العقولُ عن الإحاطة بحكمة الله عزّ وجلّ، الذي هدانا طرقَنا.',
 v:[['حارَتْ','تحيّرَتْ وعجزَتْ'],['سُبْل','جمعُ سبيل: الطرق، وسُكّنت الباءُ للوزن'],['عزَّ وجلّ','جملةٌ للتعظيم']],
 s:'البيت من «نزهة الأبصار» وحدها، وفيها «سلبنا»، والصواب في السياق «سُبْلَنا».',
-q:'ما الشيءُ في الكون الذي تتعجّبُ من حكمته؟'}
+q:'ما الشيءُ في الكون الذي تتعجّبُ من حكمته؟'},
+{b:'البيت ١٢',c:'كُتِبَ الموت',h1:'كُتِبَ الموتُ على الخلقِ فكم',h2:'فلَّ من جيشٍ وأفنى من دُوَلْ',
+m:'الموتُ مكتوبٌ على جميع الخلق، فكم هزمَ من جيوشٍ وأزالَ من دول.',
+v:[['كُتِبَ','فُرِضَ وقُدِّر'],['فلَّ','هزمَ وكسرَ'],['دُوَل','جمعُ دولة']],
+q:'لماذا بدأ الشاعر بالموت قبل أن يسأل «أين؟»؟'},
+{b:'البيت ١٣',c:'أين نمرود؟',h1:'أين نمرودُ وكنعانُ ومَن',h2:'ملَكَ الأرضَ وولّى وعزَلْ',
+m:'أين الملوك الجبابرة كنمرود وكنعان، ومَن حكمَ الأرضَ يعيّن الولاةَ ويعزلهم؟',
+v:[['نمرود','ملكٌ جبّارٌ من القدماء'],['ولّى','عيّنَ واليًا'],['عزَلَ','أقالَ من المنصب'],['أين…؟','استفهامٌ للتحسّر والعِبرة']],
+q:'ما الذي يريد الشاعر أن يقوله لنا حين يسأل عن ملوكٍ ماتوا منذ زمن؟'},
+{b:'البيت ١٤',c:'لم تُغنِ القُلَل',h1:'أين مَن سادوا وشادوا وبنَوا',h2:'هلكَ الكلُّ ولم تُغنِ القُلَلْ',
+m:'أين الذين صاروا سادةً ورفعوا القصور؟ هلكوا جميعًا، ولم تنفعهم حصونُهم العالية.',
+v:[['سادوا','صاروا سادة'],['شادوا','رفعوا البناء'],['القُلَل','القممُ والحصونُ العالية'],['لم تُغنِ','لم تنفع']],
+q:'لاحظْ «سادوا» و«شادوا»: ما الذي يجمع الكلمتين في اللفظ؟ وما الفرق في المعنى؟'},
+{b:'البيت ١٥',c:'مَن يسمعْ يَخَلْ',h1:'أين عادٌ (…) فرعونُ ومَن',h2:'رفعَ الأهرامَ مَن يسمعْ يَخَلْ',
+m:'أين قومُ عاد وفرعونُ ومَن بنى الأهرام؟ ومَن يسمع أخبارهم يتصوّر عظمتهم ويعتبر.',
+v:[['الأهرام','أبنيةٌ عظيمةٌ في مصر'],['يَخَلْ','يَظُنّ، من خالَ يَخال، مجزومٌ في جواب الشرط'],['مَن يسمعْ يَخَلْ','مَثَلٌ: مَن يسمع الأخبار يتصوّر ويظنّ']],
+s:'سقطت كلمةٌ من الشطر الأول في «نزهة الأبصار»، ولم يرد البيت في «جواهر الأدب»، فوضعنا مكانها (…).',
+q:'ما الآثار القديمة التي سمعتَ بها؟ وماذا تتخيّل حين تسمع أخبار أصحابها؟'},
+{b:'البيت ١٦',c:'أين أهلُ العلم؟',h1:'أين أربابُ الحِجى أهلُ النُّهى',h2:'أين أهلُ العلمِ والقومُ الأُوَلْ',
+m:'أين أصحابُ العقول، وأين العلماءُ والأممُ السابقة؟',
+v:[['أرباب','أصحاب'],['الحِجى والنُّهى','العقل'],['الأُوَل','السابقون']],
+q:'إذا كان العلماءُ أيضًا يموتون، فما الذي يبقى بعدهم؟'},
+{b:'البيت ١٧',c:'وسيَجزي',h1:'سيُعيدُ اللهُ كلًّا منهمُ',h2:'وسيَجزي فاعلًا ما قد فعَلْ',
+m:'سيبعثُ اللهُ الجميعَ بعد موتهم، ويجازي كلَّ إنسانٍ بعمله.',
+v:[['يُعيد','يبعثُ بعد الموت'],['يَجزي','يكافئ أو يعاقب'],['السين في سيُعيد','للمستقبل القريب']],
+q:'لماذا ختم الشاعر حديثه عن الموت بالبعث والجزاء؟'},
+{b:'البيت ١٨',c:'يا بُنيَّ اسمعْ',h1:'يا بُنيَّ اسمعْ وصايا جُمِعَتْ',h2:'حِكَمًا خُصَّتْ بها خيرُ المِلَلْ',
+m:'يا بُنيَّ، اسمعْ وصايا جُمعت فيها حِكَمٌ اختصّت بها أمّة الإسلام.',
+v:[['بُنيّ','تصغيرُ ابن للتحبّب'],['وصايا','نصائح'],['حِكَم','جمعُ حكمة'],['المِلَل','الأديانُ والأمم']],
+q:'لماذا قال «بُنيَّ» بالتصغير لا «ابني»؟ وما أثر ذلك في السامع؟'},
+{b:'البيت ١٩',c:'اطلُبِ العلم',h1:'اطلُبِ العلمَ ولا تكسَلْ فما',h2:'أبعدَ الخيرَ على أهلِ الكسَلْ',
+m:'اطلبِ العلمَ بجدّ، فما أبعدَ الخيرَ عن الكسالى!',
+v:[['ما أبعدَ!','أسلوبُ تعجّب'],['لا تكسَلْ','نهيٌ مجزوم'],['الكسَل','التثاقلُ عن العمل']],
+q:'اذكرْ شيئًا تعلّمتَه بالجدّ. كيف كان سيكون لو كسلتَ عنه؟'}
 ];
 const D=13500;
 const $=id=>document.getElementById(id);
@@ -365,13 +422,56 @@ ${chip(800,110,'حارَتِ الأفكار','#e8e6ff','#221d45','fin','--d:1s')
 ${[[1500,560,6.2],[1560,650,6.8],[1480,470,7.4]].map(a=>`<line class="fin" style="--d:${a[2]}s" x1="800" y1="690" x2="${a[0]}" y2="${a[1]}" stroke="#ffd36e" stroke-width="10" stroke-dasharray="4 26" stroke-linecap="round"/>`).join('')}
 ${chip(1230,420,'هدانا سُبْلَنا','#ffd36e','#2a2000','fin','--d:8s')}
 <g class="walker w9" style="--ws:9s;--wn:6"><g transform="translate(800,690)">${man('#f4f1ff')}</g></g>`;
-const defs=`<defs>${grad('g0','#bfe3f2','#f2f8ef')}${grad('g1','#10153a','#30356f')}${grad('g2','#fbd7a3','#f08a62')}${grad('g3','#fde2e4','#fff3dc')}${grad('g4','#d6eff6','#f5fbf1')}${grad('g5','#cfdfe6','#f0f3ec')}${grad('g6','#16202e','#3a5065')}${grad('g7','#f3d9b1','#fbf0dc')}${grad('g8','#0f1430','#2a3264')}${grad('g9','#141a3e','#3a2f66')}<linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc8ee"/><stop offset="1" stop-color="#b9a7ff"/></linearGradient></defs>`;
-const lab=['ابتعدَ عن أهل الهزل ومشى إلى ظلّ شجرة','نجمٌ يغيب، وذكرى طفولة تتلاشى، وفجرٌ جديد','بالونُ اللذّة يطير، وكيسُ الإثم يبقى على الظهر','ترك ما يشغله وصعد الدرج إلى العزّ','زهرةٌ جميلة تذبل مع الأيام، فيراها هيّنة','يرفض ما يُطفئ مصباح عقله، فيعود المصباح يضيء','قلبٌ تسكنه التقوى يضيء الطريق حتى الغاية','قاطع الطريق ليس بطلًا، والبطل من يُعين الضعيف','يترك المنجّم ونجومه ويحمل كتاب الشرع','أسئلة كثيرة فوق رأسه، ثم تُضيء أمامه الطرق'];
+const crownM=`<path d="M-24 -190 L-24 -214 L-12 -200 L0 -220 L12 -200 L24 -214 L24 -190Z" fill="#e3b04b"/>`;
+sc[10]=`<rect width="1600" height="900" fill="url(#g10)"/><path d="M0 690 H1600 V900 H0Z" fill="#5a4636"/>
+<rect x="1150" y="420" width="360" height="270" fill="#6b5446"/>${[1150,1290,1430].map(x=>`<rect x="${x}" y="360" width="80" height="330" fill="#7a6252"/>${[0,1,2].map(j=>`<rect x="${x+j*30}" y="340" width="20" height="20" fill="#7a6252"/>`).join('')}`).join('')}
+<line x1="1330" y1="360" x2="1330" y2="190" stroke="#3a2a20" stroke-width="7"/><g class="slide" style="--dy:150px;--d:6.5s;--l:2s"><path d="M1330 196 l110 30 l-110 30z" fill="#c0392b"/></g>
+${[250,350,450,550,650,750].map((x,k)=>`<g class="fout" style="--d:${3+k*.5}s"><g transform="translate(${x},690)"><g class="bob" style="--d:${k*.1}s">${man('#1b1a19')}<line x1="20" y1="-74" x2="36" y2="-240" stroke="#5a3d22" stroke-width="6"/><path d="M30 -238 l8 -30 l8 30z" fill="#c9ced8"/></g></g></g>`).join('')}
+${chip(500,250,'فلَّ: هزمَ','#fff4e0','#3b2a4a','fin','--d:4s')}${chip(1330,120,'وأفنى دُوَلًا','#c0392b','#fff','fin','--d:7.5s')}`;
+sc[11]=`<rect width="1600" height="900" fill="url(#g11)"/><path d="M0 690 H1600 V900 H0Z" fill="#3a2c48"/>
+<g class="fout" style="--d:7s"><rect x="720" y="560" width="160" height="130" fill="#6b4a2b"/><path d="M740 560 V400 Q800 360 860 400 V560Z" fill="#c58f2a"/><g transform="translate(800,640)">${man('#f1ece4')}${crownM}</g></g>
+<g transform="translate(450,690)"><g transform="scale(.8)">${man('#f1ece4')}</g></g><g class="fin" style="--d:2s"><path d="M450 450 l10 22 l24 2 l-18 16 l6 24 l-22 -12 l-22 12 l6 -24 l-18 -16 l24 -2z" fill="#ffc83d"/></g>
+<g class="fout" style="--d:5.5s"><g class="slide" style="--dx:320px;--d:4.4s;--l:1.6s"><g transform="translate(1150,690)"><g transform="scale(.8)">${man('#f1ece4')}</g></g></g></g>
+${chip(450,370,'ولّى','#ffc83d','#2a1f3d','fin','--d:2.4s')}${chip(1150,370,'وعزَلْ','#e8e6ff','#2a1f3d','fin','--d:4.6s')}${chip(800,120,'نمرودُ وكنعان','#efe3c8','#2a1f3d','fin','--d:1s')}
+<text class="lbl fin" style="--d:8.2s;font-size:150px" x="800" y="420" fill="#e3b04b" text-anchor="middle">أين؟</text>`;
+sc[12]=`<rect width="1600" height="900" fill="url(#g12)"/><path d="M0 690 H1600 V900 H0Z" fill="#8a7a5a"/><path d="M700 690 Q1000 440 1450 690Z" fill="#9a8866"/>
+<g class="sink" style="--dy:330px;--d:5s;--l:3s;--o:0"><rect x="900" y="300" width="380" height="260" fill="#b39a73"/>${[900,1040,1180].map(x=>`<rect x="${x}" y="200" width="100" height="360" fill="#c4ab82"/><rect x="${x+38}" y="250" width="24" height="40" fill="#5a4636"/>`).join('')}${[960,1100,1230].map((x,k)=>`<g transform="translate(${x},200) scale(.55)">${man('#1b1a19')}</g>`).join('')}</g>
+${chip(450,250,'شادوا: رفعوا البناء','#fff8e8','#5a4636','fin','--d:1.5s')}${chip(1090,150,'ولم تُغنِ القُلَل','#5a4636','#fff8e8','fin','--d:8.2s')}`;
+sc[13]=`<rect width="1600" height="900" fill="url(#g13)"/><circle cx="1350" cy="170" r="70" fill="#ffd36e"/><path d="M0 690 H1600 V900 H0Z" fill="#e0b878"/>
+<g class="half" style="--o:.35;--d:5s"><path d="M700 690 L960 330 L1220 690Z" fill="#d1a35e"/><path d="M960 330 L1220 690 L1060 690Z" fill="#b8884a"/><path d="M1150 690 L1330 440 L1510 690Z" fill="#d1a35e"/><path d="M1330 440 L1510 690 L1400 690Z" fill="#b8884a"/><g transform="translate(860,690)">${man('#3a2a1a')}${crownM}</g></g>
+<g transform="translate(330,690)">${man('#1b1a19')}</g>
+<g class="fin" style="--d:6s"><circle cx="400" cy="440" r="12" fill="#fff" opacity=".7"/><circle cx="430" cy="400" r="18" fill="#fff" opacity=".7"/><ellipse cx="500" cy="320" rx="110" ry="70" fill="#fff" opacity=".85"/><text class="lbl" x="500" y="346" fill="#5a3a1a" text-anchor="middle" style="font-size:80px">؟</text></g>
+${chip(1100,130,'الأهرام','#fff8e8','#5a3a1a','fin','--d:1s')}${chip(500,190,'مَن يسمعْ يَخَلْ','#5a3a1a','#fff8e8','fin','--d:7.5s')}`;
+const books=(x,y,w)=>{let s='';sd=x;for(let k=0;k*22<w;k++){const hh=60+((rnd()*40)|0);s+=`<rect x="${x+k*22}" y="${y-hh}" width="18" height="${hh}" fill="${['#7a2030','#2f6b4f','#8a6116','#3a4a7a','#6b4a2b'][k%5]}"/>`}return s};
+sc[14]=`<rect width="1600" height="900" fill="#3a2a1f"/>${[200,360,520].map(y=>`<rect x="120" y="${y}" width="1360" height="12" fill="#6b4a2b"/>${books(140,y,1320)}`).join('')}<path d="M0 690 H1600 V900 H0Z" fill="#241a14"/>
+${[500,800,1100].map((x,k)=>`<g class="fout" style="--d:${4+k}s"><circle cx="${x}" cy="540" r="90" fill="#ffd36e" opacity=".18"/><g transform="translate(${x},690)">${man('#f1ece4')}<rect x="10" y="-86" width="34" height="26" fill="#efe3c8"/></g></g>`).join('')}
+${chip(800,120,'الحِجى والنُّهى: العقل','#efe3c8','#3a2a1f','fin','--d:1s')}${chip(800,300,'أين أهلُ العلم؟','#e3b04b','#3a2a1f','fin','--d:7.5s')}`;
+sc[15]=`<rect width="1600" height="900" fill="url(#g15)"/>
+${[300,450,600,1000,1150,1300].map((x,k)=>`<g class="rise" style="--d:${1.5+k*.4}s;--ry:240px"><g transform="translate(${x},690)">${man('#f4f1ff')}</g></g>`).join('')}
+<path d="M0 690 H1600 V900 H0Z" fill="#3e4a3a"/>
+<g class="fin" style="--d:5.5s"><line x1="800" y1="640" x2="800" y2="330" stroke="#e3b04b" stroke-width="10"/><path d="M740 690 h120 l-20 -50 h-80z" fill="#c58f2a"/><g transform="translate(800,330)"><g class="rock" style="--d:6.5s"><line x1="-200" y1="0" x2="200" y2="0" stroke="#e3b04b" stroke-width="10" stroke-linecap="round"/><path d="M-200 0 L-250 90 H-150Z M200 0 L150 90 H250Z" fill="none" stroke="#e3b04b" stroke-width="4"/><path d="M-260 90 q60 40 120 0z M140 90 q60 40 120 0z" fill="#e3b04b"/></g></g></g>
+${chip(450,250,'يُعيد: يبعث','#efe3c8','#2b2f5a','fin','--d:2s')}${chip(800,130,'يَجزي: يكافئ أو يعاقب','#e3b04b','#2b2f5a','fin','--d:7.2s')}`;
+sc[16]=`<rect width="1600" height="900" fill="url(#g16)"/><path d="M0 690 H1600 V900 H0Z" fill="#c9a66b"/>
+<g transform="translate(560,690) scale(1.15)">${man('#1b1a19')}<path d="M-14 -150 q14 26 28 0" stroke="#1b1a19" stroke-width="6" fill="none"/></g>
+<g transform="translate(860,690) scale(.72)">${man('#1b1a19')}</g>
+${bubble(560,330,'يا بُنيَّ اسمعْ','fin','--d:1s')}
+<g transform="translate(1180,330)"><g class="grow" style="--d:3.5s"><rect x="-170" y="-110" width="340" height="250" rx="10" fill="#fffaf0" stroke="#8a6116" stroke-width="4"/>${['وصايا','اطلُبِ العلم','اتّقِ الله','لا تكسَلْ'].map((t,k)=>`<text class="lbl" x="0" y="${-60+k*56}" fill="${k?'#3a2a1a':'#8a6116'}" text-anchor="middle" style="font-size:${k?34:40}px">${t}</text>`).join('')}</g></g>
+${chip(880,180,'بُنيَّ: للتحبّب','#fff','#5a3a1a','fin','--d:5.5s')}${chip(1180,130,'المِلَل: الأديان','#8a6116','#fff','fin','--d:8.5s')}`;
+sc[17]=`<rect width="1600" height="900" fill="url(#g17)"/><path d="M0 690 H1600 V900 H0Z" fill="#8fbf72"/>
+<g transform="translate(1390,220)"><circle r="110" fill="#ffd36e" opacity=".25"/><path class="tw" d="M0 -60 L16 -18 L60 -16 L26 12 L38 56 L0 30 L-38 56 L-26 12 L-60 -16 L-16 -18Z" fill="#ffc83d"/></g>
+${chip(1390,370,'الخير','#ffc83d','#3a2a00','fin','--d:1s')}
+<rect x="120" y="610" width="230" height="60" rx="14" fill="#a0522d"/><rect x="110" y="590" width="40" height="80" rx="10" fill="#8a4426"/>
+<g transform="translate(180,600)" stroke="#1b1a19" stroke-width="9" stroke-linecap="round"><line x1="0" y1="0" x2="120" y2="0"/><line x1="120" y1="0" x2="170" y2="16"/><circle cx="-24" cy="-6" r="24" fill="#1b1a19"/></g>
+<text class="lbl tw" x="200" y="520" fill="#2a3a2a" style="font-size:56px">z z</text>
+<g class="walker w17" style="--ws:2s;--wn:12"><g transform="translate(520,690)">${man('#1b1a19')}<rect x="14" y="-80" width="30" height="24" fill="#3a4a7a"/></g></g>
+${chip(240,420,'أهلُ الكسل','#fff','#2a3a2a','fin','--d:1.2s')}${chip(780,240,'ما أبعدَ الخيرَ عنهم!','#2a6f4e','#fff','fin','--d:5s')}`;
+const defs=`<defs>${grad('g0','#bfe3f2','#f2f8ef')}${grad('g1','#10153a','#30356f')}${grad('g2','#fbd7a3','#f08a62')}${grad('g3','#fde2e4','#fff3dc')}${grad('g4','#d6eff6','#f5fbf1')}${grad('g5','#cfdfe6','#f0f3ec')}${grad('g6','#16202e','#3a5065')}${grad('g7','#f3d9b1','#fbf0dc')}${grad('g8','#0f1430','#2a3264')}${grad('g9','#141a3e','#3a2f66')}${grad('g10','#3b2a4a','#c97b5a')}${grad('g11','#2a1f3d','#5a3f6b')}${grad('g12','#9fc4d8','#efe6d2')}${grad('g13','#f0c27b','#f8e6c4')}${grad('g15','#2b2f5a','#f2b48a')}${grad('g16','#f7d9a8','#fdf0dc')}${grad('g17','#cfe8f5','#f3f8ee')}<linearGradient id="gl" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffc8ee"/><stop offset="1" stop-color="#b9a7ff"/></linearGradient></defs>`;
+const lab=['ابتعدَ عن أهل الهزل ومشى إلى ظلّ شجرة','نجمٌ يغيب، وذكرى طفولة تتلاشى، وفجرٌ جديد','بالونُ اللذّة يطير، وكيسُ الإثم يبقى على الظهر','ترك ما يشغله وصعد الدرج إلى العزّ','زهرةٌ جميلة تذبل مع الأيام، فيراها هيّنة','يرفض ما يُطفئ مصباح عقله، فيعود المصباح يضيء','قلبٌ تسكنه التقوى يضيء الطريق حتى الغاية','قاطع الطريق ليس بطلًا، والبطل من يُعين الضعيف','يترك المنجّم ونجومه ويحمل كتاب الشرع','أسئلة كثيرة فوق رأسه، ثم تُضيء أمامه الطرق','جنودٌ يختفون واحدًا بعد آخر، وراية الدولة تهبط','ملكٌ يولّي ويعزل ثم يختفي، ويبقى سؤال: أين؟','قلاعٌ عالية فوق تلّ تغوص وتختفي','أهرامٌ تبهت، ورجلٌ يسمع أخبارها ويتخيّل','علماء في مكتبة يختفون وتبقى الكتب','الناس يقومون من الأرض، وميزانٌ يظهر فوقهم','أبٌ ينادي ابنه، وتنفتح ورقة الوصايا','كسولٌ نائم والخير بعيد عنه، ونشيطٌ يحمل كتابه إليه'];
 $('stage').innerHTML=defs+sc.map((s,k)=>`<g class="scene" id="sc${k}" aria-label="${lab[k]}">${s}</g>`).join('');
 $('subs').innerHTML=S.map((s,k)=>`<div class="sub" id="sub${k}"><span class="h h1">${s.h1}</span><span class="sep">…</span><span class="h h2">${s.h2}</span></div>`).join('');
 $('bar').innerHTML=S.map((s,k)=>`<button type="button" data-k="${k}" aria-label="${s.b}"><i><b></b></i></button>`).join('');
 const cb=(s,k)=>`<button type="button" data-k="${k}">${s.b.replace('البيت ','')} · ${s.c}</button>`;
-$('chap').innerHTML='<span class="grp">الدفعة الأولى</span>'+S.slice(0,5).map(cb).join('')+'<span class="grp">الدفعة الثانية</span>'+S.slice(5).map((s,k)=>cb(s,k+5)).join('');
+$('chap').innerHTML='<span class="grp">الدفعة الأولى</span>'+S.slice(0,5).map(cb).join('')+'<span class="grp">الدفعة الثانية</span>'+S.slice(5,10).map((s,k)=>cb(s,k+5)).join('')+'<span class="grp">الدفعة الثالثة</span>'+S.slice(10).map((s,k)=>cb(s,k+10)).join('');
 
 const scr=$('screen'),bars=[...document.querySelectorAll('#bar b')],chs=[...document.querySelectorAll('#chap button')];
 let i=0,t=0,playing=false,last=performance.now(),ended=false;

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ملزمة أساسيات في قواعد اللغة العربية</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* VOICE a printed study booklet (ملزمة): same content as the dossier, simplified, ordered, visual
+   IDEA a modern A4 study guide: unit band, numbered concept cards, mind maps, colour-coded tables, worked examples, exercise sheets
+   PICTURE each page is built around one diagram: mind map, decision path, comparison, colour matrix
+   COLOUR indigo #2b2a7a structure, sun #ffc233 accents; fixed grammatical inks: blue raf', coral nasb, green jarr, slate mabni; light tints for print
+   TYPE Cairo for headings and explanation + Amiri for Arabic examples and verse
+   LAYOUT A4 portrait pages, 14mm margins, two-column card grids, full-width diagrams */
+@page{size:A4;margin:0}
+:root{--ind:#2b2a7a;--ind2:#4a48b8;--ind3:#ecebfb;--sun:#ffc233;--sun2:#fff6dc;--ink:#1f1f38;--soft:#5f5f7a;--line:#dedfee;--tint:#f6f6fc;
+--raf:#2563eb;--raf2:#e3ecff;--nsb:#e5533f;--nsb2:#ffe8e4;--jar:#0f9b74;--jar2:#ddf5ec;--mb:#7d8699;--mb2:#eef0f4}
+*{box-sizing:border-box}
+html{background:#d9d9e6}
+body{margin:0;font:11.5pt/1.75 Cairo,Tahoma,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.ar{font-family:Amiri,"Traditional Arabic",serif}
+.r{color:var(--raf)}.n{color:var(--nsb)}.j{color:var(--jar)}.m{color:var(--mb)}
+u{text-decoration-color:var(--sun);text-decoration-thickness:3px;text-underline-offset:6px}
+h1,h2,h3,h4{margin:0;line-height:1.3;font-weight:800}
+p{margin:0}
+.pg{width:210mm;height:297mm;margin:10mm auto;background:#fff;position:relative;overflow:hidden;padding:0 14mm 14mm;display:flex;flex-direction:column;box-shadow:0 4px 18px rgba(30,30,80,.18);page-break-after:always;break-after:page}
+@media print{html{background:#fff}.pg{margin:0;box-shadow:none}}
+/* page head / foot */
+.ph{display:flex;align-items:center;gap:10px;margin:0 -14mm 6mm;padding:7mm 14mm 5mm;background:var(--ind);color:#fff}
+.ph .unit{background:var(--sun);color:var(--ind);font-weight:900;font-size:10pt;border-radius:999px;padding:1mm 4mm;white-space:nowrap}
+.ph h2{font-size:20pt;font-weight:900}
+.ph .src{margin-inline-start:auto;font-size:9pt;opacity:.8;white-space:nowrap}
+.pf{position:absolute;bottom:6mm;left:14mm;right:14mm;display:flex;justify-content:space-between;align-items:center;font-size:8.5pt;color:var(--soft);border-top:1px solid var(--line);padding-top:2mm}
+.pf b{width:8mm;height:8mm;border-radius:50%;background:var(--ind);color:#fff;display:grid;place-items:center;font-size:9pt}
+/* cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.cd{border:1.2px solid var(--line);border-radius:4mm;padding:3.5mm 4mm;position:relative;background:#fff;break-inside:avoid}
+.cd.full{grid-column:1/-1}
+.cd h3{font-size:14pt;color:var(--ind);display:flex;align-items:center;gap:2.5mm;margin-bottom:1.5mm}
+.num{width:8mm;height:8mm;border-radius:2.2mm;background:var(--ind);color:#fff;display:inline-grid;place-items:center;font-size:10.5pt;font-weight:900;flex:none}
+.cd p{font-size:11.5pt}
+.tip{background:var(--sun2);border-inline-start:4px solid var(--sun);border-radius:2mm;padding:2.5mm 4mm;font-size:11pt;margin-top:3mm}
+.ex{background:var(--tint);border-radius:2.5mm;padding:2mm 3.5mm;margin-top:2mm;font-size:11pt}
+.ex .ar{font-size:16pt;line-height:1.8}
+.tag{display:inline-block;border-radius:999px;padding:0 2.6mm;font-size:8.5pt;font-weight:800;color:#fff;vertical-align:middle;white-space:nowrap}
+.tag.r{background:var(--raf)}.tag.n{background:var(--nsb)}.tag.j{background:var(--jar)}.tag.m{background:var(--mb)}.tag.i{background:var(--ind)}
+.ic{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+/* split compare */
+.split{display:grid;grid-template-columns:1fr auto 1fr;gap:3mm;align-items:stretch;margin-top:2mm}
+.split>div{border-radius:3mm;padding:3mm 4mm;font-size:11pt}
+.split .vs{align-self:center;font-weight:900;color:var(--soft)}
+/* mini flow */
+.flow{display:flex;align-items:center;gap:2mm;flex-wrap:wrap;margin-top:2mm}
+.box{border-radius:2.5mm;padding:2mm 3.5mm;font-weight:700;font-size:11pt}
+.arw{color:var(--soft);font-weight:900}
+/* mind map */
+.mm{position:relative;margin-top:2mm}
+.mm svg.wires{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.mm .row{display:grid;align-items:center;gap:6mm;position:relative}
+.mm .col{display:grid;gap:3mm}
+.mm .center{background:var(--ind);color:#fff;border-radius:6mm;padding:4mm 5mm;text-align:center;font-weight:900;font-size:14pt;line-height:1.4;box-shadow:0 0 0 2.5mm var(--ind3)}
+.mm .br{border-radius:3.5mm;overflow:hidden;border:1.4px solid var(--bc,var(--ind));background:#fff}
+.mm .br>b{display:block;background:var(--bc,var(--ind));color:#fff;padding:1.8mm 3mm;font-size:12pt}
+.mm .br ul{list-style:none;margin:0;padding:1.8mm 3mm 2.2mm;font-size:10.8pt;line-height:1.7}
+.mm .br li::before{content:"";display:inline-block;width:1.6mm;height:1.6mm;border-radius:50%;background:var(--bc,var(--ind));margin-inline-end:1.8mm;vertical-align:middle}
+.mm .br .sub{font-weight:800;color:var(--bc,var(--ind));font-size:11pt;padding:1.6mm 3mm 0}
+.mm .br .sub+ul{padding-top:0}
+.mm.big{margin-top:6mm}
+.mm.big .col{gap:6mm}
+.mm.big .br>b{font-size:14pt;padding:2.4mm 4mm}
+.mm.big .br ul{font-size:12.8pt;line-height:1.95;padding:2.4mm 4mm 3mm}
+.mm.big .br .sub{font-size:12.5pt;padding:2.2mm 4mm 0}
+.mm.big .center{font-size:19pt;padding:6mm}
+#mmWord .br ul{font-size:11.8pt;line-height:1.7;padding:1.8mm 4mm 2.2mm}
+#mmWord .br .sub{padding-top:1.4mm}
+#mmWord .col{gap:4mm}
+.dense .cd{padding:3mm 3.5mm}.dense .cd p{font-size:10.8pt}.dense .ex{font-size:10.3pt}.dense .ex .ar{font-size:14.5pt}.dense .cards{gap:3mm}.dense .cd h3{font-size:13pt}.dense .mx th,.dense .mx td{padding:1.6mm 2mm;font-size:11pt}
+/* tables */
+table{border-collapse:separate;border-spacing:1.2mm;width:100%}
+.mx th,.mx td{border-radius:2mm;padding:2.6mm 2mm;text-align:center;font-size:12pt}
+.mx thead th{color:#fff;font-weight:800}
+.mx tbody th{background:var(--ind3);color:var(--ind);font-weight:800;text-align:start}
+.mx td.r{background:var(--raf2)}.mx td.n{background:var(--nsb2)}.mx td.j{background:var(--jar2)}.mx td.sb{font-weight:800}
+/* verbs */
+.vcols{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:4mm}
+.vc{border-radius:4mm;overflow:hidden;border:1.4px solid var(--line)}
+.vc>h3{color:#fff;padding:2.5mm 4mm;font-size:13pt;display:flex;justify-content:space-between;align-items:center}
+.vc .bd{padding:4mm 4.5mm;font-size:11.5pt;line-height:1.85}
+.vc .st{font-weight:800;margin-top:4mm;display:block;font-size:12.5pt}
+.vc ul{margin:1mm 0 0;padding-inline-start:4mm}
+.vc li{margin-bottom:.8mm}
+/* exercise */
+.exr{border:1.4px solid var(--line);border-radius:4mm;overflow:hidden;margin-bottom:4mm}
+.exr>h3{background:var(--ind3);color:var(--ind);padding:2mm 4mm;font-size:12pt;display:flex;gap:2.5mm;align-items:center}
+.exr ol{list-style:none;margin:0;padding:2mm 4mm;counter-reset:q}
+.exr li{counter-increment:q;display:grid;grid-template-columns:7mm 1fr;gap:2mm;padding:.6mm 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+.exr li:last-child{border-bottom:0}
+.exr li::before{content:counter(q,arabic-indic);width:6mm;height:6mm;border-radius:50%;background:var(--ind);color:#fff;font-weight:800;font-size:9pt;display:grid;place-items:center;margin-top:1.6mm}
+.exr .q{font-family:Amiri;font-size:13pt;line-height:1.75}
+.exr .who{font-family:Cairo;font-size:9pt;color:var(--soft);font-weight:700}
+.lines{height:6.5mm;border-bottom:1px dotted #b9bad0;margin-top:.5mm}
+.opts{display:flex;gap:3mm;flex-wrap:wrap;font-size:9.5pt;margin-top:.5mm}
+.opts span{border:1.2px solid var(--line);border-radius:999px;padding:0 3mm}
+.opts span::before{content:"";display:inline-block;width:3mm;height:3mm;border:1.4px solid var(--soft);border-radius:1mm;margin-inline-end:1.5mm;vertical-align:-.4mm}
+/* cover */
+.cover{background:var(--ind);color:#fff;padding:0;justify-content:space-between}
+.cover .top{padding:22mm 18mm 0}
+.cover .kick{display:inline-block;background:rgba(255,255,255,.12);border-radius:999px;padding:1.5mm 5mm;font-weight:700;font-size:11pt}
+.cover h1{font-size:42pt;font-weight:900;line-height:1.25;margin-top:8mm}
+.cover h1 span{color:var(--sun)}
+.cover .sub{font-size:14pt;opacity:.9;margin-top:4mm;max-width:140mm}
+.cover .feat{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;padding:0 18mm;margin-top:10mm}
+.cover .feat div{background:rgba(255,255,255,.09);border-radius:4mm;padding:4mm;font-weight:700;font-size:10.5pt}
+.cover .feat .ic{width:9mm;height:9mm;color:var(--sun);display:block;margin-bottom:2mm}
+.cover .art{flex:1;position:relative}
+.cover .bot{background:#fff;color:var(--ind);padding:8mm 18mm;display:flex;justify-content:space-between;align-items:center}
+.cover .bot b{font-size:16pt;font-weight:900;display:block}
+.cover .bot small{color:var(--soft);font-weight:700;font-size:10pt}
+/* legend */
+.legend{display:flex;gap:4mm;flex-wrap:wrap;font-size:9.5pt;font-weight:700}
+.legend i{display:inline-block;width:3.5mm;height:3.5mm;border-radius:1mm;margin-inline-end:1.5mm;vertical-align:-.5mm}
+.note{font-size:9pt;color:var(--soft)}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+ <symbol id="i-map" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="4" cy="6" r="2"/><circle cx="20" cy="6" r="2"/><circle cx="4" cy="18" r="2"/><circle cx="20" cy="18" r="2"/><path d="M6 7l4 3M18 7l-4 3M6 17l4-3M18 17l-4-3"/></symbol>
+ <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></symbol>
+ <symbol id="i-pen" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+ <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></symbol>
+ <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 7h14l-3-3M20 17H6l3 3"/></symbol>
+ <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></symbol>
+ <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></symbol>
+ <symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></symbol>
+ <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/></symbol>
+</svg>
+
+<!-- ========== 1 cover ========== -->
+<section class="pg cover">
+ <div class="top">
+  <span class="kick">ملزمة مبسّطة · خرائط ذهنية · رسوم · تدريبات</span>
+  <h1>أساسيّات في<br><span>قواعد اللغة العربيّة</span></h1>
+  <p class="sub">النحو والصرف كما في الدوسية الأصليّة، مرتّبًا في خرائط ذهنيّة وجداول ملوّنة وأمثلة معرَبة، مع تدريبات في نهاية كلّ موضوع.</p>
+ </div>
+ <div class="feat">
+  <div><svg class="ic"><use href="#i-map"/></svg>خريطة ذهنيّة لكلّ باب</div>
+  <div><svg class="ic"><use href="#i-grid"/></svg>جداول ملوّنة للعلامات</div>
+  <div><svg class="ic"><use href="#i-bulb"/></svg>أمثلة معرَبة وتنبيهات</div>
+  <div><svg class="ic"><use href="#i-pen"/></svg>تدريبات للحلّ</div>
+ </div>
+ <div class="art"><svg viewBox="0 0 600 300" style="position:absolute;inset:0;width:100%;height:100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+  <g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="3"><path d="M300 150 C230 150 210 70 130 70"/><path d="M300 150 C230 150 210 230 130 230"/><path d="M300 150 C370 150 390 70 470 70"/><path d="M300 150 C370 150 390 230 470 230"/><path d="M300 150 L300 40"/><path d="M300 150 L300 262"/></g>
+  <circle cx="300" cy="150" r="52" fill="#ffc233"/><text x="300" y="162" text-anchor="middle" font-family="Cairo" font-weight="900" font-size="30" fill="#2b2a7a">الكلمة</text>
+  <g font-family="Cairo" font-weight="800" font-size="20" text-anchor="middle">
+   <rect x="70" y="48" width="120" height="44" rx="22" fill="#2563eb"/><text x="130" y="77" fill="#fff">رفع</text>
+   <rect x="70" y="208" width="120" height="44" rx="22" fill="#e5533f"/><text x="130" y="237" fill="#fff">نصب</text>
+   <rect x="410" y="48" width="120" height="44" rx="22" fill="#0f9b74"/><text x="470" y="77" fill="#fff">جرّ</text>
+   <rect x="410" y="208" width="120" height="44" rx="22" fill="#7d8699"/><text x="470" y="237" fill="#fff">بناء</text>
+   <rect x="250" y="12" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="37" fill="#fff" font-size="17">اسم</text>
+   <rect x="250" y="252" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="277" fill="#fff" font-size="17">فعل · حرف</text>
+  </g></svg></div>
+ <div class="bot"><div><small>إعداد</small><b>د. أيمن العتوم</b></div><div style="text-align:left"><small>الطبعة المبسّطة</small><b>النحو · الصرف</b></div></div>
+</section>
+
+<!-- ========== 2 contents map ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">المحتويات</span><h2>خريطة الملزمة</h2><span class="src">الدوسية: فهرس المحتويات</span></div>
+ <p class="note" style="margin-bottom:2mm">كلّ فرع في الخريطة باب من أبواب الملزمة. ابدأ من الوسط، ثم انتقل إلى القسم الذي تدرسه.</p>
+ <div class="mm big" id="mmToc"></div>
+ <div class="legend" style="margin-top:5mm"><span><i style="background:var(--raf)"></i>رفع</span><span><i style="background:var(--nsb)"></i>نصب</span><span><i style="background:var(--jar)"></i>جرّ</span><span><i style="background:var(--mb)"></i>بناء</span><span class="note">ترميز الألوان الثابت في الملزمة كلّها</span></div>
+ <div class="pf"><span>أساسيّات في قواعد اللغة العربيّة</span><b>٢</b></div>
+</section>
+
+<!-- ========== 3 concepts 1-5 ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ١</span><h2>مفاهيم أوّليّة (١)</h2><span class="src">الدوسية ص٢</span></div>
+ <div class="cards">
+  <div class="cd full"><h3><span class="num">١</span>المُعرَب والمبنيّ</h3>
+   <div class="split"><div style="background:var(--raf2)"><b class="r"><svg class="ic" style="vertical-align:-.25em"><use href="#i-swap"/></svg> المُعرَب</b> من الأسماء والأفعال: ما تتغيّر حركة آخره حسب موقعه في الجملة من الإعراب.<div class="ar" style="font-size:14pt">جاءَ الطالبُ · رأيتُ الطالبَ · مررتُ بالطالبِ</div></div><span class="vs">مقابل</span><div style="background:var(--mb2)"><b class="m"><svg class="ic" style="vertical-align:-.25em"><use href="#i-lock"/></svg> المبنيّ</b> من الأسماء والأفعال والحروف: ما يلزم آخره حركة واحدة مهما كان موقعه من الإعراب.<div class="ar" style="font-size:14pt">جاءَ هٰذا · رأيتُ هٰذا · مررتُ بهٰذا</div></div></div>
+  </div>
+  <div class="cd"><h3><span class="num">٢</span>لكلّ فعل فاعل</h3><p>لأنّ الفعل حَدَثٌ، ولا يمكن أن يتمّ الحدث بدون مُحدِث. وعند إعراب أيّ فعل يجب البحث عن الفاعل في أيّ صورة كان:</p>
+   <div class="mm" id="mmFa" style="margin-top:3mm"></div></div>
+  <div class="cd"><h3><span class="num">٣</span>لكلّ مبتدأ خبر</h3><p>لأنّ الخبر يتمّ به معنى الجملة، وبدونه تبقى الجملة ناقصة؛ وحيث يتمّ المعنى يكون الخبر.</p>
+   <div class="flow" style="margin-top:4mm"><span class="box" style="background:var(--raf2)"><span class="r">مبتدأ</span></span><span class="arw">+</span><span class="box" style="background:var(--raf2)"><span class="r">خبر</span></span><span class="arw">=</span><span class="box" style="background:var(--ind);color:#fff">معنى تامّ</span></div>
+   <div class="ex"><span class="ar">المَدْرَسَةُ ...</span> <span class="tag m">ناقصة</span> &nbsp; <span class="ar">المَدْرَسَةُ عَرِيقَةٌ</span> <span class="tag r">تامّة</span></div></div>
+  <div class="cd"><h3><span class="num">٤</span>الضمائر كلّها مبنيّة</h3><p>وجميعها تقوم مقام الأسماء، ولهذا لها محلّ من الإعراب:</p>
+   <div class="flow" style="margin-top:3mm;justify-content:center"><span class="box" style="background:var(--mb2)"><span class="m">الضمير</span></span><span class="arw">←</span><span class="box" style="background:var(--raf2)"><span class="r">في محلّ رفع</span></span><span class="box" style="background:var(--nsb2)"><span class="n">في محلّ نصب</span></span><span class="box" style="background:var(--jar2)"><span class="j">في محلّ جرّ</span></span></div></div>
+  <div class="cd"><h3><span class="num">٥</span>الأسماء والحروف</h3>
+   <div class="split" style="grid-template-columns:1fr 1fr"><div style="background:var(--ind3)"><b style="color:var(--ind)">الأسماء</b><br>جميعها لها محلّ من الإعراب.</div><div style="background:var(--mb2)"><b class="m">الحروف</b><br>جميعها مبنيّة لا محلّ لها من الإعراب.</div></div></div>
+ </div>
+ <div class="pf"><span>مفاهيم أوّليّة</span><b>٣</b></div>
+</section>
+
+<!-- ========== 4 concepts 6-9 ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ١</span><h2>مفاهيم أوّليّة (٢)</h2><span class="src">الدوسية ص٢</span></div>
+ <div class="cards">
+  <div class="cd full"><h3><span class="num">٦</span>الجملة الفعليّة والجملة الاسميّة</h3>
+   <div class="split" style="grid-template-columns:1fr 1fr"><div style="background:var(--tint)"><b style="color:var(--ind)">الجملة الفعليّة</b>: هي التي تبدأ بفعل.<div class="ar" style="font-size:15pt">﴿قُلْ هُوَ اللَّهُ أَحَدٌ﴾</div><span class="note">جملة فعليّة لأنها بدأت بفعل.</span></div><div style="background:var(--tint)"><b style="color:var(--ind)">الجملة الاسميّة</b>: هي التي تبدأ باسم.<div class="ar" style="font-size:15pt">﴿مُحَمَّدٌ رَسُولُ اللَّهِ﴾</div><span class="note">جملة اسميّة لأنها بدأت باسم.</span></div></div></div>
+  <div class="cd full"><h3><span class="num">٧</span>الجمل الفعليّة: لها محلّ أو لا محلّ لها</h3>
+   <p>جميع الأفعال هي جمل فعليّة؛ لأنّ الفعل يقترن به الفاعل فيشكّل جملة فعليّة. والسؤال الفاصل:</p>
+   <div class="flow" style="margin-top:2mm;justify-content:center"><span class="box" style="background:var(--sun2);border:1.4px solid var(--sun)"><svg class="ic" style="vertical-align:-.25em"><use href="#i-q"/></svg> هل نستطيع أن نستبدلها بكلمة مفردة؟</span></div>
+   <div class="split" style="grid-template-columns:1fr 1fr"><div style="background:var(--jar2)"><span class="tag j">نعم</span> <b>لها محلّ من الإعراب</b><div class="ar" style="font-size:14pt">دَخَلَ المُعَلِّمُ <u>يَبْتَسِمُ</u></div><span style="font-size:9.5pt">جملة (يبتسم) في محلّ نصب حال؛ يمكن استبدالها بكلمة مفردة هي (باسمًا).</span></div><div style="background:var(--mb2)"><span class="tag m">لا</span> <b>لا محلّ لها من الإعراب</b><div class="ar" style="font-size:14pt">﴿وَ<u>قَالُوا</u> إِنْ نَتَّبِعِ الهُدَى مَعَكَ نُتَخَطَّفْ مِنْ أَرْضِنَا﴾</div><span style="font-size:9.5pt">جملة (وقالوا) جملة استئنافيّة لا محلّ لها من الإعراب.</span></div></div></div>
+  <div class="cd"><h3><span class="num">٨</span>شبه الجملة</h3><div class="mm" id="mmShibh"></div></div>
+  <div class="cd"><h3><span class="num">٩</span>المفرد والمثنّى والجمع</h3>
+   <svg viewBox="-30 0 330 90" style="width:100%;height:auto;margin-top:2mm" aria-hidden="true"><g font-family="Cairo" font-weight="800" font-size="14" text-anchor="middle" fill="#2b2a7a">
+    <g fill="#2563eb"><circle cx="250" cy="28" r="11"/><rect x="236" y="42" width="28" height="22" rx="10"/></g><text x="250" y="84">مفرد: واحد</text>
+    <g fill="#4a48b8"><circle cx="140" cy="28" r="11"/><rect x="126" y="42" width="28" height="22" rx="10"/><circle cx="172" cy="28" r="11"/><rect x="158" y="42" width="28" height="22" rx="10"/></g><text x="156" y="84">مثنّى: اثنان</text>
+    <g fill="#7d8699"><circle cx="20" cy="28" r="10"/><rect x="8" y="42" width="24" height="22" rx="9"/><circle cx="48" cy="28" r="10"/><rect x="36" y="42" width="24" height="22" rx="9"/><circle cx="76" cy="28" r="10"/><rect x="64" y="42" width="24" height="22" rx="9"/></g><text x="48" y="84">جمع: أكثر من اثنين</text></g></svg>
+   <p style="margin-top:1mm">المفرد ما دلّ على واحد، والمثنّى ما دلّ على اثنين، والجمع ما دلّ على أكثر من اثنين.</p></div>
+ </div>
+ <div class="pf"><span>مفاهيم أوّليّة</span><b>٤</b></div>
+</section>
+
+<!-- ========== 5 signs ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ١</span><h2>علامات الإعراب</h2><span class="src">الدوسية ص٢–٣</span></div>
+ <div class="cd full" style="margin-bottom:4mm"><h3><span class="num">٩</span>جدول علامات الإعراب في الأسماء</h3>
+  <table class="mx"><thead><tr><th style="background:var(--ind)">الاسم</th><th style="background:var(--raf)">علامة الرفع</th><th style="background:var(--nsb)">علامة النصب</th><th style="background:var(--jar)">علامة الجرّ</th></tr></thead><tbody>
+   <tr><th>المفرد</th><td class="r sb">الضمّة</td><td class="n">الفتحة</td><td class="j">الكسرة</td></tr>
+   <tr><th>المثنّى</th><td class="r sb">الألف</td><td class="n">الياء</td><td class="j">الياء</td></tr>
+   <tr><th>جمع المذكّر السالم</th><td class="r sb">الواو</td><td class="n">الياء</td><td class="j">الياء</td></tr>
+   <tr><th>جمع المؤنّث السالم</th><td class="r sb">الضمّة</td><td class="n">الكسرة</td><td class="j">الكسرة</td></tr>
+   <tr><th>جمع التكسير</th><td class="r sb">الضمّة</td><td class="n">الفتحة</td><td class="j">الكسرة، ما لم يكن ممنوعًا من الصرف</td></tr>
+   <tr><th>الأسماء الخمسة<br><span class="note">أب، أخ، حم، فو، ذو</span></th><td class="r sb">الواو</td><td class="n">الألف</td><td class="j">الياء</td></tr>
+  </tbody></table>
+  <div class="tip"><b>طريقة الحفظ:</b> المثنّى وجمع المذكّر السالم يشتركان في الياء نصبًا وجرًّا، ويختلفان رفعًا: الألف للمثنّى والواو للجمع. وجمع المؤنّث السالم يُنصب بالكسرة.</div></div>
+ <div class="cd full"><h3><span class="num">١٠</span>الحركة الظاهرة والحركة المقدّرة</h3>
+  <p>تظهر حركات الإعراب على الأسماء والأفعال <b>الصحيحة الآخر</b>، وتُقدَّر على الأسماء والأفعال <b>المعتلّة الآخر</b>.</p>
+  <div class="split" style="grid-template-columns:1fr 1fr;margin-top:3mm">
+   <div style="background:var(--sun2)"><b>التعذّر: آخره ألف</b><br>تُقدَّر الحركة على الألف في الأسماء والأفعال، ويمنع من ظهورها التعذّر.<div class="ar" style="font-size:14pt">﴿إِنَّمَا <u>يَخْشَى</u> اللَّهَ مِنْ عِبَادِهِ العُلَمَاءُ﴾</div><span style="font-size:9.5pt"><b>يخشى:</b> فعل مضارع مرفوع وعلامة رفعه الضمّة المقدّرة على آخره منع من ظهورها التعذّر.</span></div>
+   <div style="background:var(--ind3)"><b>الثقل: آخره واو أو ياء</b><br>تُقدَّر على الواو والياء في حالة الرفع، ويمنع من ظهورها الثقل.<div class="ar" style="font-size:14pt">﴿وَاللَّهُ <u>يَدْعُو</u> إِلَى الجَنَّةِ وَالمَغْفِرَةِ بِإِذْنِهِ﴾</div><span style="font-size:9.5pt"><b>يدعو:</b> فعل مضارع مرفوع وعلامة رفعه الضمّة المقدّرة على آخره منع من ظهورها الثقل.</span></div></div></div>
+ <div class="pf"><span>علامات الإعراب</span><b>٥</b></div>
+</section>
+
+<!-- ========== 6 verbs ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ١</span><h2>إعراب الأفعال وبناؤها</h2><span class="src">الدوسية ص٣</span></div>
+ <p style="margin-bottom:4mm">الماضي والأمر مبنيّان دائمًا، والمضارع وحده معرب، إلا إذا اتّصلت به نون التوكيد أو نون النسوة.</p>
+ <div class="vcols">
+  <div class="vc"><h3 style="background:var(--mb)">الماضي <span class="tag" style="background:#fff;color:var(--mb)">مبنيّ</span></h3><div class="bd">
+   <span class="st">على الفتح</span>إذا لم يتّصل بضمير، أو اتّصل بـ: ألف الاثنين، (نا) المفعول.<div class="ar" style="font-size:13pt">كَتَبَ · كَتَبَا · كَتَبَنا</div>
+   <span class="st">على الضمّ</span>إذا اتّصل بواو الجماعة.<div class="ar" style="font-size:13pt">كَتَبُوا</div>
+   <span class="st">على السكون</span>إذا اتّصل بـ: (ت) المتحرّكة، (نا) الفاعل، (ن) النسوة.<div class="ar" style="font-size:13pt">كَتَبْتُ · كَتَبْنَا · كَتَبْنَ</div></div></div>
+  <div class="vc" style="border-color:var(--raf)"><h3 style="background:var(--raf)">المضارع <span class="tag" style="background:#fff;color:var(--raf)">معرب</span></h3><div class="bd">
+   <span class="st r">مرفوع</span><ul><li>بالضمّة الظاهرة أو المقدّرة.</li><li>بثبوت النون.</li></ul>
+   <span class="st n">منصوب</span><ul><li>بفتحة ظاهرة أو مقدّرة.</li><li>بحذف النون.</li></ul>
+   <span class="st" style="color:var(--ind)">مجزوم</span><ul><li>بالسكون.</li><li>بحذف حرف العلّة.</li><li>بحذف النون.</li></ul>
+   <span class="st m">ويُبنى</span><ul><li>على الفتح إذا اتّصل بنون التوكيد الخفيفة أو الثقيلة.</li><li>على السكون إذا اتّصل بنون النسوة.</li></ul></div></div>
+  <div class="vc"><h3 style="background:var(--mb)">الأمر <span class="tag" style="background:#fff;color:var(--mb)">مبنيّ</span></h3><div class="bd">
+   <span class="st">على السكون</span>إذا كان صحيح الآخر.<div class="ar" style="font-size:13pt">اُكْتُبْ</div>
+   <span class="st">على حذف حرف العلّة</span>إذا كان معتلّ الآخر.<div class="ar" style="font-size:13pt">اُدْعُ · اِرْمِ · اِسْعَ</div>
+   <span class="st">على حذف النون</span>إذا كان مضارعه من الأفعال الخمسة.<div class="ar" style="font-size:13pt">اُكْتُبُوا · اُكْتُبَا</div></div></div>
+ </div>
+ <div class="tip" style="margin-top:5mm"><b>تنبيه:</b> الأمثلة المضبوطة تحت كلّ حالة إضافة توضيحيّة على نصّ الدوسية، وليست منه.</div>
+ <div class="pf"><span>إعراب الأفعال</span><b>٦</b></div>
+</section>
+
+<!-- ========== 7 word map ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ٢</span><h2>أقسام الكلمة</h2><span class="src">الدوسية ص٤</span></div>
+ <p style="margin-bottom:2mm">الكلمة اسم أو فعل أو حرف. ولكلّ قسم معربٌ ومبنيّ، إلا الحرف فهو مبنيّ كلّه.</p>
+ <div class="mm big" id="mmWord"></div>
+ <div class="pf"><span>أقسام الكلمة</span><b>٧</b></div>
+</section>
+
+<!-- ========== 8 nouns map ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">النحو · ٣</span><h2>الأسماء المعربة</h2><span class="src">الدوسية ص٥</span></div>
+ <p style="margin-bottom:2mm">الاسم المعرب يكون مرفوعًا أو منصوبًا أو مجرورًا بحسب موقعه. هذه خريطة المواقع كلّها، وتُفصَّل في الصفحات التالية.</p>
+ <div class="mm big" id="mmNouns"></div>
+ <div class="tip" style="margin-top:8mm"><b>كيف تقرأ الخريطة؟</b> ابدأ من الوسط، ثم اختر لون الحالة الإعرابيّة: الأزرق للرفع، والأحمر للنصب، والأخضر للجرّ. لاحظ أنّ «التوابع» تظهر في الفروع الثلاثة، لأنّ التابع يأخذ حكم متبوعه رفعًا ونصبًا وجرًّا، ولاحظ التقابل بين «أسماء كان وأخبار إنّ» في المرفوعات و«أخبار كان وأسماء إنّ» في المنصوبات.</div>
+ <div class="pf"><span>الأسماء المعربة</span><b>٨</b></div>
+</section>
+
+<!-- ========== 9 marfu'at ========== -->
+<section class="pg dense">
+ <div class="ph" style="margin-bottom:5mm"><span class="unit">النحو · ٤</span><h2>المرفوعات</h2><span class="src">الدوسية ص٦</span></div>
+ <div class="cards" id="marf"></div>
+ <div class="cd full" style="margin-top:4mm"><h3><span class="num" style="background:var(--sun);color:var(--ind)">!</span>النواسخ: كان وأخواتها، وإنّ وأخواتها</h3>
+  <div class="split" style="grid-template-columns:1fr 1fr"><div style="background:var(--tint)"><b>كان وأخواتها:</b> كان، أصبح، أضحى، ظلّ، صار، أمسى، بات، ما زال، ما انفكّ، ما برح، ما دام، ليس.</div><div style="background:var(--tint)"><b>إنّ وأخواتها:</b> إنّ، أنّ، كأنّ، لكنّ، ليت، لعلّ.</div></div>
+  <table class="mx" style="margin-top:2mm"><thead><tr><th style="background:var(--ind)"></th><th style="background:var(--ind)">اسمها</th><th style="background:var(--ind)">خبرها</th></tr></thead><tbody><tr><th>كان وأخواتها</th><td class="r sb">مرفوع</td><td class="n sb">منصوب</td></tr><tr><th>إنّ وأخواتها</th><td class="n sb">منصوب</td><td class="r sb">مرفوع</td></tr></tbody></table></div>
+ <div class="pf"><span>المرفوعات</span><b>٩</b></div>
+</section>
+
+<!-- ========== 10 exercises ========== -->
+<section class="pg">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تمارين على المرفوعات</h2><span class="src">الدوسية ص٧</span></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>أوّلًا: أعرب الكلمات التي تحتها خطّ في العبارات الآتية</h3><ol id="ex1"></ol></div>
+ <div class="pf"><span>تمارين على المرفوعات</span><b>١٠</b></div>
+</section>
+
+<section class="pg">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تمارين على المرفوعات (تابع)</h2><span class="src">الدوسية ص٧</span></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>ثانيًا: استخرج المرفوعات، وبيّن نوعها من كلّ عبارة من العبارات الآتية</h3><ol id="ex2"></ol></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>ثالثًا: بيّن نوع الخبر في الجمل الاسميّة في كلّ عبارة من العبارات الآتية</h3><ol id="ex3"></ol></div>
+ <div class="pf"><span>تمارين على المرفوعات</span><b>١١</b></div>
+</section>
+
+<script>
+{
+const $=s=>document.querySelector(s);
+/* ---------- mind map engine ---------- */
+/* spec: {center, right:[branch], left:[branch], cols:[r,c,l] widths}; branch: {t, c(color var), items:[..] | groups:[{t,items}]} */
+const brHTML=b=>`<div class="br" style="--bc:${b.c}"><b>${b.t}</b>${b.groups?b.groups.map(g=>`<div class="sub">${g.t}</div><ul>${g.items.map(i=>`<li>${i}</li>`).join('')}</ul>`).join(''):`<ul>${(b.items||[]).map(i=>`<li>${i}</li>`).join('')}</ul>`}</div>`;
+function mindmap(el,spec){
+ const cols=spec.cols||'1fr 0.8fr 1fr';
+ const top=spec.top?`<div class="col" style="grid-column:1/-1;grid-template-columns:repeat(${spec.top.length},1fr)">${spec.top.map(brHTML).join('')}</div>`:'';
+ el.innerHTML=`<svg class="wires"></svg><div class="row" style="grid-template-columns:${cols}">${top}<div class="col">${(spec.right||[]).map(brHTML).join('')}</div><div class="center" style="${spec.cstyle||''}">${spec.center}</div><div class="col">${(spec.left||[]).map(brHTML).join('')}</div>${spec.bottom?`<div class="col" style="grid-column:1/-1;grid-template-columns:repeat(${spec.bottom.length},1fr)">${spec.bottom.map(brHTML).join('')}</div>`:''}</div>`;
+ const draw=()=>{const svg=el.querySelector('svg.wires'),R=el.getBoundingClientRect(),c=el.querySelector('.center').getBoundingClientRect();
+  const cx=c.left+c.width/2-R.left,cy=c.top+c.height/2-R.top;let d='';
+  el.querySelectorAll('.br').forEach(b=>{const r=b.getBoundingClientRect();const bx=r.left+r.width/2-R.left,by=r.top+r.height/2-R.top;let x1,y1,x2,y2;
+   if(Math.abs(by-cy)>c.height/2+10&&Math.abs(bx-cx)<(c.width/2+r.width/2)){x1=cx;y1=by<cy?c.top-R.top:c.bottom-R.top;x2=bx;y2=by<cy?r.bottom-R.top:r.top-R.top;const my=(y1+y2)/2;d+=`<path d="M${x1} ${y1} C${x1} ${my} ${x2} ${my} ${x2} ${y2}" stroke="${getComputedStyle(b).getPropertyValue('--bc')}"/>`}
+   else{x1=bx<cx?c.left-R.left:c.right-R.left;y1=cy;x2=bx<cx?r.right-R.left:r.left-R.left;y2=r.top-R.top+12;const mx=(x1+x2)/2;d+=`<path d="M${x1} ${y1} C${mx} ${y1} ${mx} ${y2} ${x2} ${y2}" stroke="${getComputedStyle(b).getPropertyValue('--bc')}"/>`}});
+  svg.setAttribute('viewBox',`0 0 ${R.width} ${R.height}`);svg.innerHTML=`<g fill="none" stroke-width="2.4" stroke-linecap="round" opacity=".75">${d}</g>`};
+ (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>requestAnimationFrame(draw));window.addEventListener('resize',draw);window.addEventListener('beforeprint',draw);
+}
+const I='var(--ind)',R='var(--raf)',N='var(--nsb)',J='var(--jar)',M='var(--mb)',S='#c48a00',P='#7c3aed';
+
+/* contents */
+mindmap($('#mmToc'),{center:'أساسيّات في<br>قواعد اللغة العربيّة',cols:'1fr .62fr 1fr',
+ right:[{t:'القسم الأوّل: النحو',c:I,groups:[{t:'الأساس',items:['مفاهيم أوّليّة','أقسام الكلمة','الأسماء المعربة']},{t:'مواقع الإعراب',items:['المرفوعات','المنصوبات','المجرورات']},{t:'المبنيّات والأدوات',items:['الأسماء المبنيّة','قواعد الضمائر المتّصلة','أنواع الأفعال','أنواع الحروف']},{t:'موضوعات خاصّة',items:['العدد','الهمزة']}]}],
+ left:[{t:'القسم الثاني: الصرف',c:J,groups:[{t:'المشتقّات',items:['اسم الفاعل','اسم المفعول','الصفة المشبّهة','صيغة المبالغة','اسم الزمان والمكان','اسم التفضيل','اسم الآلة']},{t:'المصادر',items:['المصدر الصريح','المصدر الميميّ','مصدر المرّة','مصدر الهيئة','المصدر المؤوّل','المصدر الصناعيّ']}]}]});
+
+/* fa'il forms */
+mindmap($('#mmFa'),{center:'الفاعل',cols:'1fr .55fr 1fr',cstyle:'font-size:12pt;padding:3mm',
+ right:[{t:'اسم بارز',c:R,items:['في موقعه','مؤخَّرًا']}],left:[{t:'ضمير',c:M,items:['منفصل','متّصل','مستتر']}]});
+
+/* shibh jumla */
+mindmap($('#mmShibh'),{center:'شبه الجملة',cols:'1fr',cstyle:'font-size:12pt;padding:2.5mm;max-width:40mm;margin:0 auto',
+ top:[{t:'أ. الجارّ والمجرور',c:J,items:['<span class="ar" style="font-size:12.5pt">وَ<u>فِي النَّفْسِ</u> أَخْلَاقٌ تَدُلُّ عَلَى الفَتَى ... أَكَانَ سَخَاءً مَا أَتَى أَمْ تَسَاخِيَا</span>']}],
+ bottom:[{t:'ب. ظرف المكان',c:I,items:['<span class="ar" style="font-size:12.5pt">﴿وَمَا كُنْتَ <u>لَدَيْهِمْ</u> إِذْ يُلْقُونَ أَقْلَامَهُمْ﴾</span>']},{t:'ب. ظرف الزمان',c:P,items:['<span class="ar" style="font-size:12.5pt">﴿وَيَسْتَعْجِلُونَكَ بِالسَّيِّئَةِ <u>قَبْلَ</u> الحَسَنَةِ﴾</span>']}]});
+
+/* word classes */
+mindmap($('#mmWord'),{center:'الكلمة',cols:'1fr',cstyle:'max-width:50mm;margin:0 auto;font-size:18pt',
+ top:[{t:'الاسم · معرب',c:R,items:['المصادر','المشتقّات','أسماء الذات','الأسماء الخمسة','بعض الظروف']},{t:'الاسم · مبنيّ',c:M,items:['الضمائر','أسماء الإشارة','أسماء الاستفهام','أسماء الشرط','الأسماء الموصولة','بعض الظروف','أسماء الفعل']}],
+ bottom:[{t:'الفعل',c:I,groups:[{t:'معرب',items:['المضارع، ما لم يتّصل بنون النسوة أو نونَي التوكيد الخفيفة والثقيلة']},{t:'مبنيّ',items:['الماضي','الأمر']}]},{t:'الحرف · مبنيّ كلّه',c:J,groups:[{t:'تعمل في الاسم',items:['حروف الجرّ','حروف النسخ','حروف النداء','حروف الاستثناء']},{t:'تعمل في الفعل',items:['حروف الجزم','حروف النصب']},{t:'تعمل فيهما معًا',items:['حروف العطف']}]}]});
+
+/* nouns */
+mindmap($('#mmNouns'),{center:'الأسماء<br>المُعرَبة',cols:'1fr .5fr 1fr',
+ right:[{t:'المرفوعات',c:R,items:['الفاعل','نائب الفاعل','المبتدأ','الخبر','أسماء كان وأخواتها','أخبار إنّ وأخواتها','التوابع: العطف، النعت، التوكيد، البدل']},{t:'المجرورات',c:J,items:['المجرور بحرف الجرّ','المجرور بالإضافة','المجرور بالتوابع: العطف، النعت، التوكيد، البدل']}],
+ left:[{t:'المنصوبات',c:N,items:['المفعول به','المفعول لأجله','المفعول معه','المفعول فيه','المفعول المطلق','الحال','التمييز','أخبار كان وأخواتها','أسماء إنّ وأخواتها','التوابع: العطف، النعت، التوكيد، البدل']}]});
+
+/* marfu'at cards */
+const MARF=[['الفاعل','هو مَن قام بالفعل، ويكون فعله مبنيًّا للمعلوم.','قَدِمَ <u>مُحَمَّدٌ</u>','مَن القادم؟ الجواب: محمّد. <b>محمّدٌ:</b> فاعل مرفوع وعلامة رفعه تنوين الضمّ.'],
+ ['نائب الفاعل','يكون فعله مبنيًّا للمجهول، وأصله مفعول به.','تُلِيَ <u>القُرْآنُ</u>','<b>القرآنُ:</b> نائب فاعل مرفوع وعلامة رفعه الضمّة.'],
+ ['المبتدأ','تبدأ الجملة به، وهو المُخبَر عنه.','<u>المَدْرَسَةُ</u> عَرِيقَةٌ','<b>المدرسةُ:</b> مبتدأ مرفوع وعلامة رفعه الضمّة.'],
+ ['الخبر','هو الذي يتمّ به معنى المبتدأ.','المُؤْمِنُونَ <u>مُتَكَاتِفُونَ</u>','<b>متكاتفون:</b> خبر المبتدأ مرفوع وعلامة رفعه الواو لأنه جمع مذكّر سالم.'],
+ ['اسم كان وأخواتها','أصله مبتدأ قبل دخول كان وأخواتها عليه.','﴿وَإِذَا بُشِّرَ أَحَدُهُمْ بِالأُنْثَى ظَلَّ <u>وَجْهُهُ</u> مُسْوَدًّا وَهُوَ كَظِيمٌ﴾','<b>وجهُه:</b> اسم ظلّ مرفوع وعلامة رفعه الضمّة.'],
+ ['خبر إنّ وأخواتها','أصله خبر لمبتدأ قبل دخول إنّ وأخواتها عليه.','إِنَّ الرِّحْلَةَ <u>جَمِيلَةٌ</u> لَكِنَّ الطَّرِيقَ <u>طَوِيلَةٌ</u>','<b>جميلةٌ، طويلةٌ:</b> خبرا إنّ ولكنّ مرفوعان.']];
+$('#marf').innerHTML=MARF.map((m,i)=>`<div class="cd"><h3><span class="num" style="background:var(--raf)">${(i+1).toLocaleString('ar-EG')}</span>${m[0]}</h3><p><b class="r">كيف تعرفه؟</b> ${m[1]}</p><div class="ex"><div class="ar">${m[2]}</div>${m[3]}</div></div>`).join('');
+
+/* exercises */
+const E1=[['﴿وَإِذَا قِيلَ لَهُمْ آمِنُوا كَمَا آمَنَ <u>النَّاسُ</u> قَالُوا أَنُؤْمِنُ كَمَا آمَنَ <u>السُّفَهَاءُ</u>﴾','قال تعالى'],
+ ['﴿<u>اللَّهُ</u> <u>نُورُ</u> السَّمَاوَاتِ وَالأَرْضِ مَثَلُ نُورِهِ كَمِشْكَاةٍ فِيهَا مِصْبَاحٌ <u>المِصْبَاحُ</u> فِي زُجَاجَةٍ﴾','قال تعالى'],
+ ['[ <u>أَقْرَبُكُمْ</u> مِنِّي مَجَالِسَ يَوْمَ القِيَامَةِ <u>أَحَاسِنُكُمْ</u> أَخْلَاقًا ]','في الحديث'],
+ ['<u>وَالنَّفْسُ</u> <u>رَاغِبَةٌ</u> إِذَا رَغَّبْتَهَا ... وَإِذَا تُرَدُّ إِلَى قَلِيلٍ تَقْنَعُ','أبو ذؤيب الهذليّ'],
+ ['<u>عَدُوُّكَ</u> <u>مَذْمُومٌ</u> بِكُلِّ لِسَانِ ... وَلَوْ كَانَ مِنْ أَعْدَائِكَ <u>القَمَرَانِ</u>','المتنبّي'],
+ ['قَالُوا سَكَتَّ وَقَدْ خُوصِمْتَ قُلْتُ لَهُمْ ... إِنَّ الجَوَابَ لِبَابِ الشَّرِّ <u>مِفْتَاحُ</u>','الشافعيّ'],
+ ['وَيُسْأَلُ فِي الحَوَادِثِ <u>ذُو</u> صَوَابٍ ... فَهَلْ تَرَكَ الجَمَالُ لَهُ صَوَابَا','شوقي'],
+ ['﴿لَوْلَا يَنْهَاهُمُ <u>الرَّبَّانِيُّونَ</u> وَالأَحْبَارُ عَنْ قَوْلِهِمُ الإِثْمَ﴾','قال تعالى'],
+ ['لَعَلَّ عَتْبَكَ <u>مَحْمُودٌ</u> عَوَاقِبُهُ ... وَرُبَّمَا صَحَّتِ الأَجْسَامُ بِالعِلَلِ','الشاعر'],
+ ['﴿إِذْ يَتَلَقَّى <u>المُتَلَقِّيَانِ</u> عَنِ اليَمِينِ وَعَنِ الشِّمَالِ قَعِيدٌ﴾','قال تعالى']];
+const E2=[['﴿هُنَالِكَ ابْتُلِيَ المُؤْمِنُونَ وَزُلْزِلُوا زِلْزَالًا شَدِيدًا﴾','قال تعالى'],
+ ['﴿كَيْفَ يَهْدِي اللَّهُ قَوْمًا كَفَرُوا بَعْدَ إِيمَانِهِمْ وَشَهِدُوا أَنَّ الرَّسُولَ حَقٌّ وَجَاءَهُمُ البَيِّنَاتُ﴾','قال تعالى'],
+ ['يُقَاسُ المَرْءُ بِالمَرْءِ ... إِذَا مَا المَرْءُ مَاشَاهُ','الشافعيّ'],
+ ['فَقُلْ لِمَنْ يَدَّعِي فِي العِلْمِ فَلْسَفَةً ... عَرَفْتَ شَيْئًا وَغَابَتْ عَنْكَ أَشْيَاءُ','أبو نواس'],
+ ['خَيَالُكَ فِي عَيْنِي وَذِكْرُكَ فِي فَمِي ... وَمَثْوَاكَ فِي قَلْبِي فَكَيْفَ تَغِيبُ؟','أبو بكر الشبليّ'],
+ ['نَعَمْ أَنَا مُشْتَاقٌ وَعِنْدِيَ لَوْعَةٌ ... وَلَكِنَّ مِثْلِي لَا يُذَاعُ لَهُ سِرُّ','أبو فراس الحمدانيّ']];
+const E3=[['﴿أُولَئِكَ يَنَالُهُمْ نَصِيبُهُمْ مِنَ الكِتَابِ﴾'],['﴿أُولَئِكَ مَأْوَاهُمْ جَهَنَّمُ﴾'],['﴿المُلْكُ لِلَّهِ الوَاحِدِ القَهَّارِ﴾'],['﴿يَدُ اللَّهِ فَوْقَ أَيْدِيهِمْ﴾'],['﴿مُحَمَّدٌ رَسُولُ اللَّهِ﴾']];
+$('#ex1').innerHTML=E1.map(e=>`<li><div><span class="who">${e[1]}:</span> <span class="q">${e[0]}</span><div class="lines"></div><div class="lines"></div></div></li>`).join('');
+$('#ex2').innerHTML=E2.map(e=>`<li><div><span class="who">${e[1]}:</span> <span class="q">${e[0]}</span><div class="lines"></div></div></li>`).join('');
+$('#ex3').innerHTML=E3.map(e=>`<li><div><span class="who">قال تعالى:</span> <span class="q">${e[0]}</span><div class="opts"><span>مفرد</span><span>جملة فعليّة</span><span>جملة اسميّة</span><span>شبه جملة</span></div></div></li>`).join('');
+}
+</script>
+</body>
+</html>

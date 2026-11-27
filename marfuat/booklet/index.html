@@ -6,24 +6,25 @@
 <title>ملزمة أساسيات في قواعد اللغة العربية</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 /* VOICE a printed study booklet (ملزمة): same content as the dossier, simplified, ordered, visual
    IDEA a modern A4 study guide: unit band, numbered concept cards, mind maps, colour-coded tables, worked examples, exercise sheets
    PICTURE each page is built around one diagram: mind map, decision path, comparison, colour matrix
-   COLOUR indigo #2b2a7a structure, sun #ffc233 accents; fixed grammatical inks: blue raf', coral nasb, green jarr, slate mabni; light tints for print
+   COLOUR indigo #12394a structure, sun #d4a23c accents; fixed grammatical inks: blue raf', coral nasb, green jarr, slate mabni; light tints for print
    TYPE Cairo for headings and explanation + Amiri for Arabic examples and verse
    LAYOUT A4 portrait pages, 14mm margins, two-column card grids, full-width diagrams */
 @page{size:A4;margin:0}
-:root{--ind:#2b2a7a;--ind2:#4a48b8;--ind3:#ecebfb;--sun:#ffc233;--sun2:#fff6dc;--ink:#1f1f38;--soft:#5f5f7a;--line:#dedfee;--tint:#f6f6fc;
---raf:#2563eb;--raf2:#e3ecff;--nsb:#e5533f;--nsb2:#ffe8e4;--jar:#0f9b74;--jar2:#ddf5ec;--mb:#7d8699;--mb2:#eef0f4}
+:root{--ind:#12394a;--ind2:#2a6f8a;--ind3:#e4eef1;--sun:#d4a23c;--sun2:#faf2e1;--ink:#22282e;--soft:#66707a;--line:#e4ded2;--tint:#f8f5ef;
+--raf:#2a6f8a;--raf2:#e1eef2;--nsb:#b5523b;--nsb2:#f6e6e1;--jar:#5e8263;--jar2:#e7efe4;--mb:#8a8478;--mb2:#efede8}
 *{box-sizing:border-box}
 html{background:#d9d9e6}
-body{margin:0;font:11.5pt/1.75 Cairo,Tahoma,sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{margin:0;font:11.5pt/1.8 "Noto Naskh Arabic",Amiri,serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
 .ar{font-family:Amiri,"Traditional Arabic",serif}
 .r{color:var(--raf)}.n{color:var(--nsb)}.j{color:var(--jar)}.m{color:var(--mb)}
 u{text-decoration-color:var(--sun);text-decoration-thickness:3px;text-underline-offset:6px}
-h1,h2,h3,h4{margin:0;line-height:1.3;font-weight:800}
+h1,h2,h3,h4,.ph,.num,.tag,.unit,.mm .br>b,.mm .br .sub,.mm .center,.mx th,.box,.vc .st,.exr>h3,.who,.pf,.kick,.legend,.opts,.st,.split b,.tip b{font-family:"El Messiri",Cairo,sans-serif}
+h1,h2,h3,h4{margin:0;line-height:1.3;font-weight:700}
 p{margin:0}
 .pg{width:210mm;height:297mm;margin:10mm auto;background:#fff;position:relative;overflow:hidden;padding:0 14mm 14mm;display:flex;flex-direction:column;box-shadow:0 4px 18px rgba(30,30,80,.18);page-break-after:always;break-after:page}
 @media print{html{background:#fff}.pg{margin:0;box-shadow:none}}
@@ -99,8 +100,8 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 .exr li:last-child{border-bottom:0}
 .exr li::before{content:counter(q,arabic-indic);width:6mm;height:6mm;border-radius:50%;background:var(--ind);color:#fff;font-weight:800;font-size:9pt;display:grid;place-items:center;margin-top:1.6mm}
 .exr .q{font-family:Amiri;font-size:13pt;line-height:1.75}
-.exr .who{font-family:Cairo;font-size:9pt;color:var(--soft);font-weight:700}
-.lines{height:6.5mm;border-bottom:1px dotted #b9bad0;margin-top:.5mm}
+.exr .who{font-size:9pt;color:var(--soft);font-weight:700}
+.lines{height:6.5mm;border-bottom:1px dotted #cfc7b8;margin-top:.5mm}
 .opts{display:flex;gap:3mm;flex-wrap:wrap;font-size:9.5pt;margin-top:.5mm}
 .opts span{border:1.2px solid var(--line);border-radius:999px;padding:0 3mm}
 .opts span::before{content:"";display:inline-block;width:3mm;height:3mm;border:1.4px solid var(--soft);border-radius:1mm;margin-inline-end:1.5mm;vertical-align:-.4mm}
@@ -153,12 +154,12 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
  </div>
  <div class="art"><svg viewBox="0 0 600 300" style="position:absolute;inset:0;width:100%;height:100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
   <g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="3"><path d="M300 150 C230 150 210 70 130 70"/><path d="M300 150 C230 150 210 230 130 230"/><path d="M300 150 C370 150 390 70 470 70"/><path d="M300 150 C370 150 390 230 470 230"/><path d="M300 150 L300 40"/><path d="M300 150 L300 262"/></g>
-  <circle cx="300" cy="150" r="52" fill="#ffc233"/><text x="300" y="162" text-anchor="middle" font-family="Cairo" font-weight="900" font-size="30" fill="#2b2a7a">الكلمة</text>
-  <g font-family="Cairo" font-weight="800" font-size="20" text-anchor="middle">
-   <rect x="70" y="48" width="120" height="44" rx="22" fill="#2563eb"/><text x="130" y="77" fill="#fff">رفع</text>
-   <rect x="70" y="208" width="120" height="44" rx="22" fill="#e5533f"/><text x="130" y="237" fill="#fff">نصب</text>
-   <rect x="410" y="48" width="120" height="44" rx="22" fill="#0f9b74"/><text x="470" y="77" fill="#fff">جرّ</text>
-   <rect x="410" y="208" width="120" height="44" rx="22" fill="#7d8699"/><text x="470" y="237" fill="#fff">بناء</text>
+  <circle cx="300" cy="150" r="52" fill="#d4a23c"/><text x="300" y="162" text-anchor="middle" font-family="El Messiri" font-weight="900" font-size="30" fill="#12394a">الكلمة</text>
+  <g font-family="El Messiri" font-weight="800" font-size="20" text-anchor="middle">
+   <rect x="70" y="48" width="120" height="44" rx="22" fill="#2a6f8a"/><text x="130" y="77" fill="#fff">رفع</text>
+   <rect x="70" y="208" width="120" height="44" rx="22" fill="#b5523b"/><text x="130" y="237" fill="#fff">نصب</text>
+   <rect x="410" y="48" width="120" height="44" rx="22" fill="#5e8263"/><text x="470" y="77" fill="#fff">جرّ</text>
+   <rect x="410" y="208" width="120" height="44" rx="22" fill="#8a8478"/><text x="470" y="237" fill="#fff">بناء</text>
    <rect x="250" y="12" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="37" fill="#fff" font-size="17">اسم</text>
    <rect x="250" y="252" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="277" fill="#fff" font-size="17">فعل · حرف</text>
   </g></svg></div>
@@ -206,10 +207,10 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
    <div class="split" style="grid-template-columns:1fr 1fr"><div style="background:var(--jar2)"><span class="tag j">نعم</span> <b>لها محلّ من الإعراب</b><div class="ar" style="font-size:14pt">دَخَلَ المُعَلِّمُ <u>يَبْتَسِمُ</u></div><span style="font-size:9.5pt">جملة (يبتسم) في محلّ نصب حال؛ يمكن استبدالها بكلمة مفردة هي (باسمًا).</span></div><div style="background:var(--mb2)"><span class="tag m">لا</span> <b>لا محلّ لها من الإعراب</b><div class="ar" style="font-size:14pt">﴿وَ<u>قَالُوا</u> إِنْ نَتَّبِعِ الهُدَى مَعَكَ نُتَخَطَّفْ مِنْ أَرْضِنَا﴾</div><span style="font-size:9.5pt">جملة (وقالوا) جملة استئنافيّة لا محلّ لها من الإعراب.</span></div></div></div>
   <div class="cd"><h3><span class="num">٨</span>شبه الجملة</h3><div class="mm" id="mmShibh"></div></div>
   <div class="cd"><h3><span class="num">٩</span>المفرد والمثنّى والجمع</h3>
-   <svg viewBox="-30 0 330 90" style="width:100%;height:auto;margin-top:2mm" aria-hidden="true"><g font-family="Cairo" font-weight="800" font-size="14" text-anchor="middle" fill="#2b2a7a">
-    <g fill="#2563eb"><circle cx="250" cy="28" r="11"/><rect x="236" y="42" width="28" height="22" rx="10"/></g><text x="250" y="84">مفرد: واحد</text>
-    <g fill="#4a48b8"><circle cx="140" cy="28" r="11"/><rect x="126" y="42" width="28" height="22" rx="10"/><circle cx="172" cy="28" r="11"/><rect x="158" y="42" width="28" height="22" rx="10"/></g><text x="156" y="84">مثنّى: اثنان</text>
-    <g fill="#7d8699"><circle cx="20" cy="28" r="10"/><rect x="8" y="42" width="24" height="22" rx="9"/><circle cx="48" cy="28" r="10"/><rect x="36" y="42" width="24" height="22" rx="9"/><circle cx="76" cy="28" r="10"/><rect x="64" y="42" width="24" height="22" rx="9"/></g><text x="48" y="84">جمع: أكثر من اثنين</text></g></svg>
+   <svg viewBox="-30 0 330 90" style="width:100%;height:auto;margin-top:2mm" aria-hidden="true"><g font-family="El Messiri" font-weight="800" font-size="14" text-anchor="middle" fill="#12394a">
+    <g fill="#2a6f8a"><circle cx="250" cy="28" r="11"/><rect x="236" y="42" width="28" height="22" rx="10"/></g><text x="250" y="84">مفرد: واحد</text>
+    <g fill="#2a6f8a"><circle cx="140" cy="28" r="11"/><rect x="126" y="42" width="28" height="22" rx="10"/><circle cx="172" cy="28" r="11"/><rect x="158" y="42" width="28" height="22" rx="10"/></g><text x="156" y="84">مثنّى: اثنان</text>
+    <g fill="#8a8478"><circle cx="20" cy="28" r="10"/><rect x="8" y="42" width="24" height="22" rx="9"/><circle cx="48" cy="28" r="10"/><rect x="36" y="42" width="24" height="22" rx="9"/><circle cx="76" cy="28" r="10"/><rect x="64" y="42" width="24" height="22" rx="9"/></g><text x="48" y="84">جمع: أكثر من اثنين</text></g></svg>
    <p style="margin-top:1mm">المفرد ما دلّ على واحد، والمثنّى ما دلّ على اثنين، والجمع ما دلّ على أكثر من اثنين.</p></div>
  </div>
  <div class="pf"><span>مفاهيم أوّليّة</span><b>٤</b></div>
@@ -272,7 +273,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
  <div class="ph"><span class="unit">النحو · ٣</span><h2>الأسماء المعربة</h2><span class="src">الدوسية ص٥</span></div>
  <p style="margin-bottom:2mm">الاسم المعرب يكون مرفوعًا أو منصوبًا أو مجرورًا بحسب موقعه. هذه خريطة المواقع كلّها، وتُفصَّل في الصفحات التالية.</p>
  <div class="mm big" id="mmNouns"></div>
- <div class="tip" style="margin-top:8mm"><b>كيف تقرأ الخريطة؟</b> ابدأ من الوسط، ثم اختر لون الحالة الإعرابيّة: الأزرق للرفع، والأحمر للنصب، والأخضر للجرّ. لاحظ أنّ «التوابع» تظهر في الفروع الثلاثة، لأنّ التابع يأخذ حكم متبوعه رفعًا ونصبًا وجرًّا، ولاحظ التقابل بين «أسماء كان وأخبار إنّ» في المرفوعات و«أخبار كان وأسماء إنّ» في المنصوبات.</div>
+ <div class="tip" style="margin-top:8mm"><b>كيف تقرأ الخريطة؟</b> ابدأ من الوسط، ثم اختر لون الحالة الإعرابيّة: البتروليّ للرفع، والطينيّ للنصب، والزيتونيّ للجرّ. لاحظ أنّ «التوابع» تظهر في الفروع الثلاثة، لأنّ التابع يأخذ حكم متبوعه رفعًا ونصبًا وجرًّا، ولاحظ التقابل بين «أسماء كان وأخبار إنّ» في المرفوعات و«أخبار كان وأسماء إنّ» في المنصوبات.</div>
  <div class="pf"><span>الأسماء المعربة</span><b>٨</b></div>
 </section>
 
@@ -318,7 +319,7 @@ function mindmap(el,spec){
   svg.setAttribute('viewBox',`0 0 ${R.width} ${R.height}`);svg.innerHTML=`<g fill="none" stroke-width="2.4" stroke-linecap="round" opacity=".75">${d}</g>`};
  (document.fonts?document.fonts.ready:Promise.resolve()).then(()=>requestAnimationFrame(draw));window.addEventListener('resize',draw);window.addEventListener('beforeprint',draw);
 }
-const I='var(--ind)',R='var(--raf)',N='var(--nsb)',J='var(--jar)',M='var(--mb)',S='#c48a00',P='#7c3aed';
+const I='var(--ind)',R='var(--raf)',N='var(--nsb)',J='var(--jar)',M='var(--mb)',S='#c48a00',P='var(--sun)';
 
 /* contents */
 mindmap($('#mmToc'),{center:'أساسيّات في<br>قواعد اللغة العربيّة',cols:'1fr .62fr 1fr',

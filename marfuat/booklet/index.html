@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ملزمة أساسيات في قواعد اللغة العربية</title>
+<title>أساسيّات في قواعد اللغة العربيّة — تأليف د. أيمن العتوم</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=El+Messiri:wght@400;600;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
@@ -123,6 +123,133 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 .legend{display:flex;gap:4mm;flex-wrap:wrap;font-size:9.5pt;font-weight:700}
 .legend i{display:inline-block;width:3.5mm;height:3.5mm;border-radius:1mm;margin-inline-end:1.5mm;vertical-align:-.5mm}
 .note{font-size:9pt;color:var(--soft)}
+/* ===== full-booklet additions ===== */
+/* cover v2 */
+.cv{background:var(--ind);color:#fff;padding:0;display:flex;flex-direction:column}
+.cv .pat{position:absolute;inset:0;width:100%;height:100%}
+.cv .in{position:relative;flex:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:16mm 16mm 0}
+.cv .kick{font-family:"El Messiri";font-weight:700;font-size:11pt;letter-spacing:.5px;color:var(--sun);border:1.2px solid rgba(212,162,60,.6);border-radius:999px;padding:1.2mm 6mm}
+.cv .med{position:relative;width:150mm;height:150mm;margin-top:10mm;display:grid;place-items:center}
+.cv .med svg{position:absolute;inset:0;width:100%;height:100%}
+.cv .med .t{position:relative;font-family:"El Messiri";font-weight:700;line-height:1.25}
+.cv .med .t .a{display:block;font-size:24pt;color:#e9eef0;font-weight:600}
+.cv .med .t .b{display:block;font-size:44pt;color:#fff;margin-top:2mm}
+.cv .med .t .c{display:block;font-family:Amiri;font-size:15pt;color:var(--sun);margin-top:5mm;font-weight:400}
+.cv .orn{width:70mm;height:8mm;margin-top:6mm}
+.cv .by{font-family:"El Messiri";margin-top:2mm}
+.cv .by small{display:block;font-size:13pt;color:#c9d6da;font-weight:600;letter-spacing:1px}
+.cv .by b{display:block;font-size:30pt;color:var(--sun);font-weight:700;line-height:1.35}
+.cv .bot{position:relative;background:#fff;color:var(--ind);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:6mm 16mm;font-family:"El Messiri";font-weight:700}
+.cv .bot .p{font-size:12pt}.cv .bot .p small{display:block;color:var(--soft);font-size:9pt;font-weight:600}
+.cv .bot .p:last-child{text-align:left}
+.cv .bot .chips{display:flex;gap:2mm}
+.cv .bot .chips span{font-size:9pt;border-radius:999px;padding:.6mm 3mm;color:#fff}
+/* title page */
+.tp{justify-content:center;align-items:center;text-align:center;padding:20mm}
+.tp .fr{position:absolute;inset:12mm;border:1.2px solid var(--sun);border-radius:2mm}
+.tp .fr::after{content:"";position:absolute;inset:2mm;border:.6px solid var(--line);border-radius:1.5mm}
+.tp .bs{font-family:Amiri;font-size:20pt;color:var(--ind)}
+.tp h1{font-family:"El Messiri";font-size:32pt;color:var(--ind);margin-top:22mm;line-height:1.35}
+.tp .ln{width:40mm;height:1.4mm;background:var(--sun);border-radius:1mm;margin:8mm auto}
+.tp .au small{display:block;font-family:"El Messiri";color:var(--soft);font-size:12pt;font-weight:600}
+.tp .au b{display:block;font-family:"El Messiri";font-size:24pt;color:var(--ind);margin-top:1mm}
+.tp .parts{display:flex;gap:6mm;justify-content:center;margin-top:18mm}
+.tp .parts div{border:1.2px solid var(--line);border-radius:3mm;padding:3mm 7mm;font-family:"El Messiri";font-weight:700;color:var(--ind);font-size:12pt}
+.tp .parts div small{display:block;color:var(--soft);font-weight:600;font-size:9.5pt}
+.tp .nt{font-size:10pt;color:var(--soft);margin-top:20mm;max-width:130mm;line-height:1.9}
+/* contents */
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:6mm;flex:1}
+.toc .part{border-radius:4mm;overflow:hidden;border:1.2px solid var(--line);display:flex;flex-direction:column}
+.toc .part>h3{font-family:"El Messiri";color:#fff;padding:3mm 4mm;font-size:13pt;display:flex;justify-content:space-between;align-items:baseline}
+.toc .part>h3 small{font-size:9pt;opacity:.85;font-weight:600}
+.toc ol{list-style:none;margin:0;padding:2mm 3.5mm 3mm}
+.toc li{display:flex;align-items:baseline;gap:2mm;padding:.75mm 0;font-size:10.8pt;line-height:1.5}
+.toc li .u{font-family:"El Messiri";font-weight:700;min-width:6.5mm;height:6.5mm;border-radius:1.8mm;display:inline-grid;place-items:center;color:#fff;font-size:9pt;align-self:center}
+.toc li .tt{font-family:"El Messiri";font-weight:700;color:var(--ink)}
+.toc li .dots{flex:1;border-bottom:1.6px dotted #c9c1b1;transform:translateY(-1.2mm)}
+.toc li .pn{font-family:"El Messiri";font-weight:700;color:var(--ind);min-width:6mm;text-align:left}
+.toc li.sub{padding-inline-start:8.5mm;font-size:10pt}
+.toc li.sub .tt{font-weight:600;color:var(--soft)}
+.toc li.sub .ic{width:3.6mm;height:3.6mm;color:var(--sun);align-self:center}
+.toc li.grp{margin-top:1.6mm;font-family:"El Messiri";font-size:9pt;color:var(--soft);font-weight:700;letter-spacing:.3px}
+/* divider */
+.dv{background:var(--ind);color:#fff;justify-content:center;align-items:center;text-align:center}
+.dv.sarf{background:#2f4a35}
+.dv .pat{position:absolute;inset:0;width:100%;height:100%}
+.dv .k{position:relative;font-family:"El Messiri";font-size:14pt;color:var(--sun);font-weight:700}
+.dv h1{position:relative;font-family:Amiri;font-size:78pt;font-weight:700;line-height:1.3;margin:4mm 0}
+.dv .s{position:relative;font-family:"El Messiri";font-size:17pt;font-weight:600;opacity:.92}
+.dv .lst{position:relative;display:flex;flex-wrap:wrap;gap:2.5mm;justify-content:center;max-width:150mm;margin-top:14mm}
+.dv .lst span{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:1mm 4mm;font-family:"El Messiri";font-size:10.5pt}
+/* compact table */
+.mx.sm th,.mx.sm td{padding:1.3mm 1.8mm;font-size:10.6pt;line-height:1.45}
+.mx.sm{border-spacing:.9mm}
+.mx td.t{background:var(--tint);text-align:start}
+.mx td.g{background:var(--mb2)}
+.mx td.y{background:var(--sun2)}
+.mx td .ar,.mx th .ar{font-size:13pt}
+.mx .grpc{background:var(--ind);color:#fff;font-weight:800;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center;font-size:10pt;padding:1mm}
+/* derivation chips */
+.drv{display:flex;align-items:center;gap:1.6mm;flex-wrap:wrap;font-family:Amiri;font-size:14pt;line-height:1.5}
+.drv i{font-style:normal;color:var(--sun);font-family:"El Messiri";font-weight:700;font-size:11pt}
+.drv b{background:var(--ind3);color:var(--ind);border-radius:2mm;padding:0 2.2mm;font-weight:700}
+.drvs{display:grid;gap:1.2mm 6mm}
+/* steps */
+.steps{display:flex;gap:2mm;align-items:stretch;margin-top:2mm}
+.steps div{flex:1;background:var(--tint);border-radius:2.5mm;padding:2mm 3mm;font-size:10.8pt;position:relative}
+.steps div b{font-family:"El Messiri";display:inline-grid;place-items:center;width:6mm;height:6mm;border-radius:50%;background:var(--sun);color:var(--ind);font-size:9.5pt;margin-inline-end:1.5mm}
+/* pattern tiles */
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:2.5mm;margin-top:2mm}
+.wg>div{border:1.2px solid var(--line);border-radius:3mm;overflow:hidden;background:#fff;break-inside:avoid}
+.wg>div>b{display:flex;justify-content:space-between;align-items:center;background:var(--ind3);color:var(--ind);font-family:"El Messiri";font-size:12pt;padding:1mm 3mm}
+.wg>div>b small{font-size:8.5pt;color:var(--soft);font-weight:700}
+.wg>div>p{font-family:Amiri;font-size:13pt;line-height:1.6;padding:1.2mm 3mm 1.8mm}
+.wg.c4{grid-template-columns:repeat(4,1fr)}
+.wg.c2{grid-template-columns:1fr 1fr}
+/* defn box */
+.df{background:var(--ind);color:#fff;border-radius:3.5mm;padding:3mm 5mm;font-size:12pt;display:flex;gap:3mm;align-items:center}
+.df b{font-family:"El Messiri";background:var(--sun);color:var(--ind);border-radius:2mm;padding:.5mm 3mm;white-space:nowrap}
+.sec{font-family:"El Messiri";font-weight:700;color:var(--ind);font-size:13pt;margin:4mm 0 1.5mm;display:flex;align-items:center;gap:2mm}
+.sec::before{content:"";width:3mm;height:3mm;border-radius:1mm;background:var(--sun)}
+.chips{display:flex;flex-wrap:wrap;gap:1.6mm}
+.chips span{font-family:Amiri;font-size:13pt;background:var(--tint);border:1px solid var(--line);border-radius:999px;padding:0 3mm;line-height:1.6}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:4mm}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:3mm}
+.small{font-size:10.5pt}
+.fix{font-size:8.5pt;color:var(--nsb);font-family:"El Messiri";font-weight:700}
+/* number line */
+.nl{display:grid;grid-template-columns:1fr 1.4fr 1fr 1fr 1.3fr 1.1fr 1.2fr;gap:1.2mm;margin-top:2mm}
+.nl div{border-radius:2.5mm;padding:2mm 1.5mm;text-align:center;font-family:"El Messiri";font-weight:700;font-size:10pt;color:#fff;line-height:1.35}
+.nl div big{display:block;font-size:15pt}
+/* exercise variants */
+.exr.inl li>div{display:flex;flex-wrap:wrap;align-items:center;gap:1mm 3mm}
+.exr.inl .opts{margin:0;margin-inline-start:auto}
+.exr .q2{font-family:Amiri;font-size:12.5pt;line-height:1.6}
+.blank td{height:8.2mm;background:#fff;border:1px solid var(--line)}
+.blank tbody th{font-family:Amiri;font-size:13.5pt;text-align:center}
+/* back cover */
+.bk{background:var(--ind);color:#fff;justify-content:center;align-items:center;text-align:center}
+.bk .pat{position:absolute;inset:0;width:100%;height:100%}
+.bk p{position:relative;font-family:Amiri;font-size:17pt;line-height:2;max-width:140mm}
+.bk b{position:relative;font-family:"El Messiri";color:var(--sun);font-size:16pt;margin-top:10mm;display:block}
+.plc{margin:0;padding:0;list-style:none;counter-reset:p}
+.plc li{counter-increment:p;display:grid;grid-template-columns:6mm 1fr;gap:2mm;padding:1.1mm 0;border-bottom:1px dashed var(--line);font-size:11pt;line-height:1.6}
+.plc li:last-child{border-bottom:0}
+.plc li::before{content:counter(p,arabic-indic);width:5.5mm;height:5.5mm;border-radius:50%;background:var(--ind3);color:var(--ind);font-family:"El Messiri";font-weight:700;font-size:9pt;display:grid;place-items:center;margin-top:.6mm}
+.plc .ar{font-size:13.5pt;color:var(--ind)}
+
+.toc li{padding:.45mm 0;font-size:10.4pt}
+#ex4 .lines{height:5.2mm}#ex4 .q{font-size:12.5pt;line-height:1.6}
+#hurufB .chips span{font-size:11.5pt;padding:0 2.4mm}#hurufB .ex .ar{font-size:13.5pt}#hurufB .cd p{font-size:10.5pt}#hurufB .ex{font-size:10pt}
+#tri th,#tri td{padding:1mm 1.8mm}
+#quad th,#quad td{padding:.55mm 1.6mm;font-size:12pt!important}
+#mimi td{padding:.8mm 1.6mm}#mimi .ar{font-size:12.5pt!important}
+#marra th,#marra td{padding:.6mm 1.6mm}#marra .ar{font-size:12.5pt!important}
+#marra2 th,#marra2 td{padding:.5mm 1.4mm;font-size:11pt!important}
+#ex6{display:grid;grid-template-columns:1fr 1fr;column-gap:5mm}#ex6 .q2{font-size:12pt}
+.toc{margin-bottom:11mm}
+#ex7 .q2{font-size:12pt}#ex7 li,#ex6 li{padding:.2mm 0}
+#hurufB .cd{padding:2.6mm 3.2mm}
 </style>
 </head>
 <body>
@@ -139,35 +266,75 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
  <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6V14M12 17h.01"/></symbol>
 </svg>
 
-<!-- ========== 1 cover ========== -->
-<section class="pg cover">
- <div class="top">
-  <span class="kick">ملزمة مبسّطة · خرائط ذهنية · رسوم · تدريبات</span>
-  <h1>أساسيّات في<br><span>قواعد اللغة العربيّة</span></h1>
-  <p class="sub">النحو والصرف كما في الدوسية الأصليّة، مرتّبًا في خرائط ذهنيّة وجداول ملوّنة وأمثلة معرَبة، مع تدريبات في نهاية كلّ موضوع.</p>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+ <pattern id="star8" width="56" height="56" patternUnits="userSpaceOnUse">
+  <g fill="none" stroke="#d4a23c" stroke-width="1.1" opacity=".22">
+   <rect x="14" y="14" width="28" height="28"/><rect x="14" y="14" width="28" height="28" transform="rotate(45 28 28)"/>
+   <path d="M0 28h8M48 28h8M28 0v8M28 48v8"/><circle cx="28" cy="28" r="5"/>
+   <path d="M0 0l8 8M56 0l-8 8M0 56l8-8M56 56l-8-8"/>
+  </g></pattern>
+ <pattern id="star8w" width="56" height="56" patternUnits="userSpaceOnUse">
+  <g fill="none" stroke="#fff" stroke-width="1" opacity=".1">
+   <rect x="14" y="14" width="28" height="28"/><rect x="14" y="14" width="28" height="28" transform="rotate(45 28 28)"/>
+   <path d="M0 28h8M48 28h8M28 0v8M28 48v8"/><circle cx="28" cy="28" r="5"/></g></pattern>
+ <radialGradient id="vig" cx="50%" cy="42%" r="70%"><stop offset="0" stop-color="#1c4d61" stop-opacity="1"/><stop offset="1" stop-color="#0c2a37" stop-opacity="1"/></radialGradient>
+</defs></svg>
+
+<!-- ========== cover ========== -->
+<section class="pg cv">
+ <svg class="pat" preserveAspectRatio="none" aria-hidden="true"><rect width="100%" height="100%" fill="url(#vig)"/><rect width="100%" height="100%" fill="url(#star8)"/></svg>
+ <div class="in">
+  <span class="kick">ملزمة النحو والصرف</span>
+  <div class="med">
+   <svg viewBox="0 0 400 400" aria-hidden="true">
+    <g transform="translate(200 200)">
+     <rect x="-150" y="-150" width="300" height="300" rx="18" fill="#12394a" stroke="#d4a23c" stroke-width="3"/>
+     <rect x="-150" y="-150" width="300" height="300" rx="18" fill="#12394a" stroke="#d4a23c" stroke-width="3" transform="rotate(45)"/>
+     <rect x="-136" y="-136" width="272" height="272" rx="12" fill="none" stroke="#d4a23c" stroke-width="1" opacity=".55"/>
+     <rect x="-136" y="-136" width="272" height="272" rx="12" fill="none" stroke="#d4a23c" stroke-width="1" opacity=".55" transform="rotate(45)"/>
+     <circle r="150" fill="#12394a"/>
+     <circle r="142" fill="none" stroke="#d4a23c" stroke-width="1.2" stroke-dasharray="2 5" opacity=".8"/>
+     <g fill="#d4a23c"><circle cx="0" cy="-196" r="4"/><circle cx="0" cy="196" r="4"/><circle cx="-196" cy="0" r="4"/><circle cx="196" cy="0" r="4"/></g>
+    </g></svg>
+   <div class="t"><span class="a">أساسيّاتٌ في</span><span class="b">قواعد اللغة<br>العربيّة</span><span class="c">النحو · الصرف</span></div>
+  </div>
+  <svg class="orn" viewBox="0 0 280 32" aria-hidden="true"><g fill="none" stroke="#d4a23c" stroke-width="1.6"><path d="M0 16h105M175 16h105"/><path d="M140 2l14 14-14 14-14-14z"/><path d="M140 9l7 7-7 7-7-7z" fill="#d4a23c"/><circle cx="114" cy="16" r="3"/><circle cx="166" cy="16" r="3"/></g></svg>
+  <div class="by"><small>تأليف</small><b>الدكتور أيمن العتوم</b></div>
  </div>
- <div class="feat">
-  <div><svg class="ic"><use href="#i-map"/></svg>خريطة ذهنيّة لكلّ باب</div>
-  <div><svg class="ic"><use href="#i-grid"/></svg>جداول ملوّنة للعلامات</div>
-  <div><svg class="ic"><use href="#i-bulb"/></svg>أمثلة معرَبة وتنبيهات</div>
-  <div><svg class="ic"><use href="#i-pen"/></svg>تدريبات للحلّ</div>
+ <div class="bot">
+  <div class="p"><small>القسم الأوّل</small>النحو</div>
+  <div class="chips"><span style="background:var(--raf)">رفع</span><span style="background:var(--nsb)">نصب</span><span style="background:var(--jar)">جرّ</span><span style="background:var(--mb)">بناء</span></div>
+  <div class="p"><small>القسم الثاني</small>الصرف</div>
  </div>
- <div class="art"><svg viewBox="0 0 600 300" style="position:absolute;inset:0;width:100%;height:100%" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
-  <g fill="none" stroke="rgba(255,255,255,.22)" stroke-width="3"><path d="M300 150 C230 150 210 70 130 70"/><path d="M300 150 C230 150 210 230 130 230"/><path d="M300 150 C370 150 390 70 470 70"/><path d="M300 150 C370 150 390 230 470 230"/><path d="M300 150 L300 40"/><path d="M300 150 L300 262"/></g>
-  <circle cx="300" cy="150" r="52" fill="#d4a23c"/><text x="300" y="162" text-anchor="middle" font-family="El Messiri" font-weight="900" font-size="30" fill="#12394a">الكلمة</text>
-  <g font-family="El Messiri" font-weight="800" font-size="20" text-anchor="middle">
-   <rect x="70" y="48" width="120" height="44" rx="22" fill="#2a6f8a"/><text x="130" y="77" fill="#fff">رفع</text>
-   <rect x="70" y="208" width="120" height="44" rx="22" fill="#b5523b"/><text x="130" y="237" fill="#fff">نصب</text>
-   <rect x="410" y="48" width="120" height="44" rx="22" fill="#5e8263"/><text x="470" y="77" fill="#fff">جرّ</text>
-   <rect x="410" y="208" width="120" height="44" rx="22" fill="#8a8478"/><text x="470" y="237" fill="#fff">بناء</text>
-   <rect x="250" y="12" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="37" fill="#fff" font-size="17">اسم</text>
-   <rect x="250" y="252" width="100" height="36" rx="18" fill="rgba(255,255,255,.15)"/><text x="300" y="277" fill="#fff" font-size="17">فعل · حرف</text>
-  </g></svg></div>
- <div class="bot"><div><small>إعداد</small><b>د. أيمن العتوم</b></div><div style="text-align:left"><small>الطبعة المبسّطة</small><b>النحو · الصرف</b></div></div>
 </section>
 
+<!-- ========== title page ========== -->
+<section class="pg tp">
+ <div class="fr"></div>
+ <div class="bs">بسم الله الرحمن الرحيم</div>
+ <h1>أساسيّاتٌ في<br>قواعد اللغة العربيّة</h1>
+ <div class="ln"></div>
+ <div class="au"><small>تأليف</small><b>الدكتور أيمن العتوم</b></div>
+ <div class="parts"><div><small>القسم الأوّل</small>النحو</div><div><small>القسم الثاني</small>الصرف: المشتقّات والمصادر</div></div>
+ <p class="nt">المادّة العلميّة كلّها من دوسية المؤلّف «أساسيّات في قواعد اللغة العربيّة»، أُعيد ترتيبها في هذه الملزمة على هيئة خرائط ذهنيّة وجداول ملوّنة وأمثلة معرَبة، وبقيت التدريبات في مواضعها بعد كلّ باب.</p>
+</section>
+
+<!-- ========== contents ========== -->
+<section class="pg" data-toc="الفهرس" data-part="f">
+ <div class="ph"><span class="unit">الفهرس</span><h2>محتويات الملزمة</h2><span class="src">أرقام الصفحات من الملزمة</span></div>
+ <div class="toc">
+  <div class="part"><h3 style="background:var(--ind)">القسم الأوّل · النحو <small>الأبواب ١–١٢</small></h3><ol id="tocN"></ol></div>
+  <div class="part"><h3 style="background:#2f4a35">القسم الثاني · الصرف <small>المشتقّات والمصادر</small></h3><ol id="tocS"></ol>
+   <div style="margin-top:auto;padding:3mm 3.5mm 3.5mm">
+    <div class="tip" style="margin:0"><b>دليل الألوان:</b> البتروليّ للرفع، والطينيّ للنصب، والزيتونيّ للجرّ، والرماديّ للبناء. وتدلّ <svg class="ic" style="width:1em;height:1em;color:var(--sun);vertical-align:-.15em"><use href="#i-pen"/></svg> على صفحات التدريبات.</div>
+   </div></div>
+ </div>
+ <div class="pf"><span>الفهرس</span><b></b></div>
+</section>
+
+
 <!-- ========== 2 contents map ========== -->
-<section class="pg">
+<section class="pg" data-toc="خريطة الملزمة" data-part="n">
  <div class="ph"><span class="unit">المحتويات</span><h2>خريطة الملزمة</h2><span class="src">الدوسية: فهرس المحتويات</span></div>
  <p class="note" style="margin-bottom:2mm">كلّ فرع في الخريطة باب من أبواب الملزمة. ابدأ من الوسط، ثم انتقل إلى القسم الذي تدرسه.</p>
  <div class="mm big" id="mmToc"></div>
@@ -175,8 +342,16 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
  <div class="pf"><span>أساسيّات في قواعد اللغة العربيّة</span><b>٢</b></div>
 </section>
 
+<section class="pg dv">
+ <svg class="pat" preserveAspectRatio="none" aria-hidden="true"><rect width="100%" height="100%" fill="url(#star8w)"/></svg>
+ <div class="k">القسم الأوّل</div>
+ <h1>النَّحْو</h1>
+ <div class="s">من المفاهيم الأوّليّة إلى الهمزة</div>
+ <div class="lst"><span>مفاهيم أوّليّة</span><span>أقسام الكلمة</span><span>الأسماء المعربة</span><span>المرفوعات</span><span>المنصوبات</span><span>المجرورات</span><span>الأسماء المبنيّة</span><span>الضمائر المتّصلة</span><span>أقسام الأفعال</span><span>أنواع الحروف</span><span>العدد</span><span>الهمزة</span></div>
+</section>
+
 <!-- ========== 3 concepts 1-5 ========== -->
-<section class="pg">
+<section class="pg" data-toc="مفاهيم أوّليّة" data-part="n" data-u="١">
  <div class="ph"><span class="unit">النحو · ١</span><h2>مفاهيم أوّليّة (١)</h2><span class="src">الدوسية ص٢</span></div>
  <div class="cards">
   <div class="cd full"><h3><span class="num">١</span>المُعرَب والمبنيّ</h3>
@@ -196,7 +371,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 4 concepts 6-9 ========== -->
-<section class="pg">
+<section class="pg" data-toc="الجملة، وشبه الجملة، والمفرد والجمع" data-part="n" data-sub="1">
  <div class="ph"><span class="unit">النحو · ١</span><h2>مفاهيم أوّليّة (٢)</h2><span class="src">الدوسية ص٢</span></div>
  <div class="cards">
   <div class="cd full"><h3><span class="num">٦</span>الجملة الفعليّة والجملة الاسميّة</h3>
@@ -217,7 +392,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 5 signs ========== -->
-<section class="pg">
+<section class="pg" data-toc="علامات الإعراب والحركة المقدّرة" data-part="n" data-sub="1">
  <div class="ph"><span class="unit">النحو · ١</span><h2>علامات الإعراب</h2><span class="src">الدوسية ص٢–٣</span></div>
  <div class="cd full" style="margin-bottom:4mm"><h3><span class="num">٩</span>جدول علامات الإعراب في الأسماء</h3>
   <table class="mx"><thead><tr><th style="background:var(--ind)">الاسم</th><th style="background:var(--raf)">علامة الرفع</th><th style="background:var(--nsb)">علامة النصب</th><th style="background:var(--jar)">علامة الجرّ</th></tr></thead><tbody>
@@ -238,7 +413,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 6 verbs ========== -->
-<section class="pg">
+<section class="pg" data-toc="إعراب الأفعال وبناؤها" data-part="n" data-sub="1">
  <div class="ph"><span class="unit">النحو · ١</span><h2>إعراب الأفعال وبناؤها</h2><span class="src">الدوسية ص٣</span></div>
  <p style="margin-bottom:4mm">الماضي والأمر مبنيّان دائمًا، والمضارع وحده معرب، إلا إذا اتّصلت به نون التوكيد أو نون النسوة.</p>
  <div class="vcols">
@@ -261,7 +436,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 7 word map ========== -->
-<section class="pg">
+<section class="pg" data-toc="أقسام الكلمة" data-part="n" data-u="٢">
  <div class="ph"><span class="unit">النحو · ٢</span><h2>أقسام الكلمة</h2><span class="src">الدوسية ص٤</span></div>
  <p style="margin-bottom:2mm">الكلمة اسم أو فعل أو حرف. ولكلّ قسم معربٌ ومبنيّ، إلا الحرف فهو مبنيّ كلّه.</p>
  <div class="mm big" id="mmWord"></div>
@@ -269,7 +444,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 8 nouns map ========== -->
-<section class="pg">
+<section class="pg" data-toc="الأسماء المعربة" data-part="n" data-u="٣">
  <div class="ph"><span class="unit">النحو · ٣</span><h2>الأسماء المعربة</h2><span class="src">الدوسية ص٥</span></div>
  <p style="margin-bottom:2mm">الاسم المعرب يكون مرفوعًا أو منصوبًا أو مجرورًا بحسب موقعه. هذه خريطة المواقع كلّها، وتُفصَّل في الصفحات التالية.</p>
  <div class="mm big" id="mmNouns"></div>
@@ -278,7 +453,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 9 marfu'at ========== -->
-<section class="pg dense">
+<section class="pg dense" data-toc="المرفوعات" data-part="n" data-u="٤">
  <div class="ph" style="margin-bottom:5mm"><span class="unit">النحو · ٤</span><h2>المرفوعات</h2><span class="src">الدوسية ص٦</span></div>
  <div class="cards" id="marf"></div>
  <div class="cd full" style="margin-top:4mm"><h3><span class="num" style="background:var(--sun);color:var(--ind)">!</span>النواسخ: كان وأخواتها، وإنّ وأخواتها</h3>
@@ -288,7 +463,7 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
 </section>
 
 <!-- ========== 10 exercises ========== -->
-<section class="pg">
+<section class="pg" data-toc="تمارين على المرفوعات" data-part="n" data-ex="1">
  <div class="ph"><span class="unit">تدريبات</span><h2>تمارين على المرفوعات</h2><span class="src">الدوسية ص٧</span></div>
  <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>أوّلًا: أعرب الكلمات التي تحتها خطّ في العبارات الآتية</h3><ol id="ex1"></ol></div>
  <div class="pf"><span>تمارين على المرفوعات</span><b>١٠</b></div>
@@ -299,6 +474,451 @@ table{border-collapse:separate;border-spacing:1.2mm;width:100%}
  <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>ثانيًا: استخرج المرفوعات، وبيّن نوعها من كلّ عبارة من العبارات الآتية</h3><ol id="ex2"></ol></div>
  <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>ثالثًا: بيّن نوع الخبر في الجمل الاسميّة في كلّ عبارة من العبارات الآتية</h3><ol id="ex3"></ol></div>
  <div class="pf"><span>تمارين على المرفوعات</span><b>١١</b></div>
+</section>
+
+
+<!-- ========== manasub 1 ========== -->
+<section class="pg dense" data-toc="المنصوبات" data-part="n" data-u="٥">
+ <div class="ph"><span class="unit">النحو · ٥</span><h2>المنصوبات</h2><span class="src">الدوسية ص٨</span></div>
+ <div class="mm" id="mmNasb"></div>
+ <div class="flow" style="margin:4mm 0 3mm;justify-content:center"><span class="box" style="background:var(--sun2);border:1.4px solid var(--sun)"><svg class="ic" style="vertical-align:-.25em"><use href="#i-q"/></svg> سؤالان يكشفان منصوبَين:</span><span class="box" style="background:var(--nsb2)"><span class="n">لماذا؟</span> ← المفعول لأجله</span><span class="box" style="background:var(--nsb2)"><span class="n">كيف؟</span> ← الحال</span></div>
+ <div class="cards" id="nasbA"></div>
+ <div class="pf"><span>المنصوبات</span><b></b></div>
+</section>
+
+<section class="pg dense">
+ <div class="ph"><span class="unit">النحو · ٥</span><h2>المنصوبات (تابع)</h2><span class="src">الدوسية ص٨</span></div>
+ <div class="cards" id="nasbB"></div>
+ <div class="pf"><span>المنصوبات</span><b></b></div>
+</section>
+
+<section class="pg" data-toc="تمارين على المنصوبات" data-part="n" data-ex="1">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تمارين على المنصوبات</h2><span class="src">الدوسية ص٩</span></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>أوّلًا: أعرب ما تحته خطّ في العبارات الآتية</h3><ol id="ex4"></ol></div>
+ <div class="pf"><span>تمارين على المنصوبات</span><b></b></div>
+</section>
+
+<!-- ========== majrurat ========== -->
+<section class="pg dense" data-toc="المجرورات" data-part="n" data-u="٦">
+ <div class="ph"><span class="unit">النحو · ٦</span><h2>المجرورات</h2><span class="src">الدوسية ص١٠</span></div>
+ <p style="margin-bottom:1mm">يُجرّ الاسم بإحدى ثلاث طرق:</p>
+ <div class="mm" id="mmJar"></div>
+ <div class="cd full" style="margin-top:4mm;border-color:var(--jar)"><h3><span class="num" style="background:var(--jar)">١</span>الجرّ بحرف الجرّ</h3>
+  <p>يُجرّ الاسم أو الضمير الواقعان بعد حروف الجرّ:</p>
+  <div class="chips" style="margin:1.5mm 0 2mm"><span>الباء</span><span>مِن</span><span>إلى</span><span>عن</span><span>على</span><span>في</span><span>الكاف</span><span>اللام</span><span>واو القسم</span><span>تاء القسم</span></div>
+  <div class="g2" id="jarHarf"></div></div>
+ <div class="pf"><span>المجرورات</span><b></b></div>
+</section>
+
+<section class="pg dense">
+ <div class="ph"><span class="unit">النحو · ٦</span><h2>المجرورات (تابع)</h2><span class="src">الدوسية ص١٠</span></div>
+ <div class="cd full" style="border-color:var(--jar)"><h3><span class="num" style="background:var(--jar)">٢</span>الجرّ بالإضافة</h3>
+  <p>الإضافة نوعان:</p>
+  <div class="split" style="grid-template-columns:1fr 1fr">
+   <div style="background:var(--jar2)"><b class="j">١. الإضافة المعنويّة</b><br>وهي التي يكتسب فيها المضاف:
+    <div style="margin-top:1.5mm"><span class="tag j">أ</span> <b>تعريفًا</b>، مثل: <span class="ar" style="font-size:14pt">قَرَأْتُ دِيوَانَ <u>المُتَنَبِّي</u></span></div>
+    <div style="margin-top:1mm"><span class="tag j">ب</span> <b>تخصيصًا</b>، مثل: <span class="ar" style="font-size:14pt">كَلِمَةُ <u>حَقٍّ</u> فِي وَجْهِ <u>ظَالِمٍ</u> شَجَاعَةٌ</span></div></div>
+   <div style="background:var(--tint)"><b style="color:var(--ind)">٢. الإضافة اللفظيّة</b><br>وهي التي يكتسب فيها المضاف أمرًا لفظيًّا، مثل:
+    <div style="margin-top:1.5mm"><span class="tag i">أ</span> <b>تخفيف التنوين</b> في اسم الفاعل أو اسم المفعول أو صيغة المبالغة أو الصفة المشبّهة: <span class="ar" style="font-size:14pt">حَافِظُ <u>القُرْآنِ</u> مَحْظُوظٌ</span></div>
+    <div style="margin-top:1mm"><span class="tag i">ب</span> <b>حذف النون</b> في المضاف إذا كان جمع مذكّر سالمًا: <span class="ar" style="font-size:14pt">حَافِظُو القُرْآنِ مَحْظُوظُونَ</span>، أو مثنّى: <span class="ar" style="font-size:14pt">حَافِظَا القُرْآنِ مَحْظُوظَانِ</span></div></div>
+  </div>
+  <div class="tip"><b>ملحوظة:</b> تكون الإضافة اللفظيّة في إضافة: اسم الفاعل، واسم المفعول، والصفة المشبّهة، والمثنّى، وجمع المذكّر السالم.</div></div>
+ <div class="cd full" style="margin-top:4mm;border-color:var(--jar)"><h3><span class="num" style="background:var(--jar)">٣</span>الجرّ بالتبعيّة</h3>
+  <p>يكون في التوابع: <span class="tag j">البدل</span> <span class="tag j">العطف</span> <span class="tag j">التوكيد</span> <span class="tag j">النعت</span></p>
+  <div class="g2" id="jarTab" style="margin-top:2mm"></div></div>
+ <div class="pf"><span>المجرورات</span><b></b></div>
+</section>
+
+<!-- ========== mabniyat ========== -->
+<section class="pg dense" data-toc="الأسماء المبنيّة: الضمائر" data-part="n" data-u="٧">
+ <div class="ph"><span class="unit">النحو · ٧</span><h2>الأسماء المبنيّة</h2><span class="src">الدوسية ص١١</span></div>
+ <div class="mm" id="mmMabni"></div>
+ <div class="sec">الضمائر</div>
+ <div class="g3">
+  <div class="cd" style="border-color:var(--mb)"><h3 style="font-size:12.5pt"><span class="num" style="background:var(--mb)">أ</span>المستترة</h3><p class="small">هي الضمائر غير الظاهرة، تقوم مقام الفاعل، وتُقدَّر حسب الفعل.</p>
+   <div class="ex"><div class="ar" style="font-size:13pt;line-height:2">دَرَسَ (هو) · دَرَسَتْ (هي)<br>نَدْرُسُ (نحن) · أَدْرُسُ (أنا)<br>اُدْرُسْ (أنتَ)</div></div></div>
+  <div class="cd" style="border-color:var(--mb)"><h3 style="font-size:12.5pt"><span class="num" style="background:var(--mb)">ب</span>المتّصلة</h3><p class="small">وتتّصل بالاسم أو الفعل.</p>
+   <div class="ex"><div class="ar" style="font-size:13pt;line-height:2">دَرَس<u>ا</u> · دَرَس<u>وا</u> · يَدْرُس<u>ا</u>نِ<br>يَدْرُس<u>و</u>نَ · اُدْرُس<u>ي</u> · دَرَسْ<u>تُ</u></div><span class="small">الألف، والواو، والياء، والتاء المتحرّكة: ضمائر متّصلة بالأفعال.</span></div></div>
+  <div class="cd" style="border-color:var(--mb)"><h3 style="font-size:12.5pt"><span class="num" style="background:var(--mb)">ج</span>المنفصلة</h3><p class="small">وهي أربعة عشر ضميرًا:</p>
+   <table class="mx sm" style="margin-top:1mm"><thead><tr><th style="background:var(--ind)"></th><th style="background:var(--ind2)">للمذكّر</th><th style="background:var(--ind2)">للمؤنّث</th></tr></thead><tbody>
+    <tr><th>الغائب</th><td class="g ar">هُوَ · هُمَا · هُمْ</td><td class="g ar">هِيَ · هُمَا · هُنَّ</td></tr>
+    <tr><th>المخاطَب</th><td class="g ar">أَنْتَ · أَنْتُمَا · أَنْتُمْ</td><td class="g ar">أَنْتِ · أَنْتُمَا · أَنْتُنَّ</td></tr>
+    <tr><th>المتكلّم</th><td class="g ar" colspan="2">أَنَا · نَحْنُ <span class="small">(للمذكّر والمؤنّث)</span></td></tr></tbody></table></div>
+ </div>
+ <div class="pf"><span>الأسماء المبنيّة</span><b></b></div>
+</section>
+
+<section class="pg" data-toc="الإشارة، الاستفهام، الموصولة، الشرط" data-part="n" data-sub="1">
+ <div class="ph"><span class="unit">النحو · ٧</span><h2>الأسماء المبنيّة (تابع)</h2><span class="src">الدوسية ص١١</span></div>
+ <div class="cd full" style="border-color:var(--mb)"><h3><span class="num" style="background:var(--mb)">٢</span>أسماء الإشارة</h3>
+  <div class="g3" style="margin-top:1mm"><div class="ex" style="margin:0"><b>للمذكّر</b><div class="ar">هٰذَا · هٰذَانِ · هٰؤُلَاءِ</div></div><div class="ex" style="margin:0"><b>للمؤنّث</b><div class="ar">هٰذِهِ · هَاتَانِ · هٰؤُلَاءِ</div></div><div class="ex" style="margin:0"><b>للإشارة للمكان</b><div class="ar">هُنَا · ثَمَّ</div></div></div></div>
+ <div class="cd full" style="margin-top:4mm;border-color:var(--mb)"><h3><span class="num" style="background:var(--mb)">٣</span>أسماء الاستفهام</h3>
+  <div class="wg" id="istifham"></div>
+  <p class="fix" style="margin-top:2mm">تصحيح: في الدوسية «أين، أيّان: للاستفهام عن المكان»، والصواب أنّ «أيّان» للزمان.</p></div>
+ <div class="g2" style="margin-top:4mm">
+  <div class="cd" style="border-color:var(--mb)"><h3><span class="num" style="background:var(--mb)">٤</span>الأسماء الموصولة</h3>
+   <div class="ex"><b>مَنْ، ما</b>: إذا كانتا بمعنى (الذي).</div>
+   <div class="ex"><b>للمذكّر</b><div class="ar">الَّذِي · اللَّذَانِ · الَّذِينَ</div></div>
+   <div class="ex"><b>للمؤنّث</b><div class="ar">الَّتِي · اللَّتَانِ · اللَّوَاتِي · اللَّاتِي · اللَّائِي</div></div></div>
+  <div class="cd" style="border-color:var(--mb)"><h3><span class="num" style="background:var(--mb)">٥</span>أسماء الشرط</h3>
+   <div class="chips" style="margin-top:2mm"><span>مَنْ</span><span>ما</span><span>مَهْمَا</span><span>مَتَى</span><span>أَيَّانَ</span><span>أَيْنَ</span><span>أَيْنَمَا</span><span>حَيْثُمَا</span><span>كَيْفَمَا</span></div>
+   <div class="tip"><b>انتبه:</b> مَنْ، وما، وأين، ومتى تأتي في أكثر من باب؛ فتكون استفهاميّة أو شرطيّة، وتكون (من، ما) موصولتين. والتمرين التالي للتمييز بينها.</div></div>
+ </div>
+ <div class="pf"><span>الأسماء المبنيّة</span><b></b></div>
+</section>
+
+<section class="pg" data-toc="تمرين للتمييز بين الأسماء المبنيّة" data-part="n" data-ex="1">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تمرين للتمييز بين الأسماء المبنيّة</h2><span class="src">الدوسية ص١٢</span></div>
+ <div class="exr inl"><h3><svg class="ic"><use href="#i-pen"/></svg>بيّن نوع (أينَ، ما، مَنْ، متى) من خلال العبارات الآتية</h3><ol id="ex5"></ol></div>
+ <div class="pf"><span>تمرين الأسماء المبنيّة</span><b></b></div>
+</section>
+
+<!-- ========== attached pronouns ========== -->
+<section class="pg dense" data-toc="قواعد الضمائر المتّصلة" data-part="n" data-u="٨">
+ <div class="ph"><span class="unit">النحو · ٨</span><h2>قواعد الضمائر المتّصلة</h2><span class="src">الدوسية ص١٣</span></div>
+ <div class="flow" style="justify-content:center;margin-bottom:3mm"><span class="box" style="background:var(--sun2);border:1.4px solid var(--sun)"><svg class="ic" style="vertical-align:-.25em"><use href="#i-q"/></svg> بماذا اتّصل الضمير؟</span><span class="arw">←</span><span class="box" style="background:var(--ind);color:#fff">الجواب يحدّد محلّه من الإعراب</span></div>
+ <table class="mx sm" id="damair"><thead><tr><th style="background:var(--ind);width:24%">الضمير المتّصل</th><th style="background:var(--ind);width:22%">محلّه من الإعراب</th><th style="background:var(--ind)">مثال</th></tr></thead><tbody></tbody></table>
+ <div class="pf"><span>الضمائر المتّصلة</span><b></b></div>
+</section>
+
+<!-- ========== verbs tree ========== -->
+<section class="pg dense" data-toc="أقسام الأفعال" data-part="n" data-u="٩">
+ <div class="ph"><span class="unit">النحو · ٩</span><h2>أقسام الأفعال</h2><span class="src">الدوسية ص١٤</span></div>
+ <p style="margin-bottom:1mm">يُقسَم الفعل خمس قسمات، كلّ قسمة تنظر إليه من جهة:</p>
+ <div class="mm" id="mmAfal"></div>
+ <div class="pf"><span>أقسام الأفعال</span><b></b></div>
+</section>
+
+<!-- ========== particles ========== -->
+<section class="pg dense" data-toc="أنواع الحروف" data-part="n" data-u="١٠">
+ <div class="ph"><span class="unit">النحو · ١٠</span><h2>أنواع الحروف</h2><span class="src">الدوسية ص١٥</span></div>
+ <div class="mm" id="mmHuruf"></div>
+ <div class="cards" id="hurufA" style="margin-top:4mm"></div>
+ <div class="pf"><span>أنواع الحروف</span><b></b></div>
+</section>
+<section class="pg dense">
+ <div class="ph"><span class="unit">النحو · ١٠</span><h2>أنواع الحروف (تابع)</h2><span class="src">الدوسية ص١٥</span></div>
+ <div class="cards" id="hurufB"></div>
+ <p class="fix" style="margin-top:3mm">ملاحظة للمراجعة: عدّت الدوسية «مع» في حروف الجرّ، والمشهور أنّها ظرف.</p>
+ <div class="pf"><span>أنواع الحروف</span><b></b></div>
+</section>
+
+<!-- ========== numbers ========== -->
+<section class="pg dense" data-toc="العدد" data-part="n" data-u="١١">
+ <div class="ph"><span class="unit">النحو · ١١</span><h2>العدد</h2><span class="src">الدوسية ص١٦</span></div>
+ <p>القاعدة كلّها سؤال واحد: هل يطابق العدد معدوده في التذكير والتأنيث أم يخالفه؟</p>
+ <div class="nl">
+  <div style="background:var(--jar)"><big>١، ٢</big>يطابق</div>
+  <div style="background:var(--nsb)"><big>٣ – ٩</big>يخالف</div>
+  <div style="background:linear-gradient(90deg,var(--jar) 50%,var(--nsb) 50%)"><big>١٠</big>مفرد: يخالف<br>مركّب: يطابق</div>
+  <div style="background:var(--jar)"><big>١١، ١٢</big>يطابق بجزأيه</div>
+  <div style="background:linear-gradient(90deg,var(--jar) 50%,var(--nsb) 50%)"><big>١٣ – ١٩</big>الأوّل يخالف<br>الثاني يطابق</div>
+  <div style="background:var(--mb)"><big>٢٠ – ٩٠</big>حالة واحدة</div>
+  <div style="background:var(--mb)"><big>١٠٠، ١٠٠٠</big>حالة واحدة</div>
+ </div>
+ <div class="legend" style="margin:2mm 0 3mm"><span><i style="background:var(--jar)"></i>يطابق المعدود</span><span><i style="background:var(--nsb)"></i>يخالف المعدود</span><span><i style="background:var(--mb)"></i>يلزم حالة واحدة مع المذكّر والمؤنّث</span></div>
+ <table class="mx sm" id="adad"><thead><tr><th style="background:var(--ind);width:13%">العدد</th><th style="background:var(--ind);width:22%">حكمه</th><th style="background:var(--ind)">مثال</th></tr></thead><tbody></tbody></table>
+ <div class="pf"><span>العدد</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="ملاحظات على العدد وتطبيق" data-part="n" data-sub="1">
+ <div class="ph"><span class="unit">النحو · ١١</span><h2>ملاحظات على العدد</h2><span class="src">الدوسية ص١٧</span></div>
+ <div class="g2">
+  <div class="cd"><h3><span class="num">١</span>اسم الفاعل من العدد</h3><p>يُصاغ اسم الفاعل من العدد، مثل:</p>
+   <div class="ex"><div class="ar">هٰذَا هُوَ العَامُ <u>السَّادِسُ</u> بَعْدَ المِائَةِ</div><b>السادسُ:</b> نعت للعام مرفوع وعلامة رفعه الضمّة الظاهرة على آخره.</div></div>
+  <div class="cd"><h3><span class="num">٢</span>العدد (١) مركّبًا ومعطوفًا</h3>
+   <div class="ex"><b>في المركّب:</b> (أَحَد) للمذكّر، و(إِحْدَى) للمؤنّث.<div class="ar" style="font-size:14pt"><u>أَحَدَ</u> عَشَرَ طَالِبًا وَ<u>إِحْدَى</u> عَشْرَةَ طَالِبَةً</div></div>
+   <div class="ex"><b>في المعطوف:</b> (وَاحِد) للمذكّر، و(وَاحِدَة) للمؤنّث.<div class="ar" style="font-size:14pt">فِي الصَّفِّ <u>وَاحِدٌ</u> وَعِشْرُونَ طَالِبًا، وَفِي السَّاحَةِ <u>وَاحِدَةٌ</u> وَثَلَاثُونَ طَالِبَةً</div></div></div>
+ </div>
+ <div class="cd full" style="margin-top:3mm"><h3><span class="num">٣</span>تمييز الأعداد</h3>
+  <div class="g3" style="margin-top:1mm">
+   <div class="ex" style="margin:0;background:var(--jar2)"><b class="j">من ٣ إلى ١٠</b><br>مجرور بالإضافة<div class="ar" style="font-size:13pt">﴿سَخَّرَهَا عَلَيْهِمْ سَبْعَ <u>لَيَالٍ</u> وَثَمَانِيَةَ <u>أَيَّامٍ</u> حُسُومًا﴾</div><span class="small">ليالٍ، أيّامٍ: مضاف إليه مجرور وعلامة جرّه تنوين الكسر.</span></div>
+   <div class="ex" style="margin:0;background:var(--nsb2)"><b class="n">من ١١ إلى ٩٩</b><br>مفرد منصوب<div class="ar" style="font-size:13pt">﴿اثْنَا عَشَرَ <u>شَهْرًا</u>﴾ · ﴿اثْنَتَا عَشْرَةَ <u>عَيْنًا</u>﴾</div><span class="small">شهرًا، عينًا: تمييز منصوب وعلامة نصبه تنوين الفتح الظاهر على آخره.</span></div>
+   <div class="ex" style="margin:0;background:var(--jar2)"><b class="j">مائة، ألف، مليون…</b><br>مجرور بالإضافة<div class="ar" style="font-size:13pt">﴿فِي كُلِّ سُنْبُلَةٍ مِائَةُ <u>حَبَّةٍ</u>﴾</div><span class="small">حبّةٍ: مضاف إليه مجرور وعلامة جرّه تنوين الكسر الظاهر على آخره.</span></div>
+  </div></div>
+ <div class="cd full" style="margin-top:3mm;border-color:var(--sun)"><h3><span class="num" style="background:var(--sun);color:var(--ind)">٤</span>تطبيق: حوّل الأرقام إلى كلمات</h3>
+  <div class="ex"><b>السؤال:</b> في المدرسة (١٢) صفًّا، و(٣٧) غرفة، ويدرس فيها (٨٧٦) طالبًا، أمّا هيئة التدريس فتتكوّن من (٧٢) مدرّسًا.<div class="ar" style="font-size:13.5pt"><svg class="ic" style="color:var(--jar);vertical-align:-.2em"><use href="#i-check"/></svg> فِي المَدْرَسَةِ اثْنَا عَشَرَ صَفًّا، وَسَبْعٌ وَثَلَاثُونَ غُرْفَةً، وَيَدْرُسُ فِيهَا ثَمَانِمِائَةٍ وَسِتَّةٌ وَسَبْعُونَ طَالِبًا، أَمَّا هَيْئَةُ التَّدْرِيسِ فَتَتَكَوَّنُ مِنَ اثْنَيْنِ وَسَبْعِينَ مُدَرِّسًا.</div><p class="fix">تصحيح: في الدوسية «ثمانمائة وسبعة وستّون»، والرقم (٨٧٦) يُقرأ: ثمانمائة وستّة وسبعون.</p></div>
+  <div class="ex"><b>السؤال:</b> في الملعب (٩٨٢٥) رجلًا.<div class="ar" style="font-size:13.5pt"><svg class="ic" style="color:var(--jar);vertical-align:-.2em"><use href="#i-check"/></svg> فِي المَلْعَبِ تِسْعَةُ آلَافٍ وَثَمَانِمِائَةٍ وَخَمْسَةٌ وَعِشْرُونَ رَجُلًا.</div></div>
+  <div class="g3" style="margin-top:2mm">
+   <div class="ex" style="margin:0"><b>تسعةُ آلافٍ</b><br><span class="small">المعدود (آلاف)، ومفردها ألف وهو مذكّر؛ فجاءت (تسعة) مؤنّثة.</span></div>
+   <div class="ex" style="margin:0"><b>ثمانمائةٍ</b><br><span class="small">المعدود (مائة) وهي مؤنّثة؛ فجاءت (ثمان) مذكّرة.</span></div>
+   <div class="ex" style="margin:0"><b>خمسةٌ وعشرون رجلًا</b><br><span class="small">(رجل) مذكّر فجاءت (خمسة) مؤنّثة، و(عشرون) تلزم حالة واحدة سواء أكان المعدود مؤنّثًا أم مذكّرًا.</span></div>
+  </div></div>
+ <div class="pf"><span>العدد</span><b></b></div>
+</section>
+
+<!-- ========== hamza ========== -->
+<section class="pg" data-toc="الهمزة في أوّل الكلمة" data-part="n" data-u="١٢">
+ <div class="ph"><span class="unit">النحو · ١٢</span><h2>الهمزة في أوّل الكلمة</h2><span class="src">الدوسية ص١٨</span></div>
+ <div class="split" style="grid-template-columns:1fr 1fr;margin:0 0 4mm">
+  <div style="background:var(--ind3);text-align:center"><div class="ar" style="font-size:30pt;color:var(--ind);line-height:1.4">ا</div><b style="color:var(--ind)">همزة الوصل</b><br>لا تُكتَب، ولا تُلفَظ إذا سُبقت بحرف أو كلمة.</div>
+  <div style="background:var(--sun2);text-align:center"><div class="ar" style="font-size:30pt;color:var(--nsb);line-height:1.4">أ · إ</div><b style="color:var(--nsb)">همزة القطع</b><br>تُكتَب وتُلفَظ أينما وقعت.</div>
+ </div>
+ <div class="g2">
+  <div class="cd" style="border-color:var(--ind2)"><h3>أماكن همزة الوصل</h3><ol class="plc" id="wasl"></ol></div>
+  <div class="cd" style="border-color:var(--nsb)"><h3 style="color:var(--nsb)">أماكن همزة القطع</h3><ol class="plc" id="qat"></ol>
+</div>
+ </div>
+ <div class="pf"><span>الهمزة</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="كتابة الهمزة في وسط الكلمة وآخرها" data-part="n" data-sub="1">
+ <div class="ph"><span class="unit">النحو · ١٢</span><h2>الهمزة في وسط الكلمة وآخرها</h2><span class="src">الدوسية ص١٩</span></div>
+ <div class="df"><b>القاعدة العامّة</b>تؤثّر حركة الحرف في شكل كتابة الهمزة؛ أقوى الحركات الكسر، ثمّ الضمّ، ثمّ الفتح، وأخيرًا السكون وهو أضعف الحركات.</div>
+ <svg viewBox="0 0 640 150" style="width:100%;height:auto;margin:3mm 0 1mm" aria-hidden="true"><g font-family="El Messiri" font-weight="700" text-anchor="middle">
+  <rect x="490" y="20" width="140" height="120" rx="12" fill="#12394a"/><text x="560" y="62" fill="#fff" font-size="20">الكسر</text><text x="560" y="112" fill="#d4a23c" font-size="40" font-family="Amiri">ئ</text>
+  <rect x="330" y="45" width="140" height="95" rx="12" fill="#2a6f8a"/><text x="400" y="80" fill="#fff" font-size="20">الضمّ</text><text x="400" y="124" fill="#fff" font-size="36" font-family="Amiri">ؤ</text>
+  <rect x="170" y="70" width="140" height="70" rx="12" fill="#8fb3c2"/><text x="240" y="100" fill="#12394a" font-size="19">الفتح</text><text x="240" y="132" fill="#12394a" font-size="30" font-family="Amiri">أ</text>
+  <rect x="10" y="95" width="140" height="45" rx="12" fill="#e4eef1"/><text x="80" y="116" fill="#12394a" font-size="17">السكون</text><text x="80" y="136" fill="#66707a" font-size="12">أضعف الحركات</text>
+  <text x="560" y="12" fill="#d4a23c" font-size="13">الأقوى</text>
+ </g></svg>
+ <div class="g2">
+  <div class="cd"><h3>في وسط الكلمة</h3><p><b>القاعدة:</b> انظر إلى حركة الهمزة، وحركة الحرف الذي قبلها.</p><ol class="plc" id="hmid"></ol></div>
+  <div class="cd"><h3>في آخر الكلمة</h3><p><b>القاعدة:</b> انظر فقط إلى حركة الحرف الذي قبلها.</p><ol class="plc" id="hend"></ol></div>
+ </div>
+ <div class="pf"><span>الهمزة</span><b></b></div>
+</section>
+
+
+<!-- ========== sarf divider ========== -->
+<section class="pg dv sarf">
+ <svg class="pat" preserveAspectRatio="none" aria-hidden="true"><rect width="100%" height="100%" fill="url(#star8w)"/></svg>
+ <div class="k">القسم الثاني</div>
+ <h1>الصَّرْف</h1>
+ <div class="s">المشتقّات والمصادر</div>
+ <div class="lst"><span>اسم الفاعل</span><span>اسم المفعول</span><span>الصفة المشبّهة</span><span>صيغة المبالغة</span><span>اسم الزمان والمكان</span><span>اسم التفضيل</span><span>اسم الآلة</span><span>المصدر الصريح</span><span>المصدر الميميّ</span><span>مصدر المرّة</span><span>مصدر الهيئة</span><span>المصدر المؤوّل</span><span>المصدر الصناعيّ</span></div>
+</section>
+
+<section class="pg" data-toc="خريطة المشتقّات والمصادر" data-part="s">
+ <div class="ph"><span class="unit">الصرف</span><h2>المشتقّات والمصادر</h2><span class="src">الدوسية ص٢١</span></div>
+ <p style="margin-bottom:2mm">القسم الثاني بابان: <b>المشتقّات</b> وهي أسماء تُؤخذ من الفعل لتدلّ على صاحبه أو ما وقع عليه أو زمانه ومكانه أو آلته، و<b>المصادر</b> وهي الحدث نفسه بصوره المختلفة.</p>
+ <div class="mm big" id="mmSarf"></div>
+ <div class="pf"><span>الصرف</span><b></b></div>
+</section>
+
+<!-- fa'il / maf'ul -->
+<section class="pg dense" data-toc="اسم الفاعل واسم المفعول" data-part="s" data-grp="المشتقّات" data-u="١">
+ <div class="ph"><span class="unit">المشتقّات · ١–٢</span><h2>اسم الفاعل واسم المفعول</h2><span class="src">الدوسية ص٢١–٢٢</span></div>
+ <div class="df"><b>اسم الفاعل</b>اسم مشتقّ من الفعل للدلالة على مَن قام بالفعل.</div>
+ <div class="g2" style="margin-top:2.5mm">
+  <div class="cd"><h3 style="font-size:12.5pt">أ. من الثلاثيّ: على وزن <span class="ar" style="color:var(--sun)">فَاعِل</span></h3><div class="chips"><span>كَاتِب</span><span>آخِذ</span><span>سَائِل</span><span>قَارِئ</span><span>صَائِم</span><span>بَائِع</span><span>قَاضٍ</span><span>دَاعٍ</span></div></div>
+  <div class="cd"><h3 style="font-size:12.5pt">ب. من فوق الثلاثيّ</h3><div class="steps"><div><b>١</b>نأتي بالمضارع</div><div><b>٢</b>نُبدل الحرف الأوّل ميمًا مضمومة</div><div><b>٣</b>نكسر ما قبل الآخر</div></div>
+   <div class="chips" style="margin-top:2mm"><span>مُكْرِم</span><span>مُصَلٍّ</span><span>مُنْتَهٍ</span><span>مُقِيم</span><span>مُخْتَار</span><span>مُسْتَعْمِل</span></div></div>
+ </div>
+ <div class="df" style="margin-top:4mm"><b>اسم المفعول</b>اسم مشتقّ من الفعل للدلالة على مَن وقع عليه فعل الفاعل.</div>
+ <div class="cd full" style="margin-top:2.5mm"><h3 style="font-size:12.5pt">أ. من الثلاثيّ: على وزن <span class="ar" style="color:var(--sun)">مَفْعُول</span></h3>
+  <div class="chips"><span>مَكْتُوب</span><span>مَقْرُوء</span><span>مَوْجُود</span><span>مَعْلُوم</span></div>
+  <div class="g2" style="margin-top:2mm">
+   <div class="ex" style="margin:0"><b>إذا كان الفعل معتلًّا أجوف</b>: نأتي غالبًا بالمضارع أو المصدر أحيانًا، ونُبدل الحرف الأوّل ميمًا مفتوحة.
+    <div class="drvs" style="margin-top:1mm"><div class="drv">صَامَ <i>←</i> يَصُومُ <i>←</i> <b>مَصُوم</b></div><div class="drv">قَاسَ <i>←</i> يَقِيسُ <i>←</i> <b>مَقِيس</b></div></div></div>
+   <div class="ex" style="margin:0"><b>إذا كان معتلًّا ناقصًا أو لفيفًا مقرونًا أو مفروقًا</b>: نأتي بالمضارع، ونُبدل الحرف الأوّل ميمًا مفتوحة، ونشدّد الحرف الأخير.
+    <div class="drvs" style="margin-top:1mm"><div class="drv">قَسَا <i>←</i> يَقْسُو <i>←</i> <b>مَقْسُوّ (عليه)</b></div><div class="drv">سَقَى <i>←</i> يَسْقِي <i>←</i> <b>مَسْقِيّ</b></div></div></div>
+  </div></div>
+ <div class="cd full" style="margin-top:3mm"><h3 style="font-size:12.5pt">ب. من فوق الثلاثيّ</h3>
+  <div class="steps"><div><b>١</b>نأتي بالمضارع</div><div><b>٢</b>نُبدل الحرف الأوّل ميمًا مضمومة</div><div style="background:var(--sun2)"><b>٣</b>نفتح ما قبل الآخر</div></div>
+  <table class="mx sm" style="margin-top:2mm"><thead><tr><th style="background:var(--ind)">الفعل</th><th style="background:var(--ind2)">المضارع</th><th style="background:var(--ind)">اسم المفعول</th></tr></thead><tbody>
+   <tr><td class="t ar">أَكْرَمَ</td><td class="ar">يُكْرِمُ</td><td class="y ar">مُكْرَم</td></tr><tr><td class="t ar">انْتَهَى</td><td class="ar">يَنْتَهِي</td><td class="y ar">مُنْتَهًى</td></tr><tr><td class="t ar">اسْتَخْدَمَ</td><td class="ar">يَسْتَخْدِمُ</td><td class="y ar">مُسْتَخْدَم</td></tr></tbody></table>
+  <div class="tip"><b>الفرق في خطوة واحدة:</b> فوق الثلاثيّ يُكسر ما قبل الآخر في اسم الفاعل (مُكرِم)، ويُفتح في اسم المفعول (مُكرَم).</div></div>
+ <div class="pf"><span>اسم الفاعل واسم المفعول</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="أمثلة شاملة: الثلاثيّ" data-part="s" data-sub="1">
+ <div class="ph"><span class="unit">المشتقّات · ١–٢</span><h2>أمثلة شاملة للفعل الثلاثيّ</h2><span class="src">الدوسية ص٢٢–٢٣</span></div>
+ <p style="margin-bottom:1mm">اسم الفاعل واسم المفعول من الفعل الثلاثيّ بحسب نوعه:</p>
+ <table class="mx sm" id="tri"><thead><tr><th style="background:var(--ind)">الفعل</th><th style="background:var(--ind)">نوعه</th><th style="background:var(--ind2)">اسم الفاعل</th><th style="background:var(--sun);color:var(--ind)">اسم المفعول</th></tr></thead><tbody></tbody></table>
+ <div class="pf"><span>اسم الفاعل واسم المفعول</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="أمثلة شاملة: فوق الثلاثيّ" data-part="s" data-sub="1">
+ <div class="ph"><span class="unit">المشتقّات · ١–٢</span><h2>اسم الفاعل واسم المفعول فوق الثلاثيّ</h2><span class="src">الدوسية ص٢٣–٢٤</span></div>
+ <table class="mx sm" id="quad"><thead><tr><th style="background:var(--ind)" colspan="2">الفعل</th><th style="background:var(--ind)">وزنه الصرفيّ</th><th style="background:var(--ind2)">اسم الفاعل</th><th style="background:var(--sun);color:var(--ind)">اسم المفعول</th></tr></thead><tbody></tbody></table>
+ <div class="legend" style="margin-top:2mm"><span><i style="background:var(--mb2);border:1px solid var(--mb)"></i>صفوف مظلّلة: يتّفق فيها اسم الفاعل واسم المفعول في اللفظ، والسياق يفرّق بينهما.</span></div>
+ <div class="pf"><span>اسم الفاعل واسم المفعول</span><b></b></div>
+</section>
+
+<!-- sifa mushabbaha -->
+<section class="pg dense" data-toc="الصفة المشبّهة" data-part="s" data-u="٣">
+ <div class="ph"><span class="unit">المشتقّات · ٣</span><h2>الصفة المشبّهة</h2><span class="src">الدوسية ص٢٤–٢٥</span></div>
+ <div class="df"><b>تعريفها</b>اسم مشتقّ من الفعل للدلالة على طبيعة ثابتة في الموصوف.</div>
+ <div class="steps" style="margin:3mm 0"><div><b>١</b>ثابتة لا تتغيّر</div><div><b>٢</b>مشتقّة من فعل لازم</div><div><b>٣</b>أشهر أوزانها (فَعِيل)، وغالبًا له ما هو ضدّه</div></div>
+ <div class="sec">أوزانها</div>
+ <div class="cd full" style="padding:2.5mm 3mm"><h3 style="font-size:12.5pt;margin-bottom:1mm"><span class="num">١</span><span class="ar" style="font-size:15pt">أَفْعَل</span>&nbsp;مؤنّثه&nbsp;<span class="ar" style="font-size:15pt">فَعْلَاء</span></h3>
+  <div class="g3"><div class="ex" style="margin:0"><b>الألوان</b><div class="ar" style="font-size:13pt">أحمر/حمراء · أخضر/خضراء · أبيض/بيضاء</div></div><div class="ex" style="margin:0"><b>العيوب الخَلْقيّة</b><div class="ar" style="font-size:13pt">أحول/حولاء · أعرج/عرجاء · أعمى/عمياء</div></div><div class="ex" style="margin:0"><b>المحاسن الخَلْقيّة</b><div class="ar" style="font-size:13pt">أحور/حوراء · أهيف/هيفاء · أغيد/غيداء</div></div></div></div>
+ <div class="wg" id="sifaW" style="margin-top:2.5mm"></div>
+ <div class="pf"><span>الصفة المشبّهة</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="صيغة المبالغة" data-part="s" data-u="٤">
+ <div class="ph"><span class="unit">المشتقّات · ٤</span><h2>صيغة المبالغة</h2><span class="src">الدوسية ص٢٥–٢٦</span></div>
+ <div class="df"><b>تعريفها</b>اسم مشتقّ من الفعل للدلالة على الكثرة والتكرار.</div>
+ <div class="steps" style="margin:3mm 0"><div><b>١</b>تدلّ على المبالغة</div><div><b>٢</b>مشتقّة من فعل متعدٍّ</div><div><b>٣</b>أشهر أوزانها (فَعَّال)</div></div>
+ <div class="sec">أوزانها</div>
+ <div class="wg" id="mubW"></div>
+ <div class="cd full" style="margin-top:4mm;border-color:var(--sun)"><h3><span class="num" style="background:var(--sun);color:var(--ind)">!</span>الفرق بين (فَعِيل) صيغةَ مبالغة و(فَعِيل) صفةً مشبّهة</h3>
+  <div class="split"><div style="background:var(--ind3)"><b style="color:var(--ind)">صيغة المبالغة</b><br>مشتقّة من فعل <b>متعدٍّ</b>.<div class="ar" style="font-size:14pt">سَمِيع · عَلِيم · فَهِيم · رَحِيم</div></div><span class="vs">≠</span><div style="background:var(--tint)"><b style="color:var(--ind)">الصفة المشبّهة</b><br>مشتقّة من فعل <b>لازم</b>.<div class="ar" style="font-size:14pt">كَرِيم · طَوِيل · قَرِيب · جَمِيل</div></div></div></div>
+ <div class="pf"><span>صيغة المبالغة</span><b></b></div>
+</section>
+
+<!-- zaman & makan -->
+<section class="pg dense" data-toc="اسم الزمان والمكان" data-part="s" data-u="٥">
+ <div class="ph"><span class="unit">المشتقّات · ٥</span><h2>اسم الزمان والمكان</h2><span class="src">الدوسية ص٢٦–٢٧</span></div>
+ <div class="df"><b>تعريفه</b>اسم مشتقّ من الفعل للدلالة على زمانه أو مكانه.</div>
+ <div class="sec">أ. من الثلاثيّ: وزنان</div>
+ <div class="g2">
+  <div class="cd" style="border-color:var(--ind2)"><h3>على وزن <span class="ar" style="color:var(--sun);font-size:17pt">مَفْعَل</span></h3>
+   <div class="ex"><b>١. إذا كان مضارعه مضموم العين أو مفتوحها</b><div class="drvs"><div class="drv">لَعِبَ <i>←</i> يَلْعَبُ <i>←</i> <b>مَلْعَب</b></div><div class="drv">كَتَبَ <i>←</i> يَكْتُبُ <i>←</i> <b>مَكْتَب</b></div></div></div>
+   <div class="ex"><b>٢. إذا كان معتلًّا أجوف</b> (نضيف ميمًا مفتوحة في أوّله)<div class="drvs" style="grid-template-columns:1fr 1fr"><div class="drv">طَارَ <i>←</i> <b>مَطَار</b></div><div class="drv">سَارَ <i>←</i> <b>مَسَار</b></div><div class="drv">سَاقَ <i>←</i> <b>مَسَاق</b></div><div class="drv">كَانَ <i>←</i> <b>مَكَان</b></div></div></div>
+   <div class="ex"><b>٣. إذا كان معتلًّا ناقصًا</b><div class="drvs" style="grid-template-columns:1fr 1fr 1fr"><div class="drv">سَقَى <i>←</i> <b>مَسْقًى</b></div><div class="drv">رَعَى <i>←</i> <b>مَرْعًى</b></div><div class="drv">رَمَى <i>←</i> <b>مَرْمًى</b></div></div></div></div>
+  <div class="cd" style="border-color:var(--nsb)"><h3>على وزن <span class="ar" style="color:var(--nsb);font-size:17pt">مَفْعِل</span></h3>
+   <div class="ex"><b>١. إذا كان مضارعه مكسور العين</b><div class="drvs"><div class="drv">نَزَلَ <i>←</i> يَنْزِلُ <i>←</i> <b>مَنْزِل</b></div><div class="drv">عَرَضَ <i>←</i> يَعْرِضُ <i>←</i> <b>مَعْرِض</b></div><div class="drv">هَبَطَ <i>←</i> يَهْبِطُ <i>←</i> <b>مَهْبِط</b></div></div></div>
+   <div class="ex"><b>٢. إذا كان معتلًّا مثالًا</b><div class="drvs"><div class="drv">وَقَفَ <i>←</i> <b>مَوْقِف</b></div><div class="drv">وَرَدَ <i>←</i> <b>مَوْرِد</b></div><div class="drv">وَلَدَ <i>←</i> <b>مَوْلِد</b></div></div></div></div>
+ </div>
+ <div class="sec">ب. من فوق الثلاثيّ: تمامًا مثل اسم المفعول</div>
+ <div class="g2">
+  <div class="ex" style="margin:0">نأتي بمضارعه، ونُبدل الحرف الأوّل ميمًا مضمومة، ونفتح ما قبل الآخر.<div class="drvs" style="grid-template-columns:1fr 1fr 1fr;margin-top:1mm"><div class="drv">صَلَّى <i>←</i> <b>مُصَلًّى</b></div><div class="drv">الْتَقَى <i>←</i> <b>مُلْتَقًى</b></div><div class="drv">اسْتَشْفَى <i>←</i> <b>مُسْتَشْفًى</b></div></div></div>
+  <div class="ex" style="margin:0"><b>السياق يحدّد الزمان أو المكان:</b>
+   <div class="ar" style="font-size:13pt;line-height:1.9"><u>مَوْلِدِي</u> فِي عَمَّانَ <span class="tag i">مكان</span><br><u>مَوْلِدِي</u> عَامَ ١٩٨٧ <span class="tag" style="background:var(--sun);color:var(--ind)">زمان</span><br><u>مَوْسِمُ</u> قِطَافِ الزَّيْتُونِ <span class="tag" style="background:var(--sun);color:var(--ind)">زمان</span><br><u>المُسْتَقْبَلُ</u> يَدْعُونَا لِلْعَمَلِ <span class="tag" style="background:var(--sun);color:var(--ind)">زمان</span></div></div>
+ </div>
+ <div class="pf"><span>اسم الزمان والمكان</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="اسم التفضيل" data-part="s" data-u="٦">
+ <div class="ph"><span class="unit">المشتقّات · ٦</span><h2>اسم التفضيل</h2><span class="src">الدوسية ص٢٧–٢٨</span></div>
+ <div class="df"><b>تعريفه</b>اسم مشتقّ من الفعل للدلالة على اشتراك أمرين في صفة واحدة، وزيادة أحدهما على الآخر في تلك الصفة.</div>
+ <svg viewBox="0 0 600 92" style="width:100%;height:auto;margin:3mm 0 1mm" aria-hidden="true"><g font-family="El Messiri" font-weight="700" text-anchor="middle">
+  <rect x="380" y="38" width="90" height="46" rx="8" fill="#e4eef1"/><rect x="480" y="10" width="90" height="74" rx="8" fill="#12394a"/>
+  <text x="525" y="56" fill="#d4a23c" font-size="17">أ: الأكثر</text><text x="425" y="66" fill="#12394a" font-size="16">ب</text>
+  <text x="200" y="40" fill="#12394a" font-size="17">أمران يشتركان في صفة واحدة</text><text x="200" y="70" fill="#66707a" font-size="15">ويزيد أحدهما على الآخر فيها ← أَفْعَل</text>
+ </g></svg>
+ <div class="cd full"><h3>أ. من الثلاثيّ: على وزن <span class="ar" style="color:var(--sun);font-size:17pt">أَفْعَل</span></h3>
+  <div class="drvs" style="grid-template-columns:repeat(4,1fr)" id="tafdil"></div></div>
+ <div class="cd full" style="margin-top:3mm;border-color:var(--sun)"><h3><span class="num" style="background:var(--sun);color:var(--ind)">!</span>كلمتا (خير) و(شرّ)</h3>
+  <p>يمكن أن تكونا اسمَي تفضيل، إذا كانت (خير) بمعنى (أحسن)، و(شرّ) بمعنى (أسوأ).</p>
+  <div class="ex"><div class="ar">﴿قَالَ أَنَا <u>خَيْرٌ</u> مِنْهُ خَلَقْتَنِي مِنْ نَارٍ وَخَلَقْتَهُ مِنْ طِينٍ﴾</div><b>خير</b> بمعنى (أحسن)؛ فهي اسم تفضيل. <span class="tag i">تفضيل</span></div>
+  <div class="ex"><div class="ar">﴿إِنْ يَعْلَمِ اللَّهُ فِي قُلُوبِكُمْ <u>خَيْرًا</u> يُؤْتِكُمْ <u>خَيْرًا</u> مِمَّا أُخِذَ مِنْكُمْ﴾</div><b>الأولى</b> ليست اسم تفضيل؛ فليست بمعنى (أحسن) <span class="tag m">ليست تفضيلًا</span>، و<b>الثانية</b> اسم تفضيل لأنّها بمعنى (أحسن) <span class="tag i">تفضيل</span></div></div>
+ <div class="cd full" style="margin-top:3mm"><h3>ب. من فوق الثلاثيّ</h3>
+  <p>نأتي باسم تفضيل مناسب (أحسن، أشدّ، أفضل، أكثر…) وبعده نأتي بمصدر الفعل.</p>
+  <div class="drvs" style="grid-template-columns:1fr 1fr 1fr;margin-top:1.5mm"><div class="drv">ابْتَسَمَ <i>←</i> <b>أَجْمَلُ ابْتِسَامًا</b></div><div class="drv">الْتَقَى <i>←</i> <b>أَحَرُّ الْتِقَاءً</b></div><div class="drv">اسْتَخْدَمَ <i>←</i> <b>أَكْثَرُ اسْتِخْدَامًا</b></div><div class="drv">تَقَدَّمَ <i>←</i> <b>أَسْرَعُ تَقَدُّمًا</b></div><div class="drv">تَرَاجَعَ <i>←</i> <b>أَشَدُّ تَرَاجُعًا</b></div></div>
+  <p class="fix" style="margin-top:2mm">تصحيح: في الدوسية «بمصدر الفعل الثلاثيّ»، والمقصود مصدر الفعل نفسه، وهو فوق الثلاثيّ كما في الأمثلة.</p></div>
+ <div class="pf"><span>اسم التفضيل</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="اسم الآلة" data-part="s" data-u="٧">
+ <div class="ph"><span class="unit">المشتقّات · ٧</span><h2>اسم الآلة</h2><span class="src">الدوسية ص٢٨</span></div>
+ <div class="df"><b>تعريفه</b>اسم مشتقّ من الفعل للدلالة على آلته.</div>
+ <div class="sec">أوزانه</div>
+ <div class="wg c2" id="alaW"></div>
+ <div class="pf"><span>اسم الآلة</span><b></b></div>
+</section>
+
+<section class="pg" data-toc="تمرين: جدول المشتقّات" data-part="s" data-ex="1">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تمرين على المشتقّات</h2><span class="src">الدوسية ص٢٩</span></div>
+ <div class="exr" style="border:0"><h3 style="border-radius:3mm"><svg class="ic"><use href="#i-pen"/></svg>املأ الجدول الآتي، مع ضبط الكلمات ضبطًا صحيحًا</h3></div>
+ <table class="mx sm blank" id="mushtaqEx"></table>
+ <div class="pf"><span>تمرين على المشتقّات</span><b></b></div>
+</section>
+
+<!-- ========== masadir ========== -->
+<section class="pg dense" data-toc="المصدر الصريح" data-part="s" data-grp="المصادر" data-u="١">
+ <div class="ph"><span class="unit">المصادر</span><h2>المصادر: المصدر الصريح</h2><span class="src">الدوسية ص٢٩–٣٠</span></div>
+ <div class="chips" style="margin-bottom:3mm;justify-content:center" id="masChips"></div>
+ <div class="df"><b>المصدر الصريح</b>هو الحدث مجرّدًا عن الزمن، ونعرفه من خلال السؤال عن العمليّة أو الحدث الذي تمّ.</div>
+ <div class="sec">أ. مصادر الفعل الثلاثيّ: الوزن يتبع الدلالة</div>
+ <div class="g2" id="tri_mas"></div>
+ <div class="sec">ب. مصادر الفعل الرباعيّ</div>
+ <div class="g2" id="rub_mas"></div>
+ <div class="pf"><span>المصدر الصريح</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="مصادر الخماسيّ والسداسيّ" data-part="s" data-sub="1">
+ <div class="ph"><span class="unit">المصادر</span><h2>مصادر الخماسيّ والسداسيّ</h2><span class="src">الدوسية ص٣١</span></div>
+ <div class="sec">ج. مصادر الفعل الخماسيّ</div>
+ <div class="g3" id="kham_mas"></div>
+ <div class="g2" style="margin-top:3mm">
+  <div class="tip" style="margin:0"><b>الخماسيّ الذي أوّله (ألف):</b> يكون مصدره بإضافة (ألف) إلى ما قبل آخره. <span class="ar" style="font-size:14pt">اقترب ← اقتر<u>ا</u>ب</span></div>
+  <div class="tip" style="margin:0"><b>الخماسيّ الذي أوّله (تاء):</b> يكون مصدره بضمّ الحرف قبل الأخير. <span class="ar" style="font-size:14pt">تقدَّم ← تقدُّم</span></div>
+ </div>
+ <p class="fix" style="margin-top:2mm">ملاحظة للمراجعة: «انتهى» في الدوسية تحت وزن (انفعل)، ووزنها (افتعل).</p>
+ <div class="sec">د. مصادر الفعل السداسيّ</div>
+ <div class="g2" id="sud_mas"></div>
+ <div class="pf"><span>المصدر الصريح</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="المصدر الميميّ" data-part="s" data-u="٢">
+ <div class="ph"><span class="unit">المصادر</span><h2>المصدر الميميّ</h2><span class="src">الدوسية ص٣٢–٣٣</span></div>
+ <div class="df"><b>تعريفه</b>هو المصدر الذي يحتوي على (م) زائدة في أوّله، ويمكن معرفته عن طريق استبداله بمصدر صريح ولا يتغيّر المعنى.</div>
+ <div class="tip"><b>صياغته:</b> تمامًا مثل صياغة اسم الزمان والمكان.</div>
+ <div class="g2" style="margin-top:3mm">
+  <div class="cd"><h3>أ. من الثلاثيّ</h3>
+   <div class="ex"><b>١. على وزن (مَفْعَل)</b><div class="drvs"><div class="drv">كَتَبَ <i>←</i> يَكْتُبُ <i>←</i> <b>مَكْتَب</b></div><div class="drv">لَعِبَ <i>←</i> يَلْعَبُ <i>←</i> <b>مَلْعَب</b></div><div class="drv">قَامَ <i>←</i> <b>مَقَام</b> · سَقَى <i>←</i> <b>مَسْقًى</b></div></div><span class="small">المعتلّ الأجوف والناقص: نضع في أوّله (ميمًا) مفتوحة فقط.</span></div>
+   <div class="ex"><b>٢. على وزن (مَفْعِل)</b><div class="drvs"><div class="drv">نَزَلَ <i>←</i> يَنْزِلُ <i>←</i> <b>مَنْزِل</b></div><div class="drv">وَقَفَ <i>←</i> يَقِفُ <i>←</i> <b>مَوْقِف</b></div></div></div></div>
+  <div class="cd"><h3>ب. من فوق الثلاثيّ</h3><p>على وزن اسم المفعول:</p>
+   <div class="ex"><div class="drvs"><div class="drv">ارْتَقَى <i>←</i> يَرْتَقِي <i>←</i> <b>مُرْتَقًى</b></div><div class="drv">اسْتَخْفَى <i>←</i> يَسْتَخْفِي <i>←</i> <b>مُسْتَخْفًى</b></div></div></div>
+   <div class="tip"><b>الاختبار:</b> ضع مكانه مصدرًا صريحًا؛ فإن بقي المعنى فهو مصدر ميميّ، وإن دلّ على مكان أو زمان فهو اسم مكان أو زمان.</div></div>
+ </div>
+ <div class="sec">أمثلة للتفريق بين المصدر الميميّ واسم المكان واسم المفعول</div>
+ <table class="mx sm" id="mimi"><thead><tr><th style="background:var(--ind)">الجملة</th><th style="background:var(--ind);width:20%">النوع</th><th style="background:var(--ind);width:30%">الدليل</th></tr></thead><tbody></tbody></table>
+ <div class="pf"><span>المصدر الميميّ</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="مصدر المرّة ومصدر الهيئة" data-part="s" data-u="٣">
+ <div class="ph"><span class="unit">المصادر</span><h2>مصدر المرّة ومصدر الهيئة</h2><span class="src">الدوسية ص٣٣–٣٤</span></div>
+ <div class="split" style="margin:0 0 3mm">
+  <div style="background:var(--ind);color:#fff"><b style="color:var(--sun)">مصدر المرّة</b><br>هو المصدر الدالّ على حدوث الفعل مرّة واحدة.<div class="ar" style="font-size:19pt;text-align:center;line-height:1.3">فَعْلَة</div></div>
+  <span class="vs">≠</span>
+  <div style="background:var(--sun2)"><b style="color:var(--nsb)">مصدر الهيئة</b><br>هو المصدر الدالّ على هيئة (شكل) حدوث الفعل.<div class="ar" style="font-size:19pt;text-align:center;color:var(--nsb);line-height:1.3">فِعْلَة</div></div>
+ </div>
+ <div class="sec">أ. من الثلاثيّ: فتحة الفاء للمرّة، وكسرتها للهيئة</div>
+ <table class="mx sm" id="marra"><thead><tr><th style="background:var(--ind)">الفعل</th><th style="background:var(--ind)">مصدر المرّة (فَعْلَة)</th><th style="background:var(--nsb)">مصدر الهيئة (فِعْلَة)</th><th style="background:var(--ind)">ملاحظة</th></tr></thead><tbody></tbody></table>
+ <div class="sec">ب. من فوق الثلاثيّ</div>
+ <div class="g2">
+  <div class="cd"><h3 style="font-size:12.5pt">مصدر المرّة</h3><p class="small">نأتي بالمصدر الصريح، ونضيف له (ة) في آخره. إذا كان المصدر الصريح فيه (ة)، فنضيف كلمة (واحدة).</p>
+   <table class="mx sm" id="marra2"><thead><tr><th style="background:var(--ind)">الفعل</th><th style="background:var(--ind2)">المصدر الصريح</th><th style="background:var(--ind)">مصدر المرّة</th></tr></thead><tbody></tbody></table></div>
+  <div class="cd" style="display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:var(--sun2);border-color:var(--sun)"><h3 style="font-size:12.5pt;color:var(--nsb)">مصدر الهيئة</h3><div class="ar" style="font-size:40pt;color:var(--nsb);line-height:1.2">×</div><p style="font-family:'El Messiri';font-weight:700;font-size:13pt">لا يوجد مصدر هيئة<br>للفعل فوق الثلاثيّ</p></div>
+ </div>
+ <div class="pf"><span>المرّة والهيئة</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="المصدر المؤوّل" data-part="s" data-u="٤">
+ <div class="ph"><span class="unit">المصادر</span><h2>المصدر المؤوّل</h2><span class="src">الدوسية ص٣٤–٣٥</span></div>
+ <div class="df"><b>تعريفه</b>هو المصدر المكوّن من حرف مصدريّ مع الفعل.</div>
+ <div class="flow" style="justify-content:center;margin:3mm 0"><span class="box" style="background:var(--ind3);color:var(--ind)">حرف مصدريّ</span><span class="arw">+</span><span class="box" style="background:var(--ind3);color:var(--ind)">فعل</span><span class="arw">=</span><span class="box" style="background:var(--sun);color:var(--ind)">مصدر مؤوّل</span><span class="arw">←</span><span class="box" style="background:var(--tint)">يُعرب حسب موقعه في الجملة</span></div>
+ <div class="sec">الحروف المصدريّة</div>
+ <div class="wg" id="masdariyya"></div>
+ <div class="sec">أمثلة على إعراب المصدر المؤوّل</div>
+ <div class="g2" id="muawwal"></div>
+ <div class="pf"><span>المصدر المؤوّل</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="المصدر الصناعيّ وتدريبات المصادر" data-part="s" data-u="٥">
+ <div class="ph"><span class="unit">المصادر</span><h2>المصدر الصناعيّ</h2><span class="src">الدوسية ص٣٥–٣٦</span></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>تدريب: بيّن موقع المصدر المؤوّل من الإعراب في كلّ آية من الآيات الآتية</h3><ol id="ex6"></ol></div>
+ <div class="df"><b>المصدر الصناعيّ</b>هو المصدر الذي يحتوي (يّة) في آخره، ويُشترط فيه ألّا يكون نعتًا؛ فإن كان نعتًا كان اسمًا منسوبًا.</div>
+ <table class="mx sm" style="margin-top:2mm"><thead><tr><th style="background:var(--ind)">الاسم</th><th style="background:var(--sun);color:var(--ind)">مصدر صناعيّ</th><th style="background:var(--ind2)">اسم منسوب</th></tr></thead><tbody>
+  <tr><td class="t ar">مِصْر</td><td class="y ar">مِصْرِيَّة</td><td class="ar">مِصْرِيّ</td></tr><tr><td class="t ar">قَوْم</td><td class="y ar">قَوْمِيَّة</td><td class="ar">قَوْمِيّ</td></tr><tr><td class="t ar">وَطَن</td><td class="y ar">وَطَنِيَّة</td><td class="ar">وَطَنِيّ</td></tr></tbody></table>
+ <div class="g2" style="margin-top:2mm">
+  <div class="ex" style="margin:0;background:var(--sun2)"><div class="ar" style="font-size:13pt">وَلَقَدْ بَرِئْتُ إِلَيْكَ مِنْ <u>وَطَنِيَّةٍ</u> ... لَيْسَتْ تُجَاوِزُ مَوْطِنَ المِيلَادِ</div><span class="tag" style="background:var(--sun);color:var(--ind)">مصدر صناعيّ</span></div>
+  <div class="ex" style="margin:0"><div class="ar" style="font-size:13pt">حُبُّ الوَطَنِ صِفَةٌ <u>وَطَنِيَّةٌ</u> · شُعُورٌ <u>وَطَنِيٌّ</u></div><span class="tag i">اسم منسوب</span> <span class="small">(وطنيّة) نعت لمؤنّث.</span></div>
+ </div>
+ <div class="exr inl" style="margin-top:3mm"><h3><svg class="ic"><use href="#i-pen"/></svg>ميّز في الكلمات التي تحتها خطّ: مصدر صناعيّ أم اسم منسوب؟</h3><ol id="ex7"></ol></div>
+ <div class="pf"><span>المصدر الصناعيّ</span><b></b></div>
+</section>
+
+<section class="pg dense" data-toc="تدريب ختاميّ: نصّ عليّ بن أبي طالب" data-part="s" data-ex="1">
+ <div class="ph"><span class="unit">تدريبات</span><h2>تدريب ختاميّ على المشتقّات والمصادر</h2><span class="src">الدوسية ص٣٧</span></div>
+ <div class="exr"><h3><svg class="ic"><use href="#i-pen"/></svg>اقرأ النصّ الآتي، واملأ الجدول الذي يليه</h3>
+  <div style="padding:2.5mm 4mm"><span class="who">قال عليّ بن أبي طالب رضي الله عنه:</span>
+   <p class="ar" style="font-size:13.5pt;line-height:1.9;text-align:justify">«الحمدُ لله غيرَ <u>مقنوطٍ</u> من <u>رحمته</u>، ولا <u>مخلوٍّ</u> من <u>نعمته</u>، ولا <u>مأيوسٍ</u> من <u>مغفرته</u>، ولا <u>مستنكَفٍ</u> عن <u>عبادته</u>. الذي لا تبرحُ منه <u>رحمتُه</u>، ولا تُفقَدُ له <u>نعمة</u>. و<u>الدنيا</u> دارٌ كُتب لها <u>الفناء</u>، ولأهلها منها <u>الجلاء</u>. وهي <u>حُلوةٌ</u> <u>خَضِرة</u>. وقد عجبتُ لل<u>طالب</u> بقلب ال<u>ناظر</u>. فارتحلوا عنها <u>بأحسن</u> ما يكون من الزاد، ولا تسألوا فيها فوق <u>الكفاف</u>، ولا تطلبوا منها <u>أكثر</u> من <u>البلاغ</u>».</p></div></div>
+ <table class="mx sm blank" id="aliEx"></table>
+ <p class="fix" style="margin-top:2mm">ملاحظة للمراجعة: عبارة «وقد عجبتُ للطالب بقلب الناظر» كذا في الدوسية، ولفظها في نهج البلاغة: «وقد عَجِلَت للطالب، والتبست بقلب الناظر».</p>
+ <div class="pf"><span>تدريب ختاميّ</span><b></b></div>
+</section>
+
+<!-- back cover -->
+<section class="pg bk">
+ <svg class="pat" preserveAspectRatio="none" aria-hidden="true"><rect width="100%" height="100%" fill="url(#star8)"/></svg>
+ <p>ملزمة تجمع أساسيّات النحو والصرف في مكان واحد: مواقع الإعراب، والمبنيّات، والأفعال والحروف، والعدد والهمزة، ثمّ المشتقّات والمصادر؛ مرتّبةً في خرائط ذهنيّة وجداول ملوّنة، مع تدريبات بعد كلّ باب.</p>
+ <b>أساسيّاتٌ في قواعد اللغة العربيّة · الدكتور أيمن العتوم</b>
 </section>
 
 <script>
@@ -375,6 +995,227 @@ const E3=[['﴿أُولَئِكَ يَنَالُهُمْ نَصِيبُهُمْ 
 $('#ex1').innerHTML=E1.map(e=>`<li><div><span class="who">${e[1]}:</span> <span class="q">${e[0]}</span><div class="lines"></div><div class="lines"></div></div></li>`).join('');
 $('#ex2').innerHTML=E2.map(e=>`<li><div><span class="who">${e[1]}:</span> <span class="q">${e[0]}</span><div class="lines"></div></div></li>`).join('');
 $('#ex3').innerHTML=E3.map(e=>`<li><div><span class="who">قال تعالى:</span> <span class="q">${e[0]}</span><div class="opts"><span>مفرد</span><span>جملة فعليّة</span><span>جملة اسميّة</span><span>شبه جملة</span></div></div></li>`).join('');
+/* ===== full-booklet data ===== */
+const O='#9a7424',G='#2f4a35';
+const AR=n=>n.toLocaleString('ar-EG');
+const fill=(id,h)=>{const e=document.getElementById(id);if(e)e.innerHTML=h};
+const cardHTML=(m,i,col)=>`<div class="cd${m[4]?' full':''}"><h3><span class="num" style="background:${col}">${AR(i)}</span>${m[0]}</h3><p><b style="color:${col}">كيف تعرفه؟</b> ${m[1]}</p><div class="ex"><div class="ar">${m[2]}</div>${m[3]}</div></div>`;
+const exHTML=(e,lines=1)=>`<li><div>${e[1]?`<span class="who">${e[1]}:</span> `:''}<span class="q">${e[0]}</span>${'<div class="lines"></div>'.repeat(lines)}</div></li>`;
+const optHTML=(e,opts)=>`<li><div>${e[1]?`<span class="who">${e[1]}:</span> `:''}<span class="q2">${e[0]}</span><div class="opts">${opts.map(o=>`<span>${o}</span>`).join('')}</div></div></li>`;
+const drv=a=>`<div class="drv">${a.slice(0,-1).join(' <i>←</i> ')} <i>←</i> <b>${a[a.length-1]}</b></div>`;
+
+/* ---------- المنصوبات ---------- */
+mindmap(document.getElementById('mmNasb'),{center:'المنصوبات',cols:'1fr .45fr 1fr',cstyle:'font-size:15pt',
+ right:[{t:'المفاعيل الخمسة',c:N,items:['المفعول به','المفعول لأجله','المفعول معه','المفعول فيه (ظرفا الزمان والمكان)','المفعول المطلق']}],
+ left:[{t:'الحال والتمييز',c:N,items:['الحال','التمييز']},{t:'منصوبات النواسخ',c:N,items:['أخبار كان وأخواتها','أسماء إنّ وأخواتها']}]});
+const NASB=[
+ ['المفعول به','هو مَن وقع عليه فعل الفاعل.','حَفِظْتُ <u>القَصِيدَةَ</u>','القصيدة هي (المحفوظة). <b>القصيدةَ:</b> مفعول به منصوب وعلامة نصبه الفتحة الظاهرة.'],
+ ['المفعول لأجله','نسأل عنه بـ <b>(لماذا؟)</b>','﴿وَمِنَ النَّاسِ مَنْ يَشْرِي نَفْسَهُ <u>ابْتِغَاءَ</u> مَرْضَاةِ اللَّهِ﴾','لماذا يشري نفسه؟ ابتغاءَ مرضاة الله. <b>ابتغاءَ:</b> مفعول لأجله منصوب وعلامة نصبه الفتحة الظاهرة.'],
+ ['المفعول معه','يأتي بعد واو بمعنى (مع)، وقبلها جملة فعليّة، ولا يجوز مشاركة حكم ما قبلها مع ما بعدها.','سِرْتُ وَ<u>شَاطِئَ</u> العَقَبَةِ','الواو بمعنى مع، وقبلها جملة فعليّة (سرتُ)، ولا يجوز مشاركة الشاطئ للفاعل في المسير. <b>شاطئَ:</b> مفعول معه منصوب وعلامة نصبه الفتحة الظاهرة.'],
+ ['المفعول فيه (ظرفا الزمان والمكان)','ما دلّ على زمن حدوث الفعل أو مكانه.','﴿سُبْحَانَ الَّذِي أَسْرَى بِعَبْدِهِ <u>لَيْلًا</u>﴾<br>﴿وَمِنْ حَيْثُ خَرَجْتَ فَوَلِّ وَجْهَكَ <u>شَطْرَ</u> المَسْجِدِ الحَرَامِ﴾','<b>ليلًا:</b> ظرف زمان منصوب وعلامة نصبه تنوين الفتح الظاهر. <b>شطرَ:</b> ظرف مكان منصوب وعلامة نصبه الفتحة الظاهرة.'],
+ ['المفعول المطلق','مصدر يؤكّد الفعل، أو يبيّن نوعه أو عدده.','﴿وَرَتِّلِ القُرْآنَ <u>تَرْتِيلًا</u>﴾','ترتيلًا: مصدر أكّد الفعل (رتّلْ)، فهو <b>مفعول مطلق</b> منصوب وعلامة نصبه تنوين الفتح الظاهر.'],
+ ['الحال','نسأل عنه بـ <b>(كيف؟)</b>','﴿فَخَرَجَ مِنْهَا <u>خَائِفًا</u> يَتَرَقَّبُ﴾','كيف خرج منها؟ الجواب: خائفًا. <b>خائفًا:</b> حال منصوبة وعلامة نصبها تنوين الفتح الظاهر.'],
+ ['التمييز','يزيل الإبهام في كلمة أو جملة سبقته.','شَرِبْتُ كُوبًا <u>حَلِيبًا</u>','(حليبًا) أزالت الإبهام في كلمة (كوب)؛ فهو كوب حليب وليس كوب ماء مثلًا. <b>حليبًا:</b> تمييز منصوب وعلامة نصبه تنوين الفتح الظاهر.'],
+ ['أخبار كان وأخواتها','أصلها خبر لمبتدأ قبل دخول كان وأخواتها عليها.','﴿وَيَكُونَ الرَّسُولُ عَلَيْكُمْ <u>شَهِيدًا</u>﴾','<b>شهيدًا:</b> خبر يكون منصوب وعلامة نصبه تنوين الفتح الظاهر.'],
+ ['أسماء إنّ وأخواتها','أصلها مبتدأ قبل دخول إنّ وأخواتها عليها.','﴿وَلَكِنَّ <u>أَكْثَرَ</u> النَّاسِ لَا يَعْلَمُونَ﴾','<b>أكثرَ:</b> اسم لكنّ منصوب وعلامة نصبه الفتحة الظاهرة.',1]];
+fill('nasbA',NASB.slice(0,4).map((m,i)=>cardHTML(m,i+1,'var(--nsb)')).join(''));
+fill('nasbB',NASB.slice(4).map((m,i)=>cardHTML(m,i+5,'var(--nsb)')).join(''));
+const E4=[['﴿يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَخُونُوا <u>اللَّهَ</u> وَالرَّسُولَ وَتَخُونُوا <u>أَمَانَاتِكُمْ</u>﴾','قال تعالى'],
+ ['﴿إِنَّا فَتَحْنَا لَكَ <u>فَتْحًا</u> مُبِينًا﴾','قال تعالى'],
+ ['﴿وَلَا تَقْتُلُوا أَوْلَادَكُمْ <u>خَشْيَةَ</u> إِمْلَاقٍ نَحْنُ نَرْزُقُهُمْ وَإِيَّاكُمْ﴾','قال تعالى'],
+ ['﴿فَعَلَى اللَّهِ تَوَكَّلْتُ فَأَجْمِعُوا أَمْرَكُمْ <u>وَشُرَكَاءَكُمْ</u>﴾','قال تعالى'],
+ ['﴿وَيَسْتَعْجِلُونَكَ بِالسَّيِّئَةِ <u>قَبْلَ</u> الحَسَنَةِ﴾','قال تعالى'],
+ ['﴿وَخُلِقَ الإِنْسَانُ <u>ضَعِيفًا</u>﴾','قال تعالى'],
+ ['﴿سُبْحَانَ الَّذِي أَسْرَى بِعَبْدِهِ <u>لَيْلًا</u> مِنَ المَسْجِدِ الحَرَامِ إِلَى المَسْجِدِ الأَقْصَى﴾','قال تعالى'],
+ ['﴿كَبُرَ <u>مَقْتًا</u> <u>عِنْدَ</u> اللَّهِ أَنْ تَقُولُوا مَا لَا تَفْعَلُونَ﴾','قال تعالى'],
+ ['﴿وَيُرْسِلَ عَلَيْهَا حُسْبَانًا مِنَ السَّمَاءِ فَتُصْبِحَ <u>صَعِيدًا</u> زَلَقًا﴾','قال تعالى'],
+ ['﴿كَمَا أَخْرَجَكَ رَبُّكَ مِنْ بَيْتِكَ بِالحَقِّ وَإِنَّ <u>فَرِيقًا</u> مِنَ المُؤْمِنِينَ لَكَارِهُونَ﴾','قال تعالى'],
+ ['أَلَا لَا أُرِي <u>الأَحْدَاثَ</u> <u>مَدْحًا</u> وَلَا ذَمًّا ... فَمَا بَطْشُهَا جَهْلًا وَلَا كَفُّهَا حِلْمَا','المتنبّي'],
+ ['لَنَا الجَبَلُ المُطِلُّ عَلَى نِزَارٍ ... حَلَلْنَا <u>النَّجْدَ</u> مِنْهُ وَالهِضَابَا','أبو فراس الحمدانيّ'],
+ ['أَلَسْتُمْ <u>خَيْرَ</u> مَنْ رَكِبَ <u>المَطَايَا</u> ... وَأَنْدَى العَالَمِينَ بُطُونَ رَاحِ','جرير'],
+ ['أَرَى <u>الشَّيْبَ</u> مُذْ جَاوَزْتُ خَمْسِينَ <u>حِقْبَةً</u> ... يَدِبُّ <u>دَبِيبَ</u> الفَجْرِ فِي غَسَقِ الظُّلَمِ','الشافعيّ'],
+ ['إِذَا بَلَغَ <u>الفِطَامَ</u> لَنَا صَبِيٌّ ... تَخِرُّ لَهُ الجَبَابِرُ <u>سَاجِدِينَا</u>','عمرو بن كلثوم']];
+fill('ex4',E4.map(e=>exHTML(e)).join(''));
+
+/* ---------- المجرورات ---------- */
+mindmap(document.getElementById('mmJar'),{center:'المجرورات',cols:'1fr .42fr 1fr',cstyle:'font-size:15pt',
+ right:[{t:'١. بحرف الجرّ',c:J,items:['الاسم أو الضمير الواقعان بعد حرف الجرّ']},{t:'٢. بالإضافة',c:J,items:['معنويّة: تعريف أو تخصيص','لفظيّة: تخفيف التنوين أو حذف النون']}],
+ left:[{t:'٣. بالتبعيّة',c:J,items:['البدل','العطف','التوكيد','النعت']}]});
+const exb=(ar,t)=>`<div class="ex" style="margin:0"><div class="ar">${ar}</div>${t}</div>`;
+fill('jarHarf',[
+ exb('﴿<u>تَاللَّهِ</u> لَقَدْ آثَرَكَ اللَّهُ <u>عَلَيْنَا</u>﴾','<b>تالله:</b> التاء للقسم، حرف جرّ لا محلّ له من الإعراب. <b>اللهِ:</b> لفظ الجلالة مجرور بحرف الجرّ وعلامة جرّه الكسرة الظاهرة على آخره. <b>علينا:</b> على حرف جرّ لا محلّ له من الإعراب، و(نا) ضمير متّصل مبنيّ في محلّ جرّ بحرف الجرّ.'),
+ exb('﴿وَزَيَّنَّا السَّمَاءَ الدُّنْيَا <u>بِمَصَابِيحَ</u>﴾','<b>مصابيحَ:</b> اسم مجرور بالباء، وعلامة جرّه الفتحة بدلًا من الكسرة لأنّه ممنوع من الصرف على وزن (مفاعيل).'),
+ exb('صَفَحْتُ عَنِ <u>المُسِيئِينَ</u>','<b>المسيئين:</b> اسم مجرور بعن، وعلامة جرّه الياء لأنّه جمع مذكّر سالم.'),
+ exb('طَلَبْتُ مِنَ <u>الطَّالِبَيْنِ</u> الانْتِبَاهَ','<b>من:</b> حرف جرّ مبنيّ لا محلّ له من الإعراب. <b>الطالبَيْن:</b> اسم مجرور وعلامة جرّه الياء لأنّه مثنّى.')].join(''));
+fill('jarTab',[
+ exb('قَرَأْتُ عَنْ خَالِدِ <u>بْنِ</u> الوَلِيدِ <span class="tag j">بدل</span>','<b>بنِ:</b> بدل مطابق من خالد مجرور وعلامة جرّه الكسرة الظاهرة.'),
+ exb('اشْتَقْتُ إِلَى القِرَاءَةِ وَ<u>الحِفْظِ</u> <span class="tag j">عطف</span>','<b>الحفظِ:</b> اسم معطوف على القراءة مجرور وعلامة جرّه الكسرة.'),
+ exb('سَلَّمْتُ عَلَى الوَزِيرِ <u>نَفْسِهِ</u> <span class="tag j">توكيد</span>','<b>نفسِه:</b> توكيد معنويّ مجرور وعلامة جرّه الكسرة، وهو مضاف، والهاء ضمير متّصل مبنيّ في محلّ جرّ بالإضافة.'),
+ exb('مَرَرْتُ بِحَدِيقَةٍ <u>جَمِيلَةٍ</u> <span class="tag j">نعت</span>','<b>جميلةٍ:</b> نعت لحديقة مجرور وعلامة جرّه تنوين الكسرة الظاهرة على آخره.')].join(''));
+
+/* ---------- المبنيّات ---------- */
+mindmap(document.getElementById('mmMabni'),{center:'الأسماء<br>المبنيّة',cols:'1fr .4fr 1fr',cstyle:'font-size:14pt',
+ right:[{t:'١. الضمائر',c:M,items:['مستترة · متّصلة · منفصلة']},{t:'٢. أسماء الإشارة',c:M,items:['للمذكّر · للمؤنّث · للمكان']}],
+ left:[{t:'٣. أسماء الاستفهام',c:M,items:['مَن، ما، ماذا، متى، أين، أيّان، كيف، كم']},{t:'٤. الأسماء الموصولة',c:M,items:['الذي، التي وفروعهما، ومَن وما']},{t:'٥. أسماء الشرط',c:M,items:['مَن، ما، مهما، متى، أيّان، أين…']}]});
+fill('istifham',[['مَنْ','عن العاقل'],['ما، ماذا','عن غير العاقل'],['مَتَى','عن الزمان'],['أَيْنَ','عن المكان'],['أَيَّانَ','عن الزمان'],['كَيْفَ','عن الحال'],['كَمْ','عن العدد']]
+ .map(x=>`<div><b><span class="ar" style="font-size:16pt">${x[0]}</span></b><p style="font-family:'Noto Naskh Arabic';font-size:11pt">للاستفهام ${x[1]}</p></div>`).join(''));
+document.getElementById('istifham')?.classList.add('c4');
+const E5=[['<u>أَيْنَ</u> تُعْقَدُ الدَّوْرَةُ؟'],['<u>أَيْنَ</u> تَزْرَعْ خَيْرًا تَحْصُدْ خَيْرًا'],
+ ['اليَوْمَ عَهْدُكُمُ فَ<u>أَيْنَ</u> المَوْعِدُ ... هَيْهَاتَ لَيْسَ لِيَوْمِ عَهْدِكُمُ غَدُ','المتنبّي'],
+ ['﴿<u>أَيْنَمَا</u> تَكُونُوا يُدْرِكْكُمُ المَوْتُ وَلَوْ كُنْتُمْ فِي بُرُوجٍ مُشَيَّدَةٍ﴾','قال تعالى'],
+ ['<u>مَا</u> أَصْلُ الإِنْسَانِ؟'],['﴿إِنَّمَا تُجْزَوْنَ <u>مَا</u> كُنْتُمْ تَعْمَلُونَ﴾','قال تعالى'],
+ ['﴿وَ<u>مَا</u> تُقَدِّمُوا لِأَنْفُسِكُمْ مِنْ خَيْرٍ تَجِدُوهُ عِنْدَ اللَّهِ﴾','قال تعالى'],
+ ['﴿<u>مَا</u> سَلَكَكُمْ فِي سَقَرَ﴾','قال تعالى'],['﴿وَ<u>مَا</u> تَفْعَلُوا مِنْ خَيْرٍ فَإِنَّ اللَّهَ بِهِ عَلِيمٌ﴾','قال تعالى'],
+ ['«<u>مَنْ</u> أَحَقُّ النَّاسِ بِحُسْنِ صَحَابَتِي؟»','قال ﷺ'],
+ ['<u>مَنْ</u> يَفْعَلِ الخَيْرَ لَا يَعْدَمْ جَوَازِيَهُ ... لَا يَذْهَبُ العُرْفُ بَيْنَ اللَّهِ وَالنَّاسِ','الحطيئة'],
+ ['﴿يُسَبِّحُ لَهُ <u>مَنْ</u> فِي السَّمَاوَاتِ وَالأَرْضِ﴾','قال تعالى'],['﴿<u>مَنْ</u> ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا﴾','قال تعالى'],
+ ['﴿<u>مَنْ</u> يَعْمَلْ سُوءًا يُجْزَ بِهِ﴾','قال تعالى'],
+ ['عَزِيزُ النَّفْسِ <u>مَنْ</u> لَزِمَ القَنَاعَةْ ... وَلَمْ يَكْشِفْ لِمَخْلُوقٍ قِنَاعَهْ','الشافعيّ'],
+ ['عَفَتْ عَنْكَ الأَبَاعِدُ وَالأَدَانِي ... فَ<u>مَنْ</u> يَعْفُو عَنِ الوَطَنِ المُصَابِ','أحمد شوقي'],
+ ['شَطَّ المَزَارُ فَقُلْ <u>مَتَى</u> يَا دَارُ ... سَتَؤُوبُ مِنْ تَرْحَالِهَا الأَطْيَارُ؟','الشاعر'],
+ ['<u>مَتَى</u> تَزُرْنِي أُكْرِمْكَ'],
+ ['رُوَيْدَكَ أَيُّهَا العَادِي وَرَائِي ... لِتُخْبِرَنِي <u>مَتَى</u> نَطَقَ الجَوَادُ','الشاعر'],
+ ['<u>مَتَى</u> تَأْتِهِ تَعْشُو إِلَى ضَوْءِ نَارِهِ ... تَجِدْ خَيْرَ نَارٍ عِنْدَهَا خَيْرُ مُوقِدِ','الحطيئة']];
+fill('ex5',E5.map(e=>optHTML(e,['استفهاميّة','شرطيّة','موصولة'])).join(''));
+
+/* ---------- الضمائر المتّصلة ---------- */
+const tg=(c,t)=>`<span class="tag ${c}">${t}</span>`;
+const DAM=[['بالفعل المبنيّ للمعلوم',tg('r','رفع فاعل')+' أو '+tg('n','نصب مفعول به'),'لَا <u>تَعْذِلِيهِ</u> فَإِنَّ العَذْلَ يُولِعُهُ','<b>تعذليه:</b> الياء ضمير متّصل مبنيّ في محلّ رفع فاعل (فهي العاذلة)، والهاء ضمير متّصل مبنيّ في محلّ نصب مفعول به (فهو المعذول).'],
+ ['بالفعل المبنيّ للمجهول',tg('r','رفع نائب فاعل'),'﴿وَلَوْ <u>رُدُّوا</u> لَعَادُوا لِمَا <u>نُهُوا</u> عَنْهُ﴾','الواو في الفعلين (رُدّوا، نُهوا) ضميران متّصلان مبنيّان في محلّ رفع نائب فاعل.'],
+ ['بكان أو إحدى أخواتها',tg('r','رفع اسمها'),'﴿<u>كَانُوا</u> قَلِيلًا مِنَ اللَّيْلِ مَا يَهْجَعُونَ﴾<br>﴿فَأَخَذَتْهُمُ الرَّجْفَةُ <u>فَأَصْبَحُوا</u> فِي دَارِهِمْ جَاثِمِينَ﴾','الواو: ضمير متّصل مبنيّ في محلّ رفع اسم كان، وفي الثانية في محلّ رفع اسم أصبح. <span class="fix">تصحيح: في الدوسية «في محلّ نصب اسم كان».</span>'],
+ ['بإنّ أو إحدى أخواتها',tg('n','نصب اسمها'),'﴿<u>إِنَّهُمْ</u> أَلْفَوْا آبَاءَهُمْ ضَالِّينَ﴾<br>﴿<u>لَعَلَّنَا</u> نَتَّبِعُ السَّحَرَةَ إِنْ كَانُوا هُمُ الغَالِبِينَ﴾','<b>هم:</b> ضمير متّصل مبنيّ في محلّ نصب اسم إنّ. <b>نا:</b> ضمير متّصل مبنيّ في محلّ نصب اسم لعلّ.'],
+ ['بالاسم',tg('j','جرّ بالإضافة'),'﴿فَهُمْ عَلَى <u>آثَارِهِمْ</u> يُهْرَعُونَ﴾<br>﴿رَبَّنَا لَا تَجْعَلْ فِي <u>قُلُوبِنَا</u> غِلًّا لِلَّذِينَ آمَنُوا﴾','<b>هم، نا:</b> ضميران متّصلان مبنيّان في محلّ جرّ بالإضافة.'],
+ ['بحرف الجرّ',tg('j','جرّ بحرف الجرّ'),'﴿وَ<u>مِنْهُمْ</u> مَنْ إِنْ تَأْمَنْهُ بِدِينَارٍ﴾<br>﴿هَذِهِ نَاقَةُ اللَّهِ <u>لَكُمْ</u> آيَةً﴾','<b>هم، كم:</b> ضميران متّصلان مبنيّان في محلّ جرّ بحرف الجرّ.']];
+document.querySelector('#damair tbody').innerHTML=DAM.map((d,i)=>`<tr><th><span class="num" style="width:6mm;height:6mm;font-size:9pt;margin-inline-end:1.5mm">${AR(i+1)}</span>المتّصل ${d[0]}</th><td class="t" style="text-align:center">${d[1]}</td><td class="t" style="background:#fff;border:1px solid var(--line)"><div class="ar" style="font-size:13.5pt">${d[2]}</div><span style="font-size:10.3pt">${d[3]}</span></td></tr>`).join('');
+
+/* ---------- الأفعال ---------- */
+mindmap(document.getElementById('mmAfal'),{center:'الأفعال',cols:'1fr .3fr 1fr',cstyle:'font-size:16pt;padding:4mm 3mm',
+ right:[{t:'١. من حيث الزمن',c:I,groups:[{t:'ماضٍ',items:['ما دلّ على حصول الحدث في الزمن الماضي: <span class="ar">جاءَ، جلسَ</span>']},{t:'مضارع',items:['ما دلّ على حصول الحدث في الزمن الحاضر أو المستقبل: <span class="ar">يجيءُ، يجلسُ</span>']},{t:'أمر',items:['ما دلّ على حصول الحدث في الزمن المستقبل: <span class="ar">جِئْ، اجلسْ</span>']}]},
+  {t:'٢. من حيث حروفه الأصليّة',c:O,groups:[{t:'صحيح: خلت حروفه الأصليّة من حروف العلّة',items:['مهموز: <span class="ar">أخذ، سأل، قرأ</span>','مضعّف: <span class="ar">شدّ</span> · سالم: <span class="ar">حفظ</span>']},{t:'معتلّ: أحد حروفه الأصليّة حرف علّة',items:['مثال: <span class="ar">وعد، وصل</span> · أجوف: <span class="ar">قال، عاد</span>','ناقص: <span class="ar">دعا، رمى</span>','لفيف مقرون: <span class="ar">طوى، روى</span>','لفيف مفروق: <span class="ar">وفى، وعى</span>']}]}],
+ left:[{t:'٣. التمام والنقص',c:I,groups:[{t:'تامّ',items:['تتمّ به وبفاعله جملة: <span class="ar">سألَ الطالبُ وأجابَ الأستاذُ</span>']},{t:'ناقص',items:['كان وأخواتها؛ لا تتمّ بها وباسمها جملة: <span class="ar">كان الجوُّ ماطرًا، وأصبحَ صحوًا</span>']}]},
+  {t:'٤. الجمود والتصرّف',c:O,groups:[{t:'جامد',items:['يلزم صورة واحدة، ولا يأتي منه مضارع أو أمر: <span class="ar">نِعْمَ، بِئْسَ، لَيْسَ</span>']},{t:'متصرّف',items:['يأتي منه ماضٍ ومضارع وأمر']}]},
+  {t:'٥. اللزوم والتعدّي',c:I,groups:[{t:'لازم',items:['يكتفي بفاعله ولا يتعدّاه إلى غيره: <span class="ar">جاءَ الرجلُ، اشتدَّ النزاعُ</span>']},{t:'متعدٍّ',items:['يتعدّى الفاعل إلى المفعول به: لمفعول واحد، أو لمفعولين، أو لثلاثة مفاعيل: <span class="ar">وجدتُ الصبرَ جميلًا</span> (لمفعولين)']}]}]});
+
+/* ---------- الحروف ---------- */
+const HUR=[['حروف الجرّ','مِن، إلى، عن، على، في، رُبَّ، الكاف، الباء، اللام، مع، واو القسم، تاء القسم','تجرّ الاسم الواقع بعدها.','﴿<u>مِنَ</u> المُؤْمِنِينَ رِجَالٌ صَدَقُوا مَا عَاهَدُوا اللَّهَ عَلَيْهِ﴾','<b>مِن:</b> حرف جرّ مبنيّ لا محلّ له من الإعراب. <b>المؤمنين:</b> اسم مجرور وعلامة جرّه الياء لأنّه جمع مذكّر سالم.',J],
+ ['حروف النسخ','أخوات إنّ','تدخل على الجملة الاسميّة فتنصب الأوّل وترفع الثاني.','﴿إِنَّ <u>السَّاعَةَ</u> <u>آتِيَةٌ</u> أَكَادُ أُخْفِيهَا﴾','<b>الساعةَ:</b> اسم إنّ منصوب. <b>آتيةٌ:</b> خبرها مرفوع.',I],
+ ['حروف النداء','الهمزة، أيْ، أيا، وا، هيا، يا','تنصب الاسم المضاف الذي يأتي بعدها، أو يكون مبنيًّا في محلّ نصب إذا كان علَمًا أو نكرة مقصودة.','يَا <u>نَائِحَ</u> الطَّلْحِ أَشْبَاهٌ عَوَادِينَا<br>﴿قَالُوا يَا <u>صَالِحُ</u> ائْتِنَا بِمَا تَعِدُنَا﴾','<b>نائحَ:</b> منادى منصوب وعلامة نصبه الفتحة. <b>صالحُ:</b> منادى مبنيّ على الضمّ في محلّ نصب.',N],
+ ['حرف الاستثناء','إلّا','تنصب الاسم الذي بعدها في الاستثناء التامّ المثبت.','﴿ثُمَّ تَوَلَّيْتُمْ إِلَّا <u>قَلِيلًا</u> مِنْكُمْ﴾','<b>قليلًا:</b> مستثنى منصوب وعلامة نصبه تنوين الفتح.',N],
+ ['حروف العطف','الواو، الفاء، ثمّ، حتّى، أو، أم، بل، لا، لكنْ','تقع بين اسمين أو فعلين، ويكون حكم ما بعدها من ناحية الإعراب كحكم ما قبلها.','حَارَبْنَا العَدُوَّ، <u>بَلْ</u> حَارَبَ بَعْضُنَا بَعْضًا<br>الحَسَنُ <u>وَ</u>الحُسَيْنُ ابْنَا عَلِيٍّ<br>﴿رَفَعَ السَّمَاوَاتِ بِغَيْرِ عَمَدٍ تَرَوْنَهَا <u>ثُمَّ</u> اسْتَوَى عَلَى العَرْشِ﴾','',I],
+ ['حروف الجزم','إنْ، لام الأمر، لمْ، لا الناهية','تجزم الفعل المضارع الذي يأتي بعدها.','<u>لِ</u>تُقْلِعْ عَنِ التَّدْخِينِ<br><u>لَا</u> تَشْتَرِ العَبْدَ إِلَّا وَالعَصَا مَعَهُ','',I],
+ ['حروف النصب','أنْ، لنْ، كي، إذنْ، حتّى، فاء السببيّة، لام التعليل','تنصب الفعل المضارع الذي يأتي بعدها، مباشرةً أو بـ(أنْ) مضمرة.','﴿فَعَسَى أُولَئِكَ <u>أَنْ</u> يَكُونُوا مِنَ المُهْتَدِينَ﴾<br><u>لَنْ</u> أَخُونَ الأَمَانَةَ قَطُّ<br>سَافَرَ سَعْدٌ <u>لِ</u>يُتِمَّ دِرَاسَتَهُ','',N],
+ ['حروف الاستفهام','هل، الهمزة','لا تؤثّر في الفعل أو الاسم الذي يأتي بعدها.','﴿<u>هَلْ</u> أَدُلُّكَ عَلَى شَجَرَةِ الخُلْدِ وَمُلْكٍ لَا يَبْلَى﴾','<b>هل:</b> حرف استفهام مبنيّ لا محلّ له من الإعراب.',M]];
+const hurCard=(h,i)=>`<div class="cd" style="border-color:${h[5]}"><h3><span class="num" style="background:${h[5]}">${AR(i)}</span>${h[0]}</h3><div class="chips">${h[1].split('، ').map(x=>`<span>${x}</span>`).join('')}</div><p style="margin-top:1.5mm"><b style="color:${h[5]}">عملها:</b> ${h[2]}</p><div class="ex"><div class="ar">${h[3]}</div>${h[4]}</div></div>`;
+mindmap(document.getElementById('mmHuruf'),{center:'أنواع<br>الحروف',cols:'1fr .36fr 1fr',cstyle:'font-size:14pt',
+ right:HUR.slice(0,4).map(h=>({t:h[0],c:h[5],items:[h[2]]})),left:HUR.slice(4).map(h=>({t:h[0],c:h[5],items:[h[2]]}))});
+fill('hurufA',HUR.slice(0,2).map((h,i)=>hurCard(h,i+1)).join(''));
+fill('hurufB',HUR.slice(2).map((h,i)=>hurCard(h,i+3)).join(''));
+
+/* ---------- العدد ---------- */
+const AD=[['١، ٢','يطابقان المعدود أينما وردا.','قَرَأْتُ رِوَايَةً <u>وَاحِدَةً</u> · اسْتَمَعْتُ لِمُحَاضِرَيْنِ <u>اثْنَيْنِ</u>','','j'],
+ ['٣ – ٩','العدد يخالف المعدود.','جَاءَ <u>ثَلَاثَةُ</u> رِجَالٍ · اشْتَرَيْتُ <u>سَبْعَةَ</u> دَفَاتِرَ وَ<u>خَمْسَ</u> مَسَاطِرَ','(رجال) مذكّر، فالعدد (ثلاثة) مؤنّث.','n'],
+ ['١٠','يخالف إذا كان منفردًا، ويطابق إذا كان مركّبًا.','﴿وَالفَجْرِ ۝ وَلَيَالٍ <u>عَشْرٍ</u>﴾ · دَرَسْتُ خَمْسَ <u>عَشْرَةَ</u> صَفْحَةً مِنَ الامْتِحَانِ','','x'],
+ ['١١','يطابق المعدود بجزأيه.','﴿إِنِّي رَأَيْتُ <u>أَحَدَ عَشَرَ</u> كَوْكَبًا﴾','وهو مبنيّ على فتح الجزأين في محلّ نصب مفعول به.','j'],
+ ['١٢','يطابق المعدود بجزأيه.','﴿وَبَعَثْنَا مِنْهُمُ <u>اثْنَيْ عَشَرَ</u> نَقِيبًا﴾','الجزء الأوّل معرب: مفعول به منصوب وعلامة نصبه الياء لأنّه ملحق بالمثنّى، والجزء الثاني مبنيّ على الفتح لا محلّ له من الإعراب. <span class="fix">تصحيح: في الدوسية «في محلّ نصب مفعول به» للجزء الثاني.</span>','j'],
+ ['١٣ – ١٩','الجزء الأوّل يخالف، والجزء الثاني يطابق.','اشْتَرَكَ فِي المُسَابَقَةِ <u>سَبْعَةَ عَشَرَ</u> مُتَسَابِقًا، وَ<u>سَبْعَ عَشْرَةَ</u> مُتَسَابِقَةً<br>فِي مَكْتَبَتِي <u>أَرْبَعَةَ عَشَرَ</u> كِتَابًا وَ<u>سِتَّ عَشْرَةَ</u> قِصَّةً','','x'],
+ ['٢٠ – ٩٠','ألفاظ العقود تلزم حالة واحدة مع المذكّر والمؤنّث.','قَرَأْتُ <u>ثَلَاثِينَ</u> كِتَابًا، وَفِي مَكْتَبَتِي <u>ثَمَانُونَ</u> قِصَّةً','<b>ثلاثين:</b> مفعول به منصوب وعلامة نصبه الياء لأنّه ملحق بجمع المذكّر السالم. <b>ثمانون:</b> مبتدأ مؤخّر مرفوع وعلامة رفعه الواو لأنّه ملحق بجمع المذكّر السالم.','g'],
+ ['١٠٠، ١٠٠٠ ومضاعفاتها','تلزم حالة واحدة مع المذكّر والمؤنّث.','حَفِظْتُ <u>أَلْفَ</u> بَيْتٍ مِنَ الشِّعْرِ القَدِيمِ · فِي عَمَّانَ يَسْكُنُ أَكْثَرُ مِنْ <u>مِلْيُونِ</u> نَسَمَةٍ','','g']];
+const adBg={j:'var(--jar)',n:'var(--nsb)',g:'var(--mb)',x:'linear-gradient(90deg,var(--jar) 50%,var(--nsb) 50%)'};
+document.querySelector('#adad tbody').innerHTML=AD.map(a=>`<tr><th style="background:${adBg[a[4]]};color:#fff;text-align:center;font-size:12pt">${a[0]}</th><td class="t">${a[1]}</td><td style="background:#fff;border:1px solid var(--line);text-align:start"><div class="ar" style="font-size:13.5pt">${a[2]}</div>${a[3]?`<span style="font-size:10.2pt">${a[3]}</span>`:''}</td></tr>`).join('');
+
+/* ---------- الهمزة ---------- */
+const plc=(id,L)=>fill(id,L.map(x=>`<li><div>${x[0]}${x[1]?`<div class="ar">${x[1]}</div>`:''}</div></li>`).join(''));
+plc('wasl',[['في فعل الأمر من الثلاثيّ','اكْتُبْ، ادْرُسْ، اعْمَلْ'],['في ماضي الفعل الخماسيّ','انْتَبَهَ، ارْتَقَى، اتَّصَلَ'],['في أمر الفعل الخماسيّ','انْتَبِهْ، ارْتَقِ، اتَّصِلْ'],['في مصدر الفعل الخماسيّ','انْتِبَاه، ارْتِقَاء، اتِّصَال'],['في ماضي الفعل السداسيّ','اسْتَعْمَلَ، اسْتَسْلَمَ، اسْتَهَانَ'],['في أمر الفعل السداسيّ','اسْتَعْمِلْ، اسْتَسْلِمْ، اسْتَهِنْ'],['في مصدر الفعل السداسيّ','اسْتِعْمَال، اسْتِسْلَام، اسْتِهَانَة'],['في الأسماء التالية','ابْن، ابْنَة، امْرُؤ، امْرَأَة، اسْم، اثْنَان، اثْنَتَان، (ال) التعريف']]);
+plc('qat',[['في الفعل الماضي الثلاثيّ','أَخَذَ، أَكَلَ، أَبَى، أَسِفَ، أَفَلَ، أَبَقَ، أَيِسَ'],['في الفعل الماضي الرباعيّ','أَعْرَبَ، أَجْمَعَ، أَفْهَمَ، أَسْلَمَ'],['في المضارع في بدايته','أُسَاعِدُ، أُقَاوِمُ، أَتَسَلَّمُ، أُكْرِمُ، أَسْتَخْدِمُ'],['في الكلمات والحروف التالية','إِلَى، إِفْك، أُمِّي، أَخِي، أَنَا، أَنْتَ…']]);
+plc('hmid',[['إذا كان الحرف الذي قبلها مكسورًا، أو كانت هي مكسورة، كُتبت <b>على نبرة</b>؛ لأنّ الكسر أقوى الحركات.','بِئْر، نَاشِئَة، يَسْتَهْزِئُونَ، مِئِين · لِشُرَكَائِهِمْ، رَئِيس، رُئِيَ'],['إذا كان الحرف الذي قبلها ياءً ساكنة كُتبت <b>على نبرة</b> أيضًا مهما كانت حركتها.','جَرِيئَة، جَيْئَات، هَيْئَات'],['إذا كان الحرف الذي قبلها مضمومًا أو هي مضمومة تُكتب <b>على واو</b>، ما لم يكن هناك كسر.','مُؤْمِن، أُؤَيِّد، مَشْؤُوم'],['إذا كان الحرف الذي قبلها مفتوحًا وهي مفتوحة تُكتب <b>على ألف</b>، وعند اجتماع كسر أو ضمّ مع فتح تُطبَّق قاعدة الحركة الأقوى.','مَأْسُور، يَأْبَى، سَأَلَ، تَلَأْلَأَ'],['إذا كان قبلها ألف ساكنة أو واو ساكنة، وهي مفتوحة، كُتبت <b>منفردة</b>.','قِرَاءَة، تَسَاءَلَ، سَوْءَة، نُبُوءَة']]);
+plc('hend',[['تُكتب <b>على ألف</b> إذا كان ما قبلها مفتوحًا.','بَدَأَ، تَبَاطَأَ'],['تُكتب <b>على واو</b> إذا كان ما قبلها مضمومًا.','تَوَاطُؤ، التَّهَيُّؤ'],['تُكتب <b>على ياء</b> إذا كان ما قبلها مكسورًا.','مُتَوَاطِئ، مُتَهَيِّئ'],['تُكتب <b>منفردة</b> إذا كان ما قبلها ساكنًا.','جَرِيء، كُفْء، بَطِيء، جُزْء، مَجِيء']]);
+
+/* ================= الصرف ================= */
+mindmap(document.getElementById('mmSarf'),{center:'الصرف',cols:'1fr .5fr 1fr',
+ right:[{t:'١. المشتقّات',c:I,items:['اسم الفاعل','اسم المفعول','الصفة المشبّهة','صيغة المبالغة','اسم الزمان والمكان','اسم التفضيل','اسم الآلة']}],
+ left:[{t:'٢. المصادر',c:G,items:['المصدر الصريح (الأصليّ)','المصدر الميميّ','مصدر المرّة','مصدر الهيئة','المصدر المؤوّل','المصدر الصناعيّ، والاسم المنسوب']}]});
+const TRI=[['عَلِمَ','صحيح سالم','عَالِم','مَعْلُوم'],['أَكَلَ','صحيح مهموز الأوّل','آكِل','مَأْكُول'],['سَأَلَ','صحيح مهموز الوسط','سَائِل','مَسْؤُول'],['قَرَأَ','صحيح مهموز الآخر','قَارِئ','مَقْرُوء'],['شَدَّ','صحيح مضعّف','شَادّ','مَشْدُود'],
+ ['وَجَدَ','معتلّ مثال','وَاجِد','مَوْجُود'],['قَالَ','معتلّ أجوف','قَائِل','مَقُول'],['بَاعَ','معتلّ أجوف','بَائِع','مَبِيع'],['دَعَا','معتلّ ناقص','دَاعٍ','مَدْعُوّ'],['رَمَى','معتلّ ناقص','رَامٍ','مَرْمِيّ'],['نَهَى','معتلّ ناقص','نَاهٍ','مَنْهِيّ'],
+ ['وَعَى','لفيف مفروق','وَاعٍ','مَوْعِيّ'],['وَفَى','لفيف مفروق','وَافٍ','مَوْفِيّ'],['طَوَى','لفيف مقرون','طَاوٍ','مَطْوِيّ'],['عَوَى','لفيف مقرون','عَاوٍ','مَعْوِيّ'],['رَأَى','معتلّ ناقص','رَاءٍ','مَرْئِيّ'],['نَأَى','معتلّ ناقص','نَاءٍ','مَنْئِيّ'],
+ ['جَاءَ','معتلّ أجوف','جَاءٍ','مَجِيء'],['شَاءَ','معتلّ أجوف','شَاءٍ','مَشِيء'],['أَنَّ','صحيح مضعّف','آنّ','مَأْنُون'],['آبَ','معتلّ أجوف','آئِب','مَؤُوب'],['آنَ','معتلّ أجوف','آئِن','مَئِين'],['آلَ','معتلّ أجوف','آئِل','مَؤُول']];
+document.querySelector('#tri tbody').innerHTML=TRI.map(r=>`<tr><th class="ar" style="text-align:center;font-size:13.5pt">${r[0]}</th><td class="${r[1].startsWith('صحيح')?'t':'g'}">${r[1]}</td><td class="ar" style="background:var(--ind3);font-size:13.5pt">${r[2]}</td><td class="y ar" style="font-size:13.5pt">${r[3]}</td></tr>`).join('');
+const QD=[['رباعيّ',[['أَفْعَلَ',[['أَكْرَمَ','مُكْرِم','مُكْرَم'],['أَعْطَى','مُعْطٍ','مُعْطًى'],['أَقَامَ','مُقِيم','مُقَام']]],['فَعَّلَ',[['عَلَّمَ','مُعَلِّم','مُعَلَّم'],['وَضَّحَ','مُوَضِّح','مُوَضَّح'],['غَطَّى','مُغَطٍّ','مُغَطًّى']]],['فَاعَلَ',[['قَاتَلَ','مُقَاتِل','مُقَاتَل'],['نَادَى','مُنَادٍ','مُنَادًى'],['سَاوَى','مُسَاوٍ','مُسَاوًى']]],['فَعْلَلَ',[['دَحْرَجَ','مُدَحْرِج','مُدَحْرَج']]]]],
+ ['خماسيّ',[['افْتَعَلَ',[['اقْتَرَبَ','مُقْتَرِب','مُقْتَرَب'],['اقْتَدَى','مُقْتَدٍ','مُقْتَدًى'],['اخْتَارَ','مُخْتَار','مُخْتَار',1]]],['انْفَعَلَ',[['انْكَسَرَ','مُنْكَسِر','مُنْكَسَر'],['انْحَازَ','مُنْحَاز','مُنْحَاز',1]]],['افْعَلَّ',[['اخْضَرَّ','مُخْضَرّ','مُخْضَرّ',1],['احْتَلَّ','مُحْتَلّ','مُحْتَلّ',1]]],['تَفَعَّلَ',[['تَحَضَّرَ','مُتَحَضِّر','مُتَحَضَّر'],['تَغَطَّى','مُتَغَطٍّ','مُتَغَطًّى']]],['تَفَاعَلَ',[['تَآكَلَ','مُتَآكِل','مُتَآكَل'],['تَسَاوَى','مُتَسَاوٍ','مُتَسَاوًى']]]]],
+ ['سداسيّ',[['اسْتَفْعَلَ',[['اسْتَخْدَمَ','مُسْتَخْدِم','مُسْتَخْدَم'],['اسْتَخْفَى','مُسْتَخْفٍ','مُسْتَخْفًى'],['اسْتَقَامَ','مُسْتَقِيم','مُسْتَقَام']]],['افْعَوْعَلَ',[['اعْشَوْشَبَ','مُعْشَوْشِب','مُعْشَوْشَب']]]]]];
+let qh='';QD.forEach(([g,ws])=>{const n=ws.reduce((a,w)=>a+w[1].length,0);let first=true;ws.forEach(([w,rows])=>{rows.forEach((r,k)=>{qh+=`<tr>${first?`<td class="grpc" rowspan="${n}">${g}</td>`:''}<th class="ar" style="text-align:center;font-size:13pt">${r[0]}</th>${k==0?`<td class="t ar" rowspan="${rows.length}" style="text-align:center;font-size:13pt;color:var(--ind)">${w}</td>`:''}<td class="ar ${r[3]?'g':''}" style="${r[3]?'':'background:var(--ind3);'}font-size:13pt">${r[1]}</td><td class="ar ${r[3]?'g':'y'}" style="font-size:13pt">${r[2]}</td></tr>`;first=false})})});
+document.querySelector('#quad tbody').innerHTML=qh;
+const tiles=(id,L,startN)=>fill(id,L.map((x,i)=>`<div${x[2]?` style="grid-column:span ${x[2]}"`:''}><b><span class="ar" style="font-size:16pt">${x[0]}</span><small>${startN?AR(i+startN):''}</small></b><p>${x[1]}</p></div>`).join(''));
+tiles('sifaW',[['فَعْلَان <small style="font-family:\'El Messiri\'">مؤنّثه</small> فَعْلَى','جَوْعَان/جَوْعَى · غَضْبَان/غَضْبَى · حَرَّان/حَرَّى · حَيْرَان/حَيْرَى',2],['فُعَال','شُجَاع، فُرَات، زُلَال، أُجَاج، زُؤَام'],['فَعِيل','كَرِيم، بَخِيل، طَوِيل، قَصِير، بَعِيد، قَرِيب، كَثِير، قَلِيل، سَمِين، نَحِيل، جَمِيل، قَبِيح، عَظِيم، حَقِير، صَغِير، كَبِير',3],['فَعَال','جَبَان، قَرَاح، حَصَان، رَزَان، حَلَال، حَرَام'],['فَعْل','سَهْل، صَعْب، فَخْم، ضَخْم، رَثّ، عَذْب'],['فِعْل','مِلْح، رِخْو'],['فُعْل','حُلْو، مُرّ، حُرّ'],['فَعَل','بَطَل، حَسَن'],['فَعِل','جَشِع، بَشِع، فَرِح، شَرِه'],['فَاعِل','طَاهِر، نَابِه، تَافِه، مَاجِد، مَاهِر'],['فَيْعِل','جَيِّد، سَيِّد، طَيِّب، صَيِّب']],0);
+tiles('mubW',[['فَعَّال','طَلَّاع، غَفَّار، صَبَّار، عَلَّام'],['مِفْعَال','مِطْوَاع، مِفْضَال، مِعْوَان، مِهْمَاز'],['فَعُول','أَكُول، كَذُوب، غَفُور، صَبُور، شَكُور'],['فَعِيل','سَمِيع، عَلِيم، فَهِيم، رَحِيم'],['فِعِّيل','قِدِّيس، شِرِّير، شِرِّيب، دِرِّيس، صِدِّيق'],['مِفْعِيل','مِنْطِيق، مِسْكِين، مِعْطِير'],['فُعَلَة','هُمَزَة، لُمَزَة، ضُحَكَة'],['فَاعُول','فَارُوق، قَابُوس'],['فَعِل','حَذِر']],1);
+fill('tafdil',[['كَثُرَ','أَكْثَر'],['حَسُنَ','أَحْسَن'],['عَلِمَ','أَعْلَم'],['جَمُلَ','أَجْمَل'],['شَدَّ','أَشَدّ'],['سَقَى','أَسْقَى'],['رَعَى','أَرْعَى'],['دَعَا','أَدْعَى'],['قَالَ','أَقْوَل'],['بَاعَ','أَبْيَع'],['سَاقَ','أَسْوَق'],['طَارَ','أَطْيَر'],['دَقَّ','أَدَقّ'],['وَعَى','أَوْعَى'],['وَفَى','أَوْفَى'],['وَقَى','أَوْقَى']].map(drv).join(''));
+/* tool drawings for اسم الآلة */
+const TOOL={
+ key:'<circle cx="16" cy="24" r="9"/><circle cx="16" cy="24" r="3.5"/><path d="M25 24h20M38 24v7M44 24v6"/>',
+ saw:'<path d="M6 18h34l6 6v6H6z"/><path d="M6 30l3 4 3-4 3 4 3-4 3 4 3-4 3 4 3-4 3 4 3-4"/><rect x="40" y="12" width="8" height="12" rx="3"/>',
+ sci:'<circle cx="12" cy="34" r="6"/><circle cx="12" cy="14" r="6"/><path d="M17 31L44 12M17 17l27 19"/>',
+ ham:'<rect x="8" y="8" width="26" height="11" rx="2"/><path d="M21 19v24"/><path d="M34 11l8-3v11l-8-3"/>',
+ bal:'<path d="M24 8v34M14 42h20M8 14h32"/><path d="M8 14l-5 12h10zM40 14l-5 12h10z"/><path d="M3 26a5 3 0 0 0 10 0M35 26a5 3 0 0 0 10 0"/>',
+ fan:'<circle cx="24" cy="20" r="3"/><path d="M24 17c-2-9 6-12 8-6s-4 7-8 6M27 21c8 3 6 12 0 11s-4-7 0-11M21 21c-8 2-11-6-5-9s7 5 5 9"/><path d="M24 23v20M16 43h16"/>',
+ elev:'<rect x="10" y="6" width="28" height="36" rx="2"/><path d="M24 6v36M17 20l-3-4-3 4M34 16l-3 4-3-4"/>',
+ truck:'<rect x="4" y="14" width="24" height="18" rx="1"/><path d="M28 20h10l6 7v5H28z"/><circle cx="12" cy="35" r="4"/><circle cx="36" cy="35" r="4"/>'};
+const tool=(k)=>`<svg viewBox="0 0 48 48" style="width:13mm;height:13mm;flex:none" fill="none" stroke="#12394a" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${TOOL[k]}</svg>`;
+const ALA=[['فَعَّالَة','غَسَّالَة، ثَلَّاجَة، طَيَّارَة، سَيَّارَة، نَقَّالَة','truck'],['فَاعِلَة','نَاقِلَة، رَاجِمَة، طَائِرَة، بَاخِرَة، رَافِعَة','truck'],['مِفْعَل','مِكْسَر، مِسَنّ، مِشَدّ، مِصْعَد، مِثْقَب، مِقَصّ، مِشْرَط، مِعْوَل، مِنْجَل','sci'],['فَاعُول','صَارُوخ، نَاسُوخ، كَانُون، تَابُوت',''],['مِفْعَال','مِنْشَار، مِجْذَاف، مِغْرَاف، مِفْتَاح، مِيزَان، مِزْمَار، مِحْمَاس','key'],['مِفْعَلَة','مِطْرَقَة، مِدْخَنَة، مِرْوَحَة، مِكْنَسَة','ham'],['فَعَّال','جَرَّار، قَلَّاب',''],['أوزان غير قياسيّة','كَأْس، سَيْف، رُمْح، سِكِّين','']];
+fill('alaW',ALA.map((x,i)=>`<div><b><span class="ar" style="font-size:16pt">${x[0]}</span><small>${AR(i+1)}</small></b><p>${x[1]}</p></div>`).join(''));
+document.getElementById('alaW')?.insertAdjacentHTML('afterend',`<div class="sec" style="margin-top:6mm">من الأمثلة: الوزن في الكلمة</div><div class="g3" style="grid-template-columns:repeat(4,1fr);gap:3mm">${[['key','مِفْتَاح','مِفْعَال'],['saw','مِنْشَار','مِفْعَال'],['bal','مِيزَان','مِفْعَال'],['sci','مِقَصّ','مِفْعَل'],['elev','مِصْعَد','مِفْعَل'],['ham','مِطْرَقَة','مِفْعَلَة'],['fan','مِرْوَحَة','مِفْعَلَة'],['truck','رَافِعَة','فَاعِلَة']].map(t=>`<div class="ex" style="margin:0;display:flex;align-items:center;gap:2.5mm">${tool(t[0])}<div><div class="ar" style="font-size:16pt;line-height:1.3">${t[1]}</div><span class="tag i">${t[2]}</span></div></div>`).join('')}</div>`);
+/* mushtaq exercise */
+{const H=['الفعل','اسم الفاعل','اسم المفعول','صفة مشبّهة','صيغة مبالغة','اسم مكان أو زمان','اسم تفضيل','اسم آلة'];
+ const V=['قَوِيَ','آبَ','سَرَّ','أَوْفَى','نَسِيَ','سَاقَ','سَمَا','اشْتَكَى','احْتَاجَ','ابْتَلَّ','سَارَ','رَجَا'];
+ fill('mushtaqEx',`<thead><tr>${H.map((h,i)=>`<th style="background:${i?'var(--ind2)':'var(--ind)'};font-size:10pt">${h}</th>`).join('')}</tr></thead><tbody>${V.map(v=>`<tr><th>${v}</th>${'<td style="height:15mm"></td>'.repeat(7)}</tr>`).join('')}</tbody>`);}
+/* masadir */
+fill('masChips',['المصدر الصريح (الأصليّ)','المصدر الميميّ','مصدر المرّة','مصدر الهيئة','المصدر المؤوّل','المصدر الصناعيّ'].map((x,i)=>`<span style="font-family:'El Messiri';font-size:11pt"><b style="color:var(--sun)">${AR(i+1)}</b> ${x}</span>`).join(''));
+const mcard=(w,o,L,note,col)=>`<div class="cd" style="border-color:${col||'var(--line)'}"><h3 style="font-size:12.5pt"><span class="ar" style="font-size:16pt">${w}</span> <span style="color:var(--sun)">←</span> <span class="ar" style="font-size:16pt;color:var(--nsb)">${o}</span></h3>${note?`<p class="small" style="margin-bottom:1mm">${note}</p>`:''}<div class="drvs" style="grid-template-columns:${L.length>4?'1fr 1fr':'1fr'}">${L.map(drv).join('')}</div></div>`;
+fill('tri_mas',[mcard('حركة بسيطة','فُعُول',[['جَلَسَ','جُلُوس'],['رَكَعَ','رُكُوع'],['وَقَفَ','وُقُوف']],'إذا كان الفعل يدلّ على حركة بسيطة.'),
+ mcard('مهنة','فِعَالَة',[['زَرَعَ','زِرَاعَة'],['صَنَعَ','صِنَاعَة'],['تَجَرَ','تِجَارَة']],'إذا كان الفعل يدلّ على مهنة.'),
+ mcard('حركة اضطراب','فَعَلَان',[['غَلَى','غَلَيَان'],['جَرَى','جَرَيَان'],['سَالَ','سَيَلَان']],'إذا كان الفعل يدلّ على حركة اضطراب.'),
+ mcard('صوت','فَعِيل أو فُعَال',[['صَهَلَ','صَهِيل'],['فَحَّ','فَحِيح'],['نَقَّ','نَقِيق'],['نَبَحَ','نُبَاح'],['عَوَى','عُوَاء'],['بَكَى','بُكَاء']],'إذا كان الفعل يدلّ على صوت.')].join(''));
+fill('rub_mas',[mcard('أَفْعَلَ','إِفْعَال',[['أَكْرَمَ','إِكْرَام'],['أَقَامَ','إِقَامَة'],['أَعْطَى','إِعْطَاء'],['أَوْفَى','إِيفَاء'],['أَوْصَى','إِيصَاء']]),
+ mcard('فَعَّلَ','تَفْعِيل',[['جَهَّزَ','تَجْهِيز'],['وَضَّحَ','تَوْضِيح'],['غَطَّى','تَغْطِيَة'],['وَفَّى','تَوْفِيَة'],['سَوَّى','تَسْوِيَة']]),
+ mcard('فَاعَلَ','فِعَال أو مُفَاعَلَة',[['جَاهَدَ','جِهَاد أو مُجَاهَدَة'],['نَادَى','نِدَاء أو مُنَادَاة'],['شَارَكَ','مُشَارَكَة']]),
+ mcard('فَعْلَلَ','فَعْلَلَة',[['دَحْرَجَ','دَحْرَجَة'],['هَنْدَسَ','هَنْدَسَة'],['وَشْوَشَ','وَشْوَشَة']])].join(''));
+fill('kham_mas',[mcard('افْتَعَلَ','افْتِعَال',[['اقْتَرَبَ','اقْتِرَاب'],['اشْتَاقَ','اشْتِيَاق'],['ارْتَدَى','ارْتِدَاء']]),
+ mcard('انْفَعَلَ','انْفِعَال',[['انْكَسَرَ','انْكِسَار'],['انْحَازَ','انْحِيَاز'],['انْتَهَى','انْتِهَاء']]),
+ mcard('افْعَلَّ','افْعِلَال',[['احْتَلَّ','احْتِلَال'],['اخْضَرَّ','اخْضِرَار'],['اشْتَدَّ','اشْتِدَاد']]),
+ mcard('تَفَعَّلَ','تَفَعُّل',[['تَقَدَّمَ','تَقَدُّم'],['تَغَطَّى','تَغَطٍّ'],['تَلَوَّى','تَلَوٍّ']]),
+ mcard('تَفَاعَلَ','تَفَاعُل',[['تَصَافَحَ','تَصَافُح'],['تَشَارَكَ','تَشَارُك'],['تَلَاقَى','تَلَاقٍ'],['تَبَارَى','تَبَارٍ']])].join(''));
+fill('sud_mas',[mcard('اسْتَفْعَلَ','اسْتِفْعَال',[['اسْتَخْدَمَ','اسْتِخْدَام'],['اسْتَقَامَ','اسْتِقَامَة'],['اسْتَخْفَى','اسْتِخْفَاء'],['اسْتَأْذَنَ','اسْتِئْذَان']]),
+ mcard('افْعَوْعَلَ','افْعِيعَال',[['اخْضَوْضَرَ','اخْضِيضَار'],['اعْشَوْشَبَ','اعْشِيشَاب'],['اغْرَوْرَقَ','اغْرِيرَاق'],['اخْشَوْشَنَ','اخْشِيشَان']])].join(''));
+const MIMI=[['شَرِبْتُ <u>مَشْرَبَ</u> العِطَاشِ','م','معناها: شُرْب، وهو مصدر صريح.'],['إِنَّ ازْدِحَامَ الكَلَامِ <u>مَضَلَّةٌ</u> لِلْفَهْمِ','م','معناها: ضَلَال، وهو مصدر صريح.'],['كَلَّمْتُ صَدِيقِي <u>مُكَلَّمَ</u> الأَوْفِيَاءِ','م','معناها: تكليم، وهو مصدر صريح.'],['سَأَسْتَقِرُّ فِي عَمَّانَ <u>مُسْتَقَرًّا</u> طَوِيلًا','م','معناها: استقرارًا، وهو مصدر صريح.'],['عَمَّانُ <u>مُسْتَقَرٌّ</u> جَمِيلٌ','k',''],['ذَهَبْتُ إِلَى <u>المُسْتَشْفَى</u>','k',''],['اسْتَشْفَيْتُ <u>مُسْتَشْفًى</u> طَيِّبًا','م','معناها: استشفاء، وهو مصدر صريح.'],['<u>المَسْعَى</u> بَيْنَ الصَّفَا وَالمَرْوَةِ مِنْ شَعَائِرِ الحَجِّ','م',''],['<u>المَسْعَى</u> بَيْنَ الصَّفَا وَالمَرْوَةِ يَمْتَدُّ مَسَافَةً طَوِيلَةً','k',''],['وَصَلَ المُهَنْدِسُونَ إِلَى <u>مُنْتَهَى</u> الشَّارِعِ','k',''],['يَا رَبُّ إِلَيْكَ <u>المُنْتَهَى</u> بَعْدَ المَوْتِ','م','']];
+document.querySelector('#mimi tbody').innerHTML=MIMI.map(r=>`<tr><td class="t ar" style="font-size:13.5pt">${r[0]}</td><td class="${r[1]=='م'?'y':'g'}" style="font-weight:700">${r[1]=='م'?'مصدر ميميّ':'اسم مكان'}</td><td style="background:#fff;border:1px solid var(--line);font-size:10.3pt">${r[2]}</td></tr>`).join('');
+document.querySelector('#marra tbody').innerHTML=[['جَلَسَ','جَلْسَة','جِلْسَة',''],['مَشَى','مَشْيَة','مِشْيَة',''],['رَمَى','رَمْيَة','رِمْيَة',''],['سَقَى','سَقْيَة','سِقْيَة',''],['رَقَصَ','رَقْصَة','رِقْصَة',''],['بَاعَ','بَيْعَة','بِيعَة','لأنّ مضارعها (يبيع)'],['مَاتَ','مَوْتَة','مِيتَة','لأنّ مضارعها (يموت)'],['خَافَ','خَوْفَة','—','لأنّ مضارعها (يخاف)، والمصدر: خوف'],['سَارَ','سَيْرَة','سِيرَة','لأنّ مضارعها (يسير)']]
+ .map(r=>`<tr><th class="ar" style="text-align:center;font-size:13.5pt">${r[0]}</th><td class="ar" style="background:var(--ind3);font-size:14pt">${r[1]}</td><td class="ar" style="background:var(--nsb2);font-size:14pt">${r[2]}</td><td class="t" style="font-size:10pt">${r[3]}</td></tr>`).join('');
+document.querySelector('#marra2 tbody').innerHTML=[['أَكْرَمَ','إِكْرَام','إِكْرَامَة'],['أَقَامَ','إِقَامَة','إِقَامَة وَاحِدَة'],['وَفَّى','تَوْفِيَة','تَوْفِيَة وَاحِدَة'],['شَارَكَ','مُشَارَكَة','مُشَارَكَة وَاحِدَة'],['اقْتَرَبَ','اقْتِرَاب','اقْتِرَابَة'],['احْتَلَّ','احْتِلَال','احْتِلَالَة'],['اسْتَخْدَمَ','اسْتِخْدَام','اسْتِخْدَامَة'],['اسْتَقَامَ','اسْتِقَامَة','اسْتِقَامَة وَاحِدَة']]
+ .map(r=>`<tr><th class="ar" style="text-align:center;font-size:12.5pt">${r[0]}</th><td class="ar" style="font-size:12.5pt;background:var(--tint)">${r[1]}</td><td class="ar y" style="font-size:12.5pt">${r[2]}</td></tr>`).join('');
+fill('masdariyya',[['أَنْ','حرف مصدريّ ونصب، يدخل على الفعل المضارع فقط.'],['كَيْ','حرف مصدريّ ونصب، يدخل على الفعل المضارع فقط.'],['لَوْ','حرف مصدريّ، يدخل على الفعل المضارع والماضي، ويأتي بعد فعل تمنٍّ.'],['مَا','حرف مصدريّ، يدخل على الفعل المضارع والماضي، وعلى الأغلب يرتبط بحرف جرّ.'],['أَ','همزة التسوية، تأتي بعد كلمة (سواء).'],['أَنَّ','حرف ناسخ (من أخوات إنّ)، يدخل على الجملة الاسميّة.']]
+ .map((x,i)=>`<div><b><span class="ar" style="font-size:18pt">${x[0]}</span><small>${AR(i+1)}</small></b><p style="font-family:'Noto Naskh Arabic';font-size:10.5pt">${x[1]}</p></div>`).join(''));
+const mw=(ar,t,tag)=>`<div class="ex" style="margin:0"><div class="ar">${ar}</div><span style="font-size:10.3pt">${t}</span><div style="margin-top:1mm">${tag}</div></div>`;
+fill('muawwal',[mw('﴿وَ<u>أَنْ تَصُومُوا</u> خَيْرٌ لَكُمْ﴾','<b>أنْ:</b> حرف مصدريّ ونصب. <b>تصوموا:</b> فعل مضارع منصوب وعلامة نصبه حذف النون لأنّه من الأفعال الخمسة، والواو ضمير متّصل مبنيّ في محلّ رفع فاعل.',tg('r','المصدر المؤوّل (أن تصوموا) في محلّ رفع مبتدأ')),
+ mw('﴿سَوَاءٌ عَلَيْهِمْ <u>أَسْتَغْفَرْتَ</u> لَهُمْ أَمْ لَمْ تَسْتَغْفِرْ لَهُمْ﴾','<b>سواءٌ:</b> خبر المبتدأ مقدّم.',tg('r','استغفارُك (المصدر المؤوّل) في محلّ رفع مبتدأ مؤخّر')),
+ mw('﴿يَوَدُّ أَحَدُهُمْ <u>لَوْ يُعَمَّرُ</u> أَلْفَ سَنَةٍ﴾','<b>يودّ:</b> فعل مضارع مرفوع. <b>أحد:</b> فاعل مرفوع، و<b>هم:</b> ضمير متّصل مبنيّ في محلّ جرّ بالإضافة. <b>لو:</b> حرف مصدريّ. <b>يُعمَّر:</b> فعل مضارع مبنيّ للمجهول مرفوع، ونائب الفاعل ضمير مستتر تقديره (هو).',tg('n','المصدر المؤوّل (لو يُعمَّر) في محلّ نصب مفعول به')),
+ mw('عَلِمْتُ <u>أَنَّكَ مُسَافِرٌ</u> = عَلِمْتُكَ مُسَافِرًا','<b>أنّ:</b> حرف ناسخ مبنيّ لا محلّ له من الإعراب. <b>الكاف:</b> ضمير متّصل مبنيّ في محلّ نصب اسم (أنّ). <b>مسافرٌ:</b> خبر أنّ مرفوع وعلامة رفعه تنوين الضمّ.',tg('n','المصدر المؤوّل (أنّك مسافر) سدّ مسدّ مفعولَي علم'))].join(''));
+const E6=[['﴿الَّذِينَ يَظُنُّونَ <u>أَنَّهُمْ مُلَاقُو</u> رَبِّهِمْ﴾'],['﴿أَوَلَا يَعْلَمُونَ <u>أَنَّ اللَّهَ يَعْلَمُ</u> <u>مَا يُسِرُّونَ</u> وَ<u>مَا يُعْلِنُونَ</u>﴾'],['﴿يَوَدُّ أَحَدُهُمْ <u>لَوْ يُعَمَّرُ</u> أَلْفَ سَنَةٍ﴾'],['﴿أَمْ تُرِيدُونَ <u>أَنْ تَسْأَلُوا</u> رَسُولَكُمْ <u>كَمَا سُئِلَ</u> مُوسَى مِنْ قَبْلُ﴾'],['﴿الَّذِينَ آتَيْنَاهُمُ الكِتَابَ يَعْرِفُونَهُ <u>كَمَا يَعْرِفُونَ</u> أَبْنَاءَهُمْ﴾'],['﴿الَّذِينَ يَكْتُمُونَ <u>مَا أَنْزَلْنَا</u>﴾'],['﴿لَيْسَ البِرَّ <u>أَنْ تُوَلُّوا</u> وُجُوهَكُمْ﴾'],['﴿وَ<u>أَنْ تَصُومُوا</u> خَيْرٌ لَكُمْ﴾']];
+fill('ex6',E6.map(e=>`<li><div><span class="q2">${e[0]}</span><div class="lines" style="height:5.5mm"></div></div></li>`).join(''));
+const E7=['<u>الجَاهِلِيَّةُ</u> فَتْرَةٌ امْتَدَّتْ قَبْلَ الإِسْلَامِ','إِنَّكَ امْرُؤٌ فِيكَ <u>جَاهِلِيَّةٌ</u>','القَوَانِينُ <u>الجَاهِلِيَّةُ</u> مَرْفُوضَةٌ','<u>جَاهِلِيَّتُهُ</u> مَنَعَتْهُ مِنَ الإِسْلَامِ','وَأْدُ البَنَاتِ طَرِيقَةٌ <u>جَاهِلِيَّةٌ</u>','العَصْرُ <u>الجَاهِلِيُّ</u> عَصْرُ ازْدِهَارٍ أَدَبِيٍّ','الانْتِخَابَاتُ <u>الدِّيمُقْرَاطِيَّةُ</u> عُنْوَانُ الحُرِّيَّةِ','<u>الدِّيمُقْرَاطِيَّةُ</u> تَعْنِي حُرِّيَّةَ الرَّأْيِ'];
+fill('ex7',E7.map(e=>optHTML([e],['مصدر صناعيّ','اسم منسوب'])).join(''));
+{const W=['طالب','مقنوط','مخلوّ','نعمته','مأيوس','مغفرته','مستنكَف','عبادة','رحمته','نعمة','الدنيا','فناء','الجلاء','حُلوة','خَضِرة','ناظر','بأحسن','كفاف','أكثر','البلاغ'];
+ const hd=`<th style="background:var(--ind)">الكلمة</th><th style="background:var(--ind2)">نوعها من المشتقّات أو المصادر</th><th style="background:var(--ind2)">فعلها</th>`;
+ fill('aliEx',`<thead><tr>${hd}<th style="background:transparent;width:2mm"></th>${hd}</tr></thead><tbody>${W.slice(0,10).map((w,i)=>`<tr><th>${w}</th><td></td><td></td><td style="border:0;background:transparent"></td><th>${W[i+10]}</th><td></td><td></td></tr>`).join('')}</tbody>`);}
+
+/* ================= page numbers + contents ================= */
+{const pages=[...document.querySelectorAll('.pg')];
+ pages.forEach((p,i)=>{const b=p.querySelector('.pf b');if(b)b.textContent=AR(i+1)});
+ const pen='<svg class="ic"><use href="#i-pen"/></svg>';
+ const build=(part,col)=>pages.map((p,i)=>[p,i]).filter(([p])=>p.dataset.part===part).map(([p,i])=>{
+   const d=p.dataset;let h='';
+   if(d.grp)h+=`<li class="grp">${d.grp}</li>`;
+   const cls=d.ex||d.sub?'sub':'';
+   h+=`<li class="${cls}">${d.ex?pen:(d.sub?'':`<span class="u" style="background:${d.u?col:'var(--sun)'}">${d.u||'◆'}</span>`)}<span class="tt">${d.toc}</span><span class="dots"></span><span class="pn">${AR(i+1)}</span></li>`;return h}).join('');
+ fill('tocN',build('n','var(--ind)'));fill('tocS',build('s',G));}
+
 }
 </script>
 </body>
